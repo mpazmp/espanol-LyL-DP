@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Español A: Lengua y Literatura - Programa del Diploma</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1155cc, #2366dd);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(17, 85, 204, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-section h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-section p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .course-info {
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        .nav {
+            background-color: #0f4baa;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .nav-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .nav-button {
+            width: 100%;
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .nav-button:hover,
+        .nav-button.active {
+            background-color: #1155cc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #1155cc, #2366dd);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(17, 85, 204, 0.3);
+        }
+
+        .welcome-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #1155cc;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            color: #1155cc;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card ul {
+            list-style-position: inside;
+            color: #666;
+        }
+
+        .card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tema-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .tema-header {
+            background: linear-gradient(135deg, #1155cc, #2366dd);
+            color: white;
+            padding: 1rem 2rem;
+            margin: -2rem -2rem 2rem -2rem;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .tema-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tema-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-section h4 {
+            color: #1155cc;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .meta-section ul {
+            list-style-type: none;
+        }
+
+        .meta-section li {
+            padding: 0.3rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .meta-section li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #1155cc;
+            font-weight: bold;
+        }
+
+        .tdc-section {
+            background: #f0f4ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #1155cc;
+        }
+
+        .tdc-section h4 {
+            color: #1155cc;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1155cc;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .calendar-btn {
+            background: #1155cc;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calendar-btn:hover {
+            background: #0f4baa;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .event-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #1155cc;
+        }
+
+        .event-date {
+            font-weight: bold;
+            color: #1155cc;
+            font-size: 0.9rem;
+        }
+
+        .event-title {
+            margin: 0.5rem 0;
+            font-weight: 600;
+        }
+
+        .event-type {
+            background: #1155cc;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .biblioteca-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .obra-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .obra-header {
+            background: #1155cc;
+            color: white;
+            padding: 1rem;
+            margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .obra-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .obra-author {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            color: #1155cc;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 0.2rem 0.2rem 0 0;
+        }
+
+        .comunicacion-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1155cc;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #1155cc;
+        }
+
+        .submit-btn {
+            background: #1155cc;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #0f4baa;
+        }
+
+        .conexiones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .conexion-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #1155cc;
+        }
+
+        .conexion-icon {
+            width: 50px;
+            height: 50px;
+            background: #1155cc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .course-info {
+                text-align: center;
+                margin-top: 1rem;
+            }
+
+            .nav-content {
+                flex-direction: column;
+            }
+
+            .nav-item {
+                min-width: auto;
+            }
+
+            .cards-grid,
+            .biblioteca-grid,
+            .conexiones-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tema-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1>Español A: Lengua y Literatura</h1>
+                <p>Programa del Diploma - Nivel Superior</p>
+            </div>
+            <div class="course-info">
+                <p><strong>Profesora:</strong> Maripaz Martínez Priego</p>
+                <p><strong>Duración:</strong> Septiembre 2025 - Abril 2027</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-item">
+                <button class="nav-button active" onclick="showSection('inicio')">Inicio</button>
+            </div>
+            <div class="nav-item">
+                <button class="nav-button" onclick="showSection('contenidos')">Contenidos</button>
+            </div>
+            <div class="nav-item">
+                <button class="nav-button" onclick="showSection('calendario')">Calendario</button>
+            </div>
+            <div class="nav-item">
+                <button class="nav-button" onclick="showSection('biblioteca')">Biblioteca</button>
+            </div>
+            <div class="nav-item">
+                <button class="nav-button" onclick="showSection('conexiones')">Conexiones</button>
+            </div>
+            <div class="nav-item">
+                <button class="nav-button" onclick="showSection('estudiantes')">Área Estudiantes</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- SECCIÓN INICIO -->
+        <section id="inicio" class="section active">
+            <div class="welcome-card">
+                <h2>¡Bienvenidas al curso de Español A: Lengua y Literatura!</h2>
+                <p>Un viaje de dos años explorando la riqueza de la literatura y el lenguaje español</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>📅 Próximas fechas importantes</h3>
+                    <ul>
+                        <li>15 de septiembre 2025: Inicio del curso</li>
+                        <li>Octubre 2025: Primera evaluación interna</li>
+                        <li>Diciembre 2025: Ensayo de Nivel Superior</li>
+                        <li>Febrero 2026: Examen oral individual</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📚 Obras destacadas del curso</h3>
+                    <ul>
+                        <li>El conde Lucanor - Don Juan Manuel</li>
+                        <li>El cuarto de atrás - Carmen Martín Gaite</li>
+                        <li>La casa de Bernarda Alba - García Lorca</li>
+                        <li>Crónica de una muerte anunciada - García Márquez</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Objetivos del curso</h3>
+                    <ul>
+                        <li>Desarrollar habilidades de análisis literario</li>
+                        <li>Fomentar el pensamiento crítico</li>
+                        <li>Conectar literatura con contexto histórico</li>
+                        <li>Preparar para exámenes del IB</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📢 Últimos anuncios</h3>
+                    <ul>
+                        <li>Preparación de materiales para septiembre</li>
+                        <li>Lista de lecturas de verano disponible</li>
+                        <li>Información sobre evaluaciones</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CONTENIDOS -->
+        <section id="contenidos" class="section">
+            <h2 style="color: #1155cc; margin-bottom: 2rem; text-align: center; font-size: 2rem;">Contenidos por Temas</h2>
+
+            <!-- Tema 1 -->
+            <div class="tema-card">
+                <div class="tema-header">
+                    <h3>Lectores, escritores y textos</h3>
+                    <p>Primer año • 18 semanas • 80 horas</p>
+                </div>
+
+                <div class="tema-meta">
+                    <div class="meta-section">
+                        <h4>Conceptos clave</h4>
+                        <ul>
+                            <li>Identidad</li>
+                            <li>Comunicación</li>
+                            <li>Cultura</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Obras literarias</h4>
+                        <ul>
+                            <li>El conde Lucanor - Don Juan Manuel</li>
+                            <li>La señorita Julia - August Strindberg</li>
+                            <li>Antología poética - Luis Cernuda</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Corpus de textos</h4>
+                        <ul>
+                            <li>Artículos periodísticos</li>
+                            <li>Textos biográficos</li>
+                            <li>Textos publicitarios</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Evaluación</h4>
+                        <ul>
+                            <li>Evaluación interna</li>
+                            <li>Carpeta del alumno</li>
+                            <li>Prueba 1</li>
+                            <li>Ensayo NS</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tdc-section">
+                    <h4>🤔 Preguntas de Teoría del Conocimiento</h4>
+                    <ul>
+                        <li>¿Somos conscientes de los cambios de registro que utilizamos cuando hablamos?</li>
+                        <li>¿Considera que el lenguaje nos identifica?</li>
+                        <li>¿Hasta qué punto lo absurdo e irracional se puede considerar arte?</li>
+                        <li>¿Puede la emoción, expresada a través del lenguaje literario, ser una forma válida de conocer la condición humana?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tema 2 -->
+            <div class="tema-card">
+                <div class="tema-header">
+                    <h3>Tiempo y espacio</h3>
+                    <p>Primer año • 18 semanas • 80 horas</p>
+                </div>
+
+                <div class="tema-meta">
+                    <div class="meta-section">
+                        <h4>Conceptos clave</h4>
+                        <ul>
+                            <li>Cultura</li>
+                            <li>Creatividad</li>
+                            <li>Identidad</li>
+                            <li>Representación</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Obras literarias</h4>
+                        <ul>
+                            <li>El cuarto de atrás - Carmen Martín Gaite</li>
+                            <li>Soledades y Campos de Castilla - Antonio Machado</li>
+                            <li>La casa de Bernarda Alba - Federico García Lorca</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Corpus de textos</h4>
+                        <ul>
+                            <li>Cómics y viñetas</li>
+                            <li>Discursos</li>
+                            <li>Podcast y TV</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Evaluación</h4>
+                        <ul>
+                            <li>Carpeta del alumno</li>
+                            <li>Oral Individual</li>
+                            <li>Prueba 1 y 2</li>
+                            <li>Ensayo de NS</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tdc-section">
+                    <h4>🤔 Preguntas de Teoría del Conocimiento</h4>
+                    <ul>
+                        <li>¿Qué importancia tiene el estudio de la literatura para el desarrollo ético de una persona?</li>
+                        <li>¿Hasta qué punto la época determina las características y la función del arte?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tema 3 -->
+            <div class="tema-card">
+                <div class="tema-header">
+                    <h3>Intertextualidad</h3>
+                    <p>Segundo año • 18 semanas • 80 horas</p>
+                </div>
+
+                <div class="tema-meta">
+                    <div class="meta-section">
+                        <h4>Conceptos clave</h4>
+                        <ul>
+                            <li>Transformación</li>
+                            <li>Perspectiva</li>
+                            <li>Representación</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Obras literarias</h4>
+                        <ul>
+                            <li>El árbol de la ciencia - Pío Baroja</li>
+                            <li>Crónica de una muerte anunciada - Gabriel García Márquez</li>
+                            <li>Casa de muñecas - Henrik Ibsen</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Corpus de textos</h4>
+                        <ul>
+                            <li>Entrevistas</li>
+                            <li>Textos virtuales</li>
+                            <li>Carteles</li>
+                        </ul>
+                    </div>
+
+                    <div class="meta-section">
+                        <h4>Evaluación</h4>
+                        <ul>
+                            <li>Carpeta del alumno</li>
+                            <li>Prueba 2 / Prueba 1</li>
+                            <li>Ensayo NS</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tdc-section">
+                    <h4>🤔 Preguntas de Teoría del Conocimiento</h4>
+                    <ul>
+                        <li>¿Considera que las frustraciones y los anhelos de las personas están condicionados por el género?</li>
+                        <li>¿Sentimos de distinta manera hombres y mujeres?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CALENDARIO -->
+        <section id="calendario" class="section">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2 style="color: #1155cc;">Calendario Académico 2025-2027</h2>
+                    <div class="calendar-nav">
+                        <button class="calendar-btn">Año 1</button>
+                        <button class="calendar-btn">Año 2</button>
+                        <button class="calendar-btn">Todas</button>
+                    </div>
+                </div>
+
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-date">15 Septiembre 2025</div>
+                        <div class="event-title">Inicio del curso académico</div>
+                        <span class="event-type">Inicio</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">Octubre 2025</div>
+                        <div class="event-title">Primera evaluación interna</div>
+                        <span class="event-type">Evaluación</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">Noviembre 2025</div>
+                        <div class="event-title">Análisis "El conde Lucanor"</div>
+                        <span class="event-type">Ensayo</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">Diciembre 2025</div>
+                        <div class="event-title">Ensayo de Nivel Superior</div>
+                        <span class="event-type">Prueba</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">Febrero 2026</div>
+                        <div class="event-title">Examen oral individual</div>
+                        <span class="event-type">Oral</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">Marzo 2026</div>
+                        <div class="event-title">Tema "Tiempo y espacio"</div>
+                        <span class="event-type">Nuevo tema</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">Septiembre 2026</div>
+                        <div class="event-title">Inicio segundo año</div>
+                        <span class="event-type">Inicio</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-date">Abril 2027</div>
+                        <div class="event-title">Exámenes finales IB</div>
+                        <span class="event-type">Final</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN BIBLIOTECA -->
+        <section id="biblioteca" class="section">
+            <h2 style="color: #1155cc; margin-bottom: 2rem; text-align: center; font-size: 2rem;">Biblioteca Digital</h2>
+
+            <div class="biblioteca-grid">
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">El conde Lucanor</div>
+                        <div class="obra-author">Don Juan Manuel</div>
+                    </div>
+                    <p><strong>Tema:</strong> Lectores, escritores y textos</p>
+                    <p><strong>Género:</strong> Narrativa medieval</p>
+                    <p><strong>Conceptos:</strong> Identidad, comunicación, cultura</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Literatura medieval</span>
+                        <span class="tag">Exempla</span>
+                        <span class="tag">Didáctico</span>
+                    </div>
+                </div>
+
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">La señorita Julia</div>
+                        <div class="obra-author">August Strindberg</div>
+                    </div>
+                    <p><strong>Tema:</strong> Lectores, escritores y textos</p>
+                    <p><strong>Género:</strong> Teatro naturalista</p>
+                    <p><strong>Conceptos:</strong> Clase social, identidad, comunicación</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Obra traducida</span>
+                        <span class="tag">Naturalismo</span>
+                        <span class="tag">Drama</span>
+                    </div>
+                </div>
+
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">Antología poética</div>
+                        <div class="obra-author">Luis Cernuda</div>
+                    </div>
+                    <p><strong>Tema:</strong> Lectores, escritores y textos</p>
+                    <p><strong>Género:</strong> Poesía</p>
+                    <p><strong>Conceptos:</strong> Identidad, emoción, lenguaje poético</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Generación del 27</span>
+                        <span class="tag">Poesía moderna</span>
+                        <span class="tag">Antología</span>
+                    </div>
+                </div>
+
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">El cuarto de atrás</div>
+                        <div class="obra-author">Carmen Martín Gaite</div>
+                    </div>
+                    <p><strong>Tema:</strong> Tiempo y espacio</p>
+                    <p><strong>Género:</strong> Narrativa contemporánea</p>
+                    <p><strong>Conceptos:</strong> Memoria, tiempo, identidad</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Metaficción</span>
+                        <span class="tag">Memoria</span>
+                        <span class="tag">Guerra Civil</span>
+                    </div>
+                </div>
+
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">La casa de Bernarda Alba</div>
+                        <div class="obra-author">Federico García Lorca</div>
+                    </div>
+                    <p><strong>Tema:</strong> Tiempo y espacio</p>
+                    <p><strong>Género:</strong> Teatro</p>
+                    <p><strong>Conceptos:</strong> Represión, espacio, tradición</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Generación del 27</span>
+                        <span class="tag">Drama rural</span>
+                        <span class="tag">Tradición</span>
+                    </div>
+                </div>
+
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">Selección poética</div>
+                        <div class="obra-author">Antonio Machado</div>
+                    </div>
+                    <p><strong>Tema:</strong> Tiempo y espacio</p>
+                    <p><strong>Género:</strong> Poesía</p>
+                    <p><strong>Conceptos:</strong> Tiempo, paisaje, memoria</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Generación del 98</span>
+                        <span class="tag">Soledades</span>
+                        <span class="tag">Campos de Castilla</span>
+                    </div>
+                </div>
+
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">El árbol de la ciencia</div>
+                        <div class="obra-author">Pío Baroja</div>
+                    </div>
+                    <p><strong>Tema:</strong> Intertextualidad</p>
+                    <p><strong>Género:</strong> Novela</p>
+                    <p><strong>Conceptos:</strong> Transformación, perspectiva científica</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Generación del 98</span>
+                        <span class="tag">Realismo</span>
+                        <span class="tag">Filosofía</span>
+                    </div>
+                </div>
+
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">Crónica de una muerte anunciada</div>
+                        <div class="obra-author">Gabriel García Márquez</div>
+                    </div>
+                    <p><strong>Tema:</strong> Intertextualidad</p>
+                    <p><strong>Género:</strong> Narrativa latinoamericana</p>
+                    <p><strong>Conceptos:</strong> Transformación, perspectiva, honor</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Realismo mágico</span>
+                        <span class="tag">Crónica</span>
+                        <span class="tag">Latinoamérica</span>
+                    </div>
+                </div>
+
+                <div class="obra-card">
+                    <div class="obra-header">
+                        <div class="obra-title">Casa de muñecas</div>
+                        <div class="obra-author">Henrik Ibsen</div>
+                    </div>
+                    <p><strong>Tema:</strong> Intertextualidad</p>
+                    <p><strong>Género:</strong> Teatro</p>
+                    <p><strong>Conceptos:</strong> Representación, roles de género</p>
+                    <div style="margin-top: 1rem;">
+                        <span class="tag">Obra traducida</span>
+                        <span class="tag">Drama social</span>
+                        <span class="tag">Feminismo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección Corpus -->
+            <div style="margin-top: 3rem;">
+                <h3 style="color: #1155cc; margin-bottom: 1.5rem; font-size: 1.5rem;">Corpus de Textos</h3>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>📰 Artículos periodísticos y biográficos</h3>
+                        <p>Textos informativos y biográficos para analizar el registro formal y la construcción de la identidad a través del lenguaje.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tag">Por seleccionar</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎨 Textos publicitarios</h3>
+                        <p>Análisis de la comunicación persuasiva y el uso del lenguaje en contextos comerciales y sociales.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tag">Por seleccionar</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>📚 Cómics y viñetas</h3>
+                        <p>Estudio de la narrativa visual y la representación del tiempo y espacio en medios gráficos.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tag">Por seleccionar</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎙️ Discursos, Podcast y TV</h3>
+                        <p>Análisis de textos orales y audiovisuales, registro y contexto comunicativo.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tag">Por seleccionar</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎤 Entrevistas</h3>
+                        <p>Estudio del diálogo, la intertextualidad y las diferentes perspectivas discursivas.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tag">Por seleccionar</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>💻 Textos virtuales y carteles</h3>
+                        <p>Análisis de la comunicación digital y visual en el contexto contemporáneo.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tag">Por seleccionar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CONEXIONES -->
+        <section id="conexiones" class="section">
+            <h2 style="color: #1155cc; margin-bottom: 2rem; text-align: center; font-size: 2rem;">Conexiones Interdisciplinarias</h2>
+
+            <div class="conexiones-grid">
+                <div class="conexion-card">
+                    <div class="conexion-icon">🤔</div>
+                    <h3>Teoría del Conocimiento</h3>
+                    <p>Exploración de cómo el lenguaje literario nos permite conocer la realidad y la condición humana.</p>
+                    <h4 style="color: #1155cc; margin: 1rem 0 0.5rem 0;">Preguntas clave:</h4>
+                    <ul>
+                        <li>¿Puede la emoción literaria ser una forma válida de conocimiento?</li>
+                        <li>¿Hasta qué punto el lenguaje nos identifica?</li>
+                        <li>¿Cómo influye la época en las características del arte?</li>
+                        <li>¿Están condicionados los sentimientos por el género?</li>
+                    </ul>
+                </div>
+
+                <div class="conexion-card">
+                    <div class="conexion-icon">🎯</div>
+                    <h3>Creatividad, Actividad y Servicio (CAS)</h3>
+                    <p>Proyectos que conectan la literatura con la comunidad y el servicio social.</p>
+                    <h4 style="color: #1155cc; margin: 1rem 0 0.5rem 0;">Proyectos propuestos:</h4>
+                    <ul>
+                        <li><strong>Podcasts literarios:</strong> Creación de contenido para bibliotecas locales</li>
+                        <li><strong>Talleres de escritura:</strong> Facilitación en centros de mayores</li>
+                        <li><strong>Antología colaborativa:</strong> Publicación de memorias y relatos</li>
+                    </ul>
+                </div>
+
+                <div class="conexion-card">
+                    <div class="conexion-icon">📝</div>
+                    <h3>Monografía</h3>
+                    <p>Orientación para desarrollar investigaciones profundas en literatura española o latinoamericana.</p>
+                    <h4 style="color: #1155cc; margin: 1rem 0 0.5rem 0;">Áreas de investigación:</h4>
+                    <ul>
+                        <li>Análisis comparativo de obras del curso</li>
+                        <li>Estudio de movimientos literarios específicos</li>
+                        <li>Investigación sobre autores contemporáneos</li>
+                        <li>Análisis de la representación de temas sociales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Recursos adicionales -->
+            <div style="margin-top: 3rem;">
+                <h3 style="color: #1155cc; margin-bottom: 1.5rem; font-size: 1.5rem;">Recursos de Estudio</h3>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>📖 Guías de análisis literario</h3>
+                        <ul>
+                            <li>Técnicas de comentario de texto</li>
+                            <li>Análisis métrico y estilístico</li>
+                            <li>Contexto histórico-literario</li>
+                            <li>Movimientos y generaciones</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>✍️ Técnicas de escritura</h3>
+                        <ul>
+                            <li>Estructura del ensayo académico</li>
+                            <li>Citación y referencias</li>
+                            <li>Argumentación y análisis</li>
+                            <li>Registro académico formal</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎭 Recursos audiovisuales</h3>
+                        <ul>
+                            <li>Adaptaciones teatrales</li>
+                            <li>Documentales sobre autores</li>
+                            <li>Lecturas dramatizadas</li>
+                            <li>Conferencias especializadas</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>🌐 Herramientas digitales</h3>
+                        <ul>
+                            <li>Biblioteca virtual Cervantes</li>
+                            <li>Recursos de la RAE</li>
+                            <li>Bases de datos académicas</li>
+                            <li>Plataformas de investigación</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN ESTUDIANTES -->
+        <section id="estudiantes" class="section">
+            <h2 style="color: #1155cc; margin-bottom: 2rem; text-align: center; font-size: 2rem;">Área de Estudiantes</h2>
+
+            <!-- Comunicación con la profesora -->
+            <div class="comunicacion-form">
+                <h3 style="color: #1155cc; margin-bottom: 1.5rem;">✉️ Comunicación con la Profesora</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="asunto">Asunto:</label>
+                        <select id="asunto" name="asunto" required>
+                            <option value="">Selecciona un asunto</option>
+                            <option value="consulta-academica">Consulta académica</option>
+                            <option value="evaluacion">Pregunta sobre evaluación</option>
+                            <option value="extension-plazo">Solicitud de extensión de plazo</option>
+                            <option value="tutoria">Solicitar tutoría</option>
+                            <option value="proyecto-cas">Proyecto CAS</option>
+                            <option value="monografia">Monografía</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Enviar mensaje</button>
+                </form>
+            </div>
+
+            <!-- Entrega de tareas -->
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>📤 Entrega de Tareas</h3>
+                    <p>Portal para subir ensayos, análisis literarios y trabajos de investigación.</p>
+                    <button class="submit-btn" style="margin-top: 1rem;">Subir archivo</button>
+                    <h4 style="color: #1155cc; margin: 1rem 0 0.5rem 0;">Próximas entregas:</h4>
+                    <ul>
+                        <li>Análisis "El conde Lucanor" - 15 Nov 2025</li>
+                        <li>Ensayo comparativo - 20 Dic 2025</li>
+                        <li>Comentario poético Cernuda - 10 Ene 2026</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📁 Mi Carpeta Personal</h3>
+                    <p>Acceso a tus trabajos calificados, comentarios de la profesora y progreso académico.</p>
+                    <button class="submit-btn" style="margin-top: 1rem;">Ver carpeta</button>
+                    <h4 style="color: #1155cc; margin: 1rem 0 0.5rem 0;">Últimas calificaciones:</h4>
+                    <ul>
+                        <li>Comentario de texto - 7/7</li>
+                        <li>Participación oral - 6/7</li>
+                        <li>Ensayo diagnóstico - 5/7</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>👥 Foro de Estudiantes</h3>
+                    <p>Espacio para discutir lecturas, compartir recursos y colaborar en proyectos.</p>
+                    <button class="submit-btn" style="margin-top: 1rem;">Acceder al foro</button>
+                    <h4 style="color: #1155cc; margin: 1rem 0 0.5rem 0;">Temas recientes:</h4>
+                    <ul>
+                        <li>Discusión sobre "El conde Lucanor"</li>
+                        <li>Recursos para análisis poético</li>
+                        <li>Proyectos CAS - Ideas y colaboración</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📅 Mis Citas</h3>
+                    <p>Programa tutorías individuales y consultas académicas con la profesora.</p>
+                    <button class="submit-btn" style="margin-top: 1rem;">Agendar cita</button>
+                    <h4 style="color: #1155cc; margin: 1rem 0 0.5rem 0;">Horarios disponibles:</h4>
+                    <ul>
+                        <li>Martes 14:00-15:00</li>
+                        <li>Jueves 13:00-14:00</li>
+                        <li>Viernes 15:00-16:00</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Herramientas de estudio -->
+            <div style="margin-top: 2rem;">
+                <h3 style="color: #1155cc; margin-bottom: 1.5rem;">🛠️ Herramientas de Estudio</h3>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>📝 Plantillas de análisis</h3>
+                        <p>Descarga plantillas para comentarios de texto, análisis poético y ensayos académicos.</p>
+                        <button class="submit-btn" style="margin-top: 1rem;">Descargar</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>📚 Glosario literario</h3>
+                        <p>Diccionario de términos literarios, figuras retóricas y conceptos clave del curso.</p>
+                        <button class="submit-btn" style="margin-top: 1rem;">Consultar</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Rúbricas de evaluación</h3>
+                        <p>Criterios de evaluación para cada tipo de actividad y examen del Programa del Diploma.</p>
+                        <button class="submit-btn" style="margin-top: 1rem;">Ver rúbricas</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>📖 Bibliografía complementaria</h3>
+                        <p>Lecturas adicionales, crítica literaria y recursos de investigación académica.</p>
+                        <button class="submit-btn" style="margin-top: 1rem;">Explorar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Actualizar botones de navegación
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Scroll hacia arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Funcionalidad adicional para formularios y botones
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar envío de formulario de comunicación
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Mensaje enviado correctamente. Te responderé en breve.');
+                    form.reset();
+                });
+            }
+
+            // Manejar clicks en botones de acción
+            const actionButtons = document.querySelectorAll('.submit-btn');
+            actionButtons.forEach(button => {
+                if (button.type !== 'submit') {
+                    button.addEventListener('click', function() {
+                        const action = this.textContent.toLowerCase();
+                        if (action.includes('subir') || action.includes('descargar') || 
+                            action.includes('ver') || action.includes('acceder') || 
+                            action.includes('consultar') || action.includes('explorar') ||
+                            action.includes('agendar')) {
+                            alert('Funcionalidad en desarrollo. Pronto estará disponible.');
+                        }
+                    });
+                }
+            });
+
+            // Funcionalidad de filtros de calendario
+            const calendarButtons = document.querySelectorAll('.calendar-btn');
+            calendarButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    calendarButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    // Aquí se implementaría el filtrado real
+                    alert('Filtro aplicado: ' + this.textContent);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
