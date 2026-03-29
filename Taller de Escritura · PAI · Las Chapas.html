@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller de Escritura · PAI · Las Chapas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#16213e;--navy-mid:#1e2f5c;--gold:#c8973f;--gold-light:#e8c98a;
+  --cream:#f9f6f0;--white:#fff;--slate:#4a5568;--slate-light:#718096;
+  --gray-100:#f7fafc;--gray-200:#edf2f7;--gray-300:#e2e8f0;
+  --green:#276749;--green-light:#e6f4ed;--red:#c53030;--red-light:#fff5f5;
+  --amber:#b7791f;--amber-light:#fefce8;
+  --shadow-sm:0 1px 4px rgba(22,33,62,.08);--shadow:0 4px 16px rgba(22,33,62,.10);
+  --r:10px;--display:'Playfair Display',Georgia,serif;
+  --serif:'Source Serif 4',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--cream);color:var(--navy);min-height:100vh}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+#gloading{display:none;position:fixed;inset:0;background:rgba(22,33,62,.78);z-index:9999;
+  align-items:center;justify-content:center;flex-direction:column;gap:.9rem}
+.spinner{width:38px;height:38px;border:3px solid rgba(255,255,255,.15);
+  border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+#gloading-msg{color:white;font-size:.9rem;font-family:var(--sans)}
+
+header{background:var(--navy);height:56px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 1.75rem;position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.hbrand{display:flex;align-items:center;gap:.75rem;cursor:pointer}
+.hlogo{width:30px;height:30px;background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:13px;font-weight:700;color:var(--navy)}
+.htitle{font-family:var(--display);font-size:.95rem;font-weight:600;color:white}
+.hsub{font-size:.68rem;color:var(--gold-light);letter-spacing:.5px;text-transform:uppercase}
+.hnav{display:flex;align-items:center;gap:.25rem}
+.hnav button{background:none;border:none;color:var(--gold-light);font-family:var(--sans);
+  font-size:.78rem;font-weight:500;cursor:pointer;padding:.35rem .75rem;border-radius:5px;transition:all .15s}
+.hnav button:hover{background:rgba(255,255,255,.08);color:white}
+.hnav button.acc{background:rgba(200,151,63,.15);color:var(--gold);border:1px solid rgba(200,151,63,.3)}
+
+.wrap{max-width:800px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.screen{display:none}
+.screen.active{display:block;animation:fadeIn .25s ease}
+
+.card{background:white;border-radius:var(--r);box-shadow:var(--shadow);padding:1.75rem;border:1px solid var(--gray-200)}
+.card+.card{margin-top:1.25rem}
+
+h1,h2{font-family:var(--display);font-weight:700;color:var(--navy)}
+h1{font-size:1.75rem;line-height:1.25}h2{font-size:1.3rem;line-height:1.3}
+h3{font-family:var(--sans);font-size:1rem;font-weight:600;color:var(--navy)}
+p{font-family:var(--serif);font-size:.925rem;line-height:1.75;color:var(--slate)}
+small{font-size:.75rem;color:var(--slate-light)}
+
+.badge{display:inline-block;font-size:.67rem;font-weight:600;padding:.2rem .55rem;
+  border-radius:20px;text-transform:uppercase;letter-spacing:.6px;font-family:var(--sans)}
+.b1{background:#dbeafe;color:#1d4ed8}.b2{background:#fef3c7;color:#92400e}
+.b3{background:#dcfce7;color:#166534}.b4{background:#f3e8ff;color:#6b21a8}
+.bs{background:var(--navy);color:var(--gold)}
+.btag{display:inline-block;font-size:.65rem;font-weight:600;padding:.15rem .45rem;
+  border-radius:4px;background:var(--gray-100);color:var(--slate);border:1px solid var(--gray-200);margin-right:.25rem}
+
+.fg{margin-bottom:1.1rem}
+label{display:block;font-size:.78rem;font-weight:600;color:var(--navy);
+  letter-spacing:.3px;text-transform:uppercase;margin-bottom:.4rem}
+input[type="text"],input[type="password"],textarea,select{width:100%;border:1.5px solid var(--gray-300);
+  border-radius:7px;padding:.7rem .9rem;font-family:var(--serif);font-size:.9rem;color:var(--navy);
+  background:white;outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus,textarea:focus,select:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(22,33,62,.07)}
+textarea{resize:vertical;min-height:220px;line-height:1.8}
+.wc{font-size:.75rem;color:var(--slate-light);text-align:right;margin-top:.3rem}
+
+.btn{display:inline-flex;align-items:center;gap:.35rem;padding:.65rem 1.3rem;border-radius:7px;
+  font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all .15s;line-height:1}
+.btn-primary{background:var(--navy);color:white}
+.btn-primary:hover{background:var(--navy-mid);box-shadow:0 4px 14px rgba(22,33,62,.22);transform:translateY(-1px)}
+.btn-secondary{background:white;color:var(--navy);border:1.5px solid var(--gray-300)}
+.btn-secondary:hover{background:var(--gray-100);border-color:var(--navy)}
+.btn-green{background:var(--green);color:white}
+.btn-green:hover{background:#1e5236;box-shadow:0 4px 12px rgba(39,103,73,.3)}
+.btn-sm{padding:.4rem .85rem;font-size:.78rem}
+.btn-block{display:flex;width:100%;justify-content:center}
+.brow{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1rem}
+
+.alert{padding:.7rem 1rem;border-radius:7px;font-size:.85rem;font-family:var(--sans)}
+.alert-success{background:var(--green-light);color:var(--green);border:1px solid #a7d7bc}
+.alert-error{background:var(--red-light);color:var(--red);border:1px solid #feb2b2}
+.alert-info{background:#ebf4ff;color:#2b6cb0;border:1px solid #bee3f8}
+
+.lsep{display:flex;align-items:center;gap:.75rem;margin:1.5rem 0 .6rem}
+.lsep::after{content:'';flex:1;height:1px;background:var(--gray-200)}
+.acard{background:white;border-radius:var(--r);border:1.5px solid var(--gray-200);
+  padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;transition:all .15s;margin-bottom:.5rem;box-shadow:var(--shadow-sm)}
+.acard:hover{border-color:var(--navy);transform:translateY(-1px);box-shadow:var(--shadow)}
+.acard.done{border-color:#9ae6b4;background:linear-gradient(to right,white,#f0faf5)}
+.acard.suma{border-color:var(--gold);background:linear-gradient(to right,white,#fdf8ee)}
+.atitle{font-weight:600;font-size:.9rem;color:var(--navy)}
+.ameta{font-size:.75rem;color:var(--slate-light);margin-top:.15rem}
+.agrade{font-weight:700;font-size:.78rem;color:var(--green);background:var(--green-light);
+  padding:.15rem .45rem;border-radius:4px;margin-left:.5rem}
+
+.ptrack{background:var(--gray-200);border-radius:20px;height:5px;margin-top:.4rem}
+.pfill{background:linear-gradient(to right,var(--gold),var(--gold-light));border-radius:20px;height:100%;transition:width .5s}
+
+.txtlbl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--slate-light);margin-bottom:.4rem}
+.txtbox{background:var(--cream);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;
+  padding:1.1rem 1.3rem;margin-bottom:1.4rem;font-family:var(--serif);font-style:italic;
+  font-size:.92rem;line-height:1.85;color:#333;white-space:pre-wrap}
+.prompt{font-family:var(--serif);font-size:.91rem;line-height:1.85;color:var(--slate);white-space:pre-wrap;margin-bottom:1.4rem}
+
+.grade-hero{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:var(--r);
+  padding:1.5rem;text-align:center;margin-bottom:1.25rem}
+.grade-num{font-family:var(--display);font-size:3.5rem;font-weight:700;color:var(--gold);line-height:1}
+.grade-denom{font-size:1.2rem;color:var(--gold-light)}
+.grade-lbl{font-size:.75rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.8px;margin-top:.4rem}
+
+/* CRITERIA BLOCKS */
+.crit-block{border:1px solid var(--gray-200);border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:.75rem;background:white}
+.crit-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.75rem;flex-wrap:wrap}
+.crit-name{font-weight:700;font-size:.88rem;color:var(--navy)}
+.crit-desc{font-size:.72rem;color:var(--slate-light);margin-top:.15rem}
+.crit-score-badge{font-family:var(--display);font-size:1.4rem;font-weight:700;color:var(--navy);
+  background:var(--gray-100);border:1.5px solid var(--gray-200);border-radius:8px;
+  padding:.2rem .75rem;flex-shrink:0;min-width:60px;text-align:center}
+.denom{font-size:.75rem;color:var(--slate-light)}
+.crit-btns{display:flex;gap:.22rem;flex-wrap:wrap;margin-bottom:.6rem}
+.cbit{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--gray-300);background:white;
+  font-size:.72rem;font-weight:700;cursor:pointer;color:var(--slate);transition:all .12s;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+.cbit:hover{border-color:var(--navy);color:var(--navy);background:var(--gray-100)}
+.cbit.sel{background:var(--navy);color:white;border-color:var(--navy)}
+.crit-band{font-size:.75rem;color:var(--slate);font-family:var(--serif);font-style:italic;
+  background:var(--gray-100);border-radius:5px;padding:.4rem .65rem;line-height:1.5}
+
+/* CRITERIA NOT APPLICABLE */
+.crit-na{border:1px dashed var(--gray-300);border-radius:var(--r);padding:.75rem 1.1rem;
+  margin-bottom:.75rem;background:var(--gray-100);display:flex;align-items:center;gap:.75rem;opacity:.5}
+.crit-na .crit-name{font-size:.85rem;color:var(--slate)}
+
+.score-total{display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:white;
+  padding:1rem 1.4rem;border-radius:var(--r);margin-top:1rem}
+.score-total .lbl{font-size:.82rem}
+.score-total .pts{font-family:var(--display);font-size:2rem;color:var(--gold)}
+.score-total .maxlbl{font-size:.85rem;color:var(--gold-light)}
+
+.crit-summary-row{display:flex;justify-content:space-between;align-items:flex-start;
+  padding:.65rem 0;border-bottom:1px solid var(--gray-200);font-size:.855rem;gap:1rem}
+.crit-summary-row:last-child{border-bottom:none}
+.crit-summary-score{font-weight:700;font-size:1rem;color:var(--navy);flex-shrink:0;padding-left:1rem;white-space:nowrap}
+
+.srow{background:white;border:1.5px solid var(--gray-200);border-radius:var(--r);
+  padding:.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;margin-bottom:.5rem;cursor:pointer;transition:all .15s;box-shadow:var(--shadow-sm)}
+.srow:hover{border-color:var(--navy)}
+.srow.graded{border-color:#9ae6b4;background:#f0faf5}
+.sname{font-weight:600;font-size:.875rem;color:var(--navy)}
+.smeta{font-size:.73rem;color:var(--slate-light);margin-top:.1rem}
+.sgrade-big{font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--navy);white-space:nowrap}
+
+.sgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;margin-bottom:1.5rem}
+@media(max-width:600px){.sgrid{grid-template-columns:repeat(3,1fr)}}
+.scard{background:white;border-radius:var(--r);padding:1rem;text-align:center;
+  box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)}
+.snum2{font-family:var(--display);font-size:2rem;font-weight:700;color:var(--navy);line-height:1}
+.slbl2{font-size:.68rem;text-transform:uppercase;letter-spacing:.6px;color:var(--slate-light);margin-top:.3rem}
+
+.frow{display:flex;gap:.65rem;flex-wrap:wrap}
+.frow select{flex:1;min-width:140px;font-family:var(--sans);font-size:.82rem;padding:.55rem .75rem}
+
+.stutext{background:var(--cream);border:1px solid var(--gray-200);border-radius:8px;
+  padding:1.1rem 1.25rem;font-family:var(--serif);font-size:.88rem;line-height:1.85;
+  max-height:260px;overflow-y:auto;white-space:pre-wrap;color:#2d3748}
+.fbbox{background:var(--green-light);border:1px solid #9ae6b4;border-radius:8px;padding:1.1rem 1.25rem;margin-top:1rem}
+.fbbox p{font-family:var(--serif);font-size:.88rem;line-height:1.85;white-space:pre-wrap;color:#1a3a2a;margin:0}
+
+hr{border:none;border-top:1px solid var(--gray-200);margin:1.5rem 0}
+.empty{text-align:center;padding:3rem 1rem;color:var(--slate-light)}
+.empty .ico{font-size:2.5rem;margin-bottom:.75rem}
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--gray-200);margin-bottom:1.25rem}
+.tab{font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--slate-light);
+  cursor:pointer;padding:.55rem 1.1rem;border:none;background:none;
+  border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s}
+.tab.on{color:var(--navy);border-bottom-color:var(--navy)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--gray-100)}
+::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:10px}
+@media(max-width:540px){.wrap{padding:1.25rem 1rem 3rem}.card{padding:1.25rem}header{padding:0 1rem}}
+</style>
+</head>
+<body>
+
+<div id="gloading">
+  <div class="spinner"></div>
+  <div id="gloading-msg">Cargando...</div>
+</div>
+
+<header>
+  <div class="hbrand" onclick="goHome()">
+    <div class="hlogo">CE</div>
+    <div>
+      <div class="htitle">Taller de Escritura</div>
+      <div class="hsub">PAI · 4º · Las Chapas</div>
+    </div>
+  </div>
+  <nav class="hnav">
+    <button onclick="goHome()">Inicio</button>
+    <button class="acc" onclick="go('tlogin')">🔐 Docente</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<!-- LOGIN -->
+<div id="s-login" class="screen active">
+  <div style="max-width:420px;margin:3rem auto 0">
+    <div style="text-align:center;margin-bottom:2rem">
+      <div style="font-size:2.75rem;margin-bottom:.6rem">✍️</div>
+      <h1 style="font-size:1.6rem;margin-bottom:.4rem">Bienvenida</h1>
+      <p>Escribe tu nombre para acceder al taller de producción textual.</p>
+    </div>
+    <div class="card">
+      <div class="fg">
+        <label>Nombre completo</label>
+        <input type="text" id="inp-name" placeholder="Ej: Laura Martínez García" autocomplete="name"
+          onkeyup="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="doLogin()">Acceder al taller →</button>
+      <div id="err-login" class="alert alert-error" style="display:none;margin-top:.9rem"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<div id="s-menu" class="screen">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap">
+    <div>
+      <h1 id="menu-hello" style="font-size:1.5rem"></h1>
+      <p id="menu-sub" style="font-size:.83rem;margin-top:.2rem"></p>
+    </div>
+    <div style="text-align:right;flex-shrink:0">
+      <small id="prog-txt"></small>
+      <div class="ptrack" style="width:120px;margin-top:.3rem;margin-left:auto">
+        <div class="pfill" id="prog-fill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+  <div id="menu-list"></div>
+</div>
+
+<!-- ACTIVITY -->
+<div id="s-act" class="screen">
+  <button class="btn btn-secondary btn-sm" onclick="go('menu')" style="margin-bottom:1.1rem">← Menú</button>
+  <div class="card" style="padding:1.25rem 1.5rem;margin-bottom:.9rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+    <div>
+      <div id="act-badge" class="badge" style="margin-bottom:.5rem"></div>
+      <h2 id="act-title"></h2>
+      <small id="act-type"></small>
+      <div id="act-crits-info" style="margin-top:.5rem"></div>
+    </div>
+    <div style="text-align:right;flex-shrink:0">
+      <small>Extensión</small>
+      <div id="act-wg" style="font-weight:700;font-size:.85rem;color:var(--navy)"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div id="act-src-wrap" style="display:none">
+      <div class="txtlbl">Texto</div>
+      <div id="act-src" class="txtbox"></div>
+    </div>
+    <div id="act-prompt" class="prompt"></div>
+    <div class="fg">
+      <label>Tu respuesta</label>
+      <textarea id="txt-resp" oninput="updWC()" placeholder="Escribe aquí tu texto..."></textarea>
+      <div class="wc" id="wc">0 palabras</div>
+    </div>
+    <div id="act-err" class="alert alert-error" style="display:none;margin-bottom:.9rem"></div>
+    <div class="brow">
+      <button class="btn btn-primary" onclick="doSubmit()">Enviar texto ✓</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('txt-resp').value='';updWC()">Limpiar</button>
+    </div>
+  </div>
+</div>
+
+<!-- DONE -->
+<div id="s-done" class="screen">
+  <div class="card" style="max-width:460px;margin:3rem auto;text-align:center">
+    <div style="font-size:3rem;margin-bottom:.75rem">✅</div>
+    <h2>Texto enviado</h2>
+    <p id="done-msg" style="margin:1rem 0"></p>
+    <div class="brow" style="justify-content:center">
+      <button class="btn btn-secondary" onclick="loadMenu()">Volver al menú</button>
+      <button class="btn btn-primary" onclick="doViewFeedback()">Ver mi evaluación →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEEDBACK ALUMNA -->
+<div id="s-fb" class="screen">
+  <button class="btn btn-secondary btn-sm" onclick="loadMenu()" style="margin-bottom:1.1rem">← Menú</button>
+  <div id="fb-content"></div>
+</div>
+
+<!-- TEACHER LOGIN -->
+<div id="s-tlogin" class="screen">
+  <div class="card" style="max-width:360px;margin:3rem auto">
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div style="font-size:2.5rem;margin-bottom:.5rem">🔐</div>
+      <h2>Panel docente</h2>
+      <p style="font-size:.83rem">Introduce la contraseña de acceso.</p>
+    </div>
+    <div class="fg">
+      <label>Contraseña</label>
+      <input type="password" id="tpwd" placeholder="••••••••" onkeyup="if(event.key==='Enter')doTLogin()">
+    </div>
+    <button class="btn btn-primary btn-block" onclick="doTLogin()">Acceder</button>
+    <div id="err-tlogin" class="alert alert-error" style="display:none;margin-top:.9rem"></div>
+    <div style="text-align:center;margin-top:1rem">
+      <button class="btn btn-secondary btn-sm" onclick="go('login')">← Volver al inicio</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER DASHBOARD -->
+<div id="s-tdash" class="screen">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem">
+    <div>
+      <h1 style="font-size:1.4rem">Panel de evaluación</h1>
+      <small>Criterios PAI · Lengua y Literatura · 4º PAI · Las Chapas</small>
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn btn-secondary btn-sm" onclick="doExport()">⬇ Exportar CSV</button>
+      <button class="btn btn-secondary btn-sm" onclick="loadDash()">↺ Actualizar</button>
+      <button class="btn btn-secondary btn-sm" onclick="go('login')">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" onclick="switchTab('e')">Entregas</button>
+    <button class="tab" onclick="switchTab('s')">Estadísticas</button>
+  </div>
+
+  <div id="tab-e">
+    <div class="sgrid" id="t-stats"></div>
+    <div class="card" style="padding:1rem 1.25rem;margin-bottom:1rem">
+      <div class="frow">
+        <select id="f-act" onchange="renderSubs()"><option value="">Todas las actividades</option></select>
+        <select id="f-stu" onchange="renderSubs()"><option value="">Todas las alumnas</option></select>
+        <select id="f-sta" onchange="renderSubs()">
+          <option value="">Todo</option>
+          <option value="p">Sin calificar</option>
+          <option value="g">Calificadas</option>
+        </select>
+      </div>
+    </div>
+    <div id="sub-list"></div>
+  </div>
+
+  <div id="tab-s" style="display:none">
+    <div id="stats-content"></div>
+  </div>
+
+  <!-- REVIEW PANEL -->
+  <div id="rev-panel" style="display:none">
+    <hr>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem">
+      <h2 id="rv-title" style="font-size:1.1rem"></h2>
+      <button class="btn btn-secondary btn-sm" onclick="closeRev()">✕ Cerrar</button>
+    </div>
+    <div class="card">
+      <div style="display:flex;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap">
+        <div><small style="text-transform:uppercase;letter-spacing:.5px">Alumna</small><br><strong id="rv-name" style="font-size:.9rem"></strong></div>
+        <div><small style="text-transform:uppercase;letter-spacing:.5px">Actividad</small><br><strong id="rv-act" style="font-size:.9rem"></strong></div>
+        <div><small style="text-transform:uppercase;letter-spacing:.5px">Enviado</small><br><strong id="rv-date" style="font-size:.9rem"></strong></div>
+        <div><small style="text-transform:uppercase;letter-spacing:.5px">Palabras</small><br><strong id="rv-words" style="font-size:.9rem"></strong></div>
+      </div>
+      <div id="rv-crits-note" class="alert alert-info" style="margin-bottom:1rem;font-size:.8rem"></div>
+      <hr style="margin:.75rem 0">
+      <div class="txtlbl" style="margin-bottom:.4rem">Texto de la alumna</div>
+      <div id="rv-text" class="stutext"></div>
+
+      <h3 style="margin-top:1.5rem;margin-bottom:.25rem">Evaluación por criterios PAI</h3>
+      <p style="font-size:.78rem;margin-bottom:1rem" id="rv-crits-sub"></p>
+      <div id="rv-crits"></div>
+
+      <div class="score-total" id="score-total-bar">
+        <div>
+          <div class="lbl">Puntuación total</div>
+          <div style="font-size:.75rem;color:var(--gold-light);margin-top:.2rem" id="rv-pts-detail"></div>
+        </div>
+        <div style="text-align:right">
+          <div><span class="pts" id="rv-score">0</span> <span class="maxlbl" id="rv-max-lbl">/24</span></div>
+        </div>
+      </div>
+
+      <div class="fg" style="margin-top:1.25rem">
+        <label>Comentario para la alumna</label>
+        <textarea id="rv-fb" rows="7" placeholder="Escribe aquí tu feedback...&#10;&#10;O usa «Generar plantilla PAI» para obtener un comentario estructurado con los descriptores oficiales."></textarea>
+      </div>
+      <div class="brow">
+        <button class="btn btn-secondary btn-sm" onclick="genTpl()">✨ Generar plantilla PAI</button>
+        <button class="btn btn-green" onclick="doSaveGrade()">💾 Guardar evaluación</button>
+      </div>
+      <div id="rv-msg" style="display:none;margin-top:.75rem"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- wrap -->
+
+<script>
+// ════════════════════════════════════════════════
+// GOOGLE SHEETS
+// ════════════════════════════════════════════════
+const GS_URL='https://script.google.com/macros/s/AKfycbyQQDCT48-1P9GnOPu04IcLQt6cO6gA0zVulcoZuPgwYiWHnX6fMCsSmzQb3QzTg8tY/exec';
+
+function setLoading(v,msg='Cargando...'){
+  document.getElementById('gloading-msg').textContent=msg;
+  document.getElementById('gloading').style.display=v?'flex':'none';
+}
+async function loadData(){
+  setLoading(true,'Cargando datos...');
+  ALL_SUBS=[];ALL_GRADES=[];
+  try{
+    const res=await fetch(GS_URL+'?t='+Date.now(),{redirect:'follow'});
+    const rows=await res.json();
+    if(Array.isArray(rows)){
+      rows.forEach(r=>{
+        if(!r.id)return;
+        ALL_SUBS.push({id:String(r.id),stu:String(r.stu||''),act:String(r.act||''),
+          text:String(r.text||''),at:String(r.at||'')});
+        if(r.tot!==''&&r.tot!==null&&r.tot!==undefined&&!isNaN(parseFloat(r.tot))){
+          ALL_GRADES.push({sid:String(r.id),stu:String(r.stu||''),act:String(r.act||''),
+            cA:+r.cA||0,cB:+r.cB||0,cC:+r.cC||0,cD:+r.cD||0,
+            tot:parseFloat(r.tot),fb:String(r.fb||''),at:String(r.at||'')});
+        }
+      });
+    }
+  }catch(e){console.error(e);}
+  setLoading(false);
+}
+async function postGS(payload){
+  setLoading(true,payload.type==='submission'?'Enviando texto...':'Guardando evaluación...');
+  try{
+    await fetch(GS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)});
+    await new Promise(r=>setTimeout(r,2200));
+    await loadData();
+  }catch(e){console.error(e);setLoading(false);}
+}
+function mkId(stu,act){
+  return stu.trim().toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'')+'__'+act;
+}
+
+// ════════════════════════════════════════════════
+// CRITERIA DEFINITIONS
+// ════════════════════════════════════════════════
+const CRIT=[
+  {
+    id:'cA',name:'Criterio A – Análisis',max:8,
+    desc:'Análisis del contenido, contexto, lenguaje, estructura, técnica y estilo',
+    bands:[
+      {r:'0',  t:'No alcanza ninguno de los niveles especificados.'},
+      {r:'1–2',t:'Analiza de manera limitada el contenido, el contexto y el estilo. Justifica muy pocas veces opiniones con ejemplos o terminología.'},
+      {r:'3–4',t:'Analiza de manera adecuada el contenido, el contexto y el estilo. Justifica opiniones con algunos ejemplos, aunque puede no hacerlo de forma coherente.'},
+      {r:'5–6',t:'Analiza de manera competente el contenido, contexto, lenguaje, estructura, técnica y estilo. Justifica suficientemente opiniones con terminología precisa.'},
+      {r:'7–8',t:'Analiza de manera perspicaz el contenido, contexto, lenguaje, estructura, técnica y estilo. Justifica en detalle con una gama de ejemplos exhaustivos y terminología precisa.'}
+    ]
+  },
+  {
+    id:'cB',name:'Criterio B – Organización',max:8,
+    desc:'Estructuras organizativas, coherencia lógica y herramientas de formato',
+    bands:[
+      {r:'0',  t:'No alcanza ninguno de los niveles especificados.'},
+      {r:'1–2',t:'Usa estructuras organizativas mínimas. Organiza ideas con un grado mínimo de coherencia y lógica.'},
+      {r:'3–4',t:'Usa estructuras organizativas adecuadas al contexto. Organiza ideas con cierto grado de coherencia y lógica.'},
+      {r:'5–6',t:'Usa estructuras organizativas de manera competente. Las ideas se basan unas en otras con coherencia y lógica.'},
+      {r:'7–8',t:'Usa estructuras organizativas de manera sofisticada y eficaz. Organiza ideas de forma constante, coherente y sofisticada.'}
+    ]
+  },
+  {
+    id:'cC',name:'Criterio C – Producción de textos',max:8,
+    desc:'Agudeza, imaginación, elecciones de estilo y selección de ejemplos pertinentes',
+    bands:[
+      {r:'0',  t:'No alcanza ninguno de los niveles especificados.'},
+      {r:'1–2',t:'Produce textos con un trabajo personal limitado. Demuestra un grado limitado de agudeza e imaginación. Realiza elecciones de estilo mínimas y selecciona pocos detalles pertinentes.'},
+      {r:'3–4',t:'Produce textos con un trabajo personal adecuado. Demuestra cierto grado de agudeza e imaginación. Realiza algunas elecciones de estilo y selecciona algunos detalles pertinentes.'},
+      {r:'5–6',t:'Produce textos con un trabajo personal considerable. Demuestra un grado notable de agudeza, imaginación y sensibilidad. Realiza elecciones de estilo meditadas y selecciona suficientes detalles pertinentes.'},
+      {r:'7–8',t:'Produce textos con un alto grado de trabajo personal. Demuestra un alto grado de agudeza, imaginación y sensibilidad. Realiza elecciones de estilo perspicaces y selecciona una vasta cantidad de detalles con precisión.'}
+    ]
+  },
+  {
+    id:'cD',name:'Criterio D – Uso de la lengua',max:8,
+    desc:'Vocabulario, registro, gramática, ortografía y sintaxis',
+    bands:[
+      {r:'0',  t:'No alcanza ninguno de los niveles especificados.'},
+      {r:'1–2',t:'Usa una gama limitada de vocabulario con registro y estilo inapropiados. Los errores dificultan frecuentemente la comunicación.'},
+      {r:'3–4',t:'Usa una gama adecuada de vocabulario. Emplea en ocasiones registro y estilo adecuados al contexto. Los errores a veces dificultan la comunicación.'},
+      {r:'5–6',t:'Usa de manera competente una gama variada de vocabulario con registro y estilo adecuados. Los errores no dificultan la comunicación eficaz.'},
+      {r:'7–8',t:'Usa eficazmente una gama variada de vocabulario con registro y estilo coherentemente apropiados. Los errores son leves y la comunicación es eficaz.'}
+    ]
+  }
+];
+
+function getBand(score){
+  if(score===0)return 0;if(score<=2)return 1;if(score<=4)return 2;if(score<=6)return 3;return 4;
+}
+
+// ════════════════════════════════════════════════
+// HELPERS — criteria per activity
+// ════════════════════════════════════════════════
+// Returns active CRIT objects for a given activity id
+function getActiveCrits(actId){
+  const a=ACT.find(x=>x.id===actId);
+  if(!a)return CRIT;
+  return CRIT.filter(c=>a.crits.includes(c.id));
+}
+// Returns max score for an activity
+function getMax(actId){
+  return getActiveCrits(actId).length*8;
+}
+// Returns readable label for the criteria set
+function getCritsLabel(crits){
+  const names={cA:'A',cB:'B',cC:'C',cD:'D'};
+  return crits.map(c=>names[c]).join(', ');
+}
+// Returns readable type label
+function getTypeLabel(crits){
+  if(crits.includes('cA')&&crits.includes('cC'))return 'Análisis + Producción';
+  if(crits.includes('cA'))return 'Análisis';
+  if(crits.includes('cC'))return 'Producción';
+  return 'Escritura';
+}
+
+// ════════════════════════════════════════════════
+// ACTIVITIES
+// crits: which criteria apply
+//   Escritura/producción: ['cB','cC','cD']  → máx 24
+//   Análisis:             ['cA','cB','cD']  → máx 24
+//   Sumativa (ambas):     ['cA','cB','cC','cD'] → máx 32
+// ════════════════════════════════════════════════
+const ACT=[
+  {id:'n1a1',lv:1,suma:false,crits:['cB','cC','cD'],
+   title:'El lugar que me define',type:'Texto descriptivo',wg:'150-200 palabras',
+   prompt:`Escribe un texto descriptivo (150-200 palabras) sobre un lugar que sea importante para ti. Puede ser un espacio que conozcas bien: tu habitación, un rincón del colegio, un lugar de vacaciones, la casa de un familiar...
+
+Tu texto debe:
+• Describir el lugar con detalle sensorial (qué se ve, se escucha, se huele, se siente)
+• Transmitir la importancia que ese lugar tiene para ti
+• Utilizar adjetivos variados y precisos
+• Organizarse en al menos dos párrafos`,src:null},
+
+  {id:'n1a2',lv:1,suma:false,crits:['cB','cC','cD'],
+   title:'Un momento que no olvidé',type:'Texto narrativo',wg:'150-200 palabras',
+   prompt:`Narra en 150-200 palabras un momento cotidiano que recuerdes con claridad. No hace falta que sea un gran acontecimiento: puede ser una tarde lluviosa, una conversación en el recreo, un objeto encontrado por casualidad.
+
+Tu texto debe:
+• Situarnos en un tiempo y lugar concretos
+• Presentar una pequeña tensión o cambio, aunque sea mínimo
+• Estar escrito en primera persona
+• Usar los tiempos del pasado con coherencia`,src:null},
+
+  {id:'n2a1',lv:2,suma:false,crits:['cB','cC','cD'],
+   title:'Pantallas y palabras',type:'Texto argumentativo',wg:'200-250 palabras',
+   prompt:`Lee la siguiente afirmación y escribe un texto argumentativo (200-250 palabras) en el que defiendas tu postura:
+
+«Las redes sociales han empobrecido el lenguaje escrito de los jóvenes: favorecen la inmediatez, la superficialidad y el error, en lugar del rigor y la reflexión.»
+
+Tu texto debe:
+• Dejar clara tu postura desde el principio (tesis)
+• Desarrollar al menos dos argumentos con ejemplos concretos
+• Incluir una refutación (reconocer la postura contraria y rebatirla)
+• Terminar con una conclusión que retome la tesis
+• Utilizar conectores discursivos apropiados`,src:null},
+
+  {id:'n2a2',lv:2,suma:false,crits:['cA','cB','cD'],
+   title:'Leer entre líneas',type:'Análisis guiado de texto',wg:'200-250 palabras',
+   prompt:`Lee con atención el fragmento en prosa y responde a las preguntas en párrafos completos (200-250 palabras en total):
+
+a) ¿Cuál es el tema principal? ¿Qué situación o experiencia evoca?
+b) Identifica y comenta dos recursos expresivos (metáfora, personificación, tiempo verbal, adjetivación...).
+c) ¿Qué efecto produce en el lector el último enunciado?`,
+   src:`La ventana de enfrente lleva tres semanas con la persiana bajada. Al principio pensé que habían ido de vacaciones; después, que el piso estaba vacío. Hoy, sin embargo, he visto moverse una sombra detrás del tejido de plástico y he sentido algo que no sé cómo llamar: ¿alivio?, ¿curiosidad?, ¿el leve temor de que alguien observe también nuestra ventana desde allí?`},
+
+  {id:'n3a1',lv:3,suma:false,crits:['cA','cB','cD'],
+   title:'La burbuja invisible',type:'Comentario de texto',wg:'250-300 palabras',
+   prompt:`Lee la columna de opinión y escribe un comentario de texto (250-300 palabras) que analice:
+
+a) El tema y la tesis del autor
+b) La estructura argumentativa del texto
+c) Los recursos retóricos y lingüísticos más destacados (al menos dos) y su efecto
+d) Tu valoración personal razonada
+
+Usa terminología literaria y lingüística apropiada y organiza el texto en párrafos.`,
+   src:`Vivimos instaladas en la comodidad de lo que ya sabemos. Los algoritmos nos ofrecen más de lo mismo, los grupos de amigos refuerzan lo que pensamos, y las noticias que consumimos confirman lo que ya creemos. Esta burbuja invisible no duele, no avisa, no sangra. Pero va cortando, poco a poco, la capacidad de asombrarse ante lo distinto, de escuchar lo incómodo, de cambiar de idea. La cultura, en su sentido más hondo, siempre ha sido una invitación a salir de una misma. La pregunta es si todavía estamos dispuestas a aceptarla.`},
+
+  {id:'n3a2',lv:3,suma:false,crits:['cB','cC','cD'],
+   title:'Una idea que me importa',type:'Texto de opinión',wg:'250-300 palabras',
+   prompt:`Elige uno de estos temas y escribe un texto de opinión (250-300 palabras) con registro culto y matizado:
+
+1. La obligación de leer obras literarias en clase: ¿tiene sentido en 2025?
+2. La inteligencia artificial y la escritura: ¿amenaza o herramienta?
+3. El silencio: ¿un valor en peligro de extinción?
+4. La lengua materna y la identidad personal
+
+Tu texto debe tener estructura visible, conectores discursivos y vocabulario variado.`,src:null},
+
+  {id:'sum1',lv:null,suma:true,crits:['cA','cB','cC','cD'],
+   title:'Sumativa I – Actividades 1-3',type:'Tarea sumativa',wg:'260-300 palabras',
+   prompt:`Primera tarea de evaluación sumativa.
+
+TAREA 1 – Análisis (80-100 palabras):
+En un párrafo identifica el tema, el tono del autor y un recurso expresivo relevante. Explica el efecto que produce.
+
+TAREA 2 – Producción (180-200 palabras):
+Escribe un texto argumentativo respondiendo a la pregunta implícita del texto: ¿puede la rutina convertirse en una forma de resistencia? Defiende tu postura con argumentos y ejemplos.
+
+Total: 260-300 palabras.`,
+   src:`Cada mañana, a las siete y cuarto, María barre el portal del edificio. Lo ha hecho durante veintidós años, con escoba de madera y delantal azul. Sus vecinos la saludan sin mirarla, apresurados hacia sus propias urgencias. A veces alguien le deja flores en el rellano; a veces nadie sube por las escaleras en todo el día. Sin embargo, María barre. No porque deba hacerlo, sino porque considera que un portal limpio es una forma de decirles a los demás: aquí hay alguien que cuida. Y cuidar, piensa mientras empuja los papelitos de chicle hacia el felpudo, es siempre un acto de fe.`},
+
+  {id:'n4a1',lv:4,suma:false,crits:['cA','cB','cD'],
+   title:'Cuatro segundos exactos',type:'Análisis estilístico',wg:'300-350 palabras',
+   prompt:`Analiza el fragmento de prosa literaria (300-350 palabras):
+
+a) Contexto y significado: ¿Qué situación se describe? ¿Qué sugiere más allá de lo literal?
+b) Recursos literarios y estilísticos: identifica y analiza en profundidad al menos tres.
+c) Construcción de la voz narrativa y su efecto.
+d) Valoración global: ¿Qué efecto total produce el fragmento? ¿Qué preguntas deja abiertas?
+
+Usa terminología literaria precisa y apoya cada observación con citas del texto.`,
+   src:`El tren pasaba a las siete menos cuarto, puntual como una obligación. Ana lo oía desde la cocina mientras hervía la leche: primero el rumor lejano que crecía hasta hacerse trueno, luego el silencio repentino que hacía más real el olor a café. Nunca había subido a ese tren. Nunca había querido saber adónde iba. Pero cada mañana, durante cuatro segundos exactos, era una mujer distinta.`},
+
+  {id:'n4a2',lv:4,suma:false,crits:['cA','cB','cD'],
+   title:'Dos miradas sobre la lectura',type:'Análisis comparativo',wg:'350-400 palabras',
+   prompt:`Lee los dos textos y escribe un análisis comparativo (350-400 palabras):
+
+a) Los temas de cada texto y cómo se relacionan o contrastan
+b) El género discursivo y el registro de cada texto
+c) Los recursos lingüísticos y retóricos de cada autor
+d) Tu evaluación de cuál resulta más convincente o eficaz, y por qué`,
+   src:`TEXTO A (artículo periodístico):
+«La inteligencia artificial ha superado en comprensión lectora a la media de los estudiantes de diecisiete años en quince países. El dato ha generado alarma en los sistemas educativos europeos, que se preguntan qué significa enseñar a leer en un mundo donde las máquinas leen mejor que nosotros.»
+
+TEXTO B (ensayo):
+«Leer no es procesar información. Leer es dejarse alterar. Es abrir un libro y salir de él siendo, aunque sea levemente, otra persona. Ninguna máquina ha salido todavía de un libro distinta a como entró. Y mientras eso no ocurra, seguiremos siendo nosotras quienes leamos de verdad.»`},
+
+  {id:'sumib',lv:null,suma:true,crits:['cA','cB','cC','cD'],
+   title:'Sumativa Final',type:'Tarea sumativa',wg:'400-450 palabras',
+   prompt:`Evaluación sumativa final.
+
+TAREA 1 – Análisis guiado (200-220 palabras):
+Analiza el fragmento considerando:
+• El tema y la idea central
+• La voz narrativa y su perspectiva
+• Dos recursos estilísticos con sus efectos
+• El significado del último enunciado en el conjunto del texto
+
+TAREA 2 – Producción textual (200-230 palabras):
+Escribe una columna de opinión para jóvenes de tu edad respondiendo a: ¿Nos hemos olvidado de escucharnos? La columna debe tener título, estructura en párrafos y registro formal pero próximo.`,
+   src:`Hablamos mucho. Publicamos, comentamos, debatimos, respondemos. Nunca antes habíamos tenido tantos canales para hacer llegar nuestra voz a los demás. Y sin embargo, algo se ha roto. No en los altavoces —esos funcionan perfectamente— sino en los oídos. Vivimos en la era de la emisión permanente y la escucha provisional: escuchamos hasta que tenemos algo que decir, y entonces dejamos de escuchar. La conversación, que fue durante siglos el lugar donde los seres humanos se construían a sí mismos, se ha convertido en una sucesión de monólogos que se toleran mutuamente.`}
+];
+
+const SECS=[
+  {title:'Nivel 1 – Iniciación',    badge:'b1',ids:['n1a1','n1a2']},
+  {title:'Nivel 2 – Desarrollo',    badge:'b2',ids:['n2a1','n2a2']},
+  {title:'Nivel 3 – Consolidación', badge:'b3',ids:['n3a1','n3a2']},
+  {title:'⭐ Sumativa I',           badge:'bs',ids:['sum1']},
+  {title:'Nivel 4 – Avanzado',      badge:'b4',ids:['n4a1','n4a2']},
+  {title:'⭐ Sumativa Final',        badge:'bs',ids:['sumib']}
+];
+
+const PWD='chapas2026';
+let STU='',CUR_ACT='',CUR_SUB='',CUR_REV='';
+let ALL_SUBS=[],ALL_GRADES=[],CUR_CRITS={cA:0,cB:0,cC:0,cD:0};
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goHome(){STU?loadMenu():go('login');}
+
+function doLogin(){
+  const n=document.getElementById('inp-name').value.trim();
+  const err=document.getElementById('err-login');
+  if(!n||n.length<2){err.textContent='Escribe tu nombre completo.';err.style.display='block';return;}
+  err.style.display='none';STU=n;loadMenu();
+}
+
+async function loadMenu(){
+  await loadData();
+  const done=new Set(ALL_SUBS.filter(s=>s.stu===STU).map(s=>s.act));
+  const pct=Math.round((done.size/ACT.length)*100);
+  document.getElementById('menu-hello').textContent=`Hola, ${STU} 👋`;
+  document.getElementById('menu-sub').textContent=done.size
+    ?`Llevas ${done.size} de ${ACT.length} actividades completadas.`
+    :'Selecciona una actividad para comenzar.';
+  document.getElementById('prog-txt').textContent=`${done.size}/${ACT.length}`;
+  document.getElementById('prog-fill').style.width=pct+'%';
+
+  const list=document.getElementById('menu-list');
+  list.innerHTML='';
+  SECS.forEach(sec=>{
+    const hdr=document.createElement('div');
+    hdr.className='lsep';
+    hdr.innerHTML=`<span class="badge ${sec.badge}">${sec.title}</span>`;
+    list.appendChild(hdr);
+    sec.ids.forEach(id=>{
+      const a=ACT.find(x=>x.id===id);if(!a)return;
+      const isDone=done.has(id),g=getGrade(STU,id),mx=getMax(id);
+      const card=document.createElement('div');
+      card.className=`acard ${isDone?'done':''} ${a.suma?'suma':''}`;
+      card.onclick=()=>openAct(id);
+      card.innerHTML=`
+        <div style="flex:1">
+          <div class="atitle">${a.title}${g!==null?`<span class="agrade">${g}/${mx}</span>`:''}</div>
+          <div class="ameta">${a.type} · ${a.wg} · <span style="color:var(--navy);font-weight:600">Crit. ${getCritsLabel(a.crits)}</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          ${isDone&&g!==null?`<button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();viewFbFor('${id}')">Ver nota</button>`:''}
+          <div style="font-size:1.1rem">${isDone?(g!==null?'✅':'📤'):'○'}</div>
+        </div>`;
+      list.appendChild(card);
+    });
+  });
+  go('menu');
+}
+
+function getGrade(stu,act){
+  const s=ALL_SUBS.find(x=>x.stu===stu&&x.act===act);if(!s)return null;
+  const g=ALL_GRADES.find(x=>x.sid===s.id);return g?g.tot:null;
+}
+
+function openAct(id){
+  const a=ACT.find(x=>x.id===id);if(!a)return;
+  CUR_ACT=id;
+  const be=document.getElementById('act-badge');
+  if(a.suma){be.className='badge bs';be.textContent='⭐ Sumativa';}
+  else{be.className=`badge b${a.lv}`;be.textContent=`Nivel ${a.lv}`;}
+  document.getElementById('act-title').textContent=a.title;
+  document.getElementById('act-type').textContent=a.type;
+  document.getElementById('act-wg').textContent=a.wg;
+  document.getElementById('act-prompt').textContent=a.prompt;
+  // Show which criteria apply
+  const mx=getMax(id);
+  document.getElementById('act-crits-info').innerHTML=
+    `<small>Se evaluará con criterios <strong>${getCritsLabel(a.crits)}</strong> · Puntuación máxima: <strong>${mx} puntos</strong></small>`;
+  const sw=document.getElementById('act-src-wrap'),st=document.getElementById('act-src');
+  if(a.src){st.textContent=a.src;sw.style.display='block';}else{sw.style.display='none';}
+  const prev=ALL_SUBS.find(s=>s.stu===STU&&s.act===id);
+  document.getElementById('txt-resp').value=prev?prev.text:'';
+  updWC();document.getElementById('act-err').style.display='none';
+  go('act');
+}
+
+function updWC(){
+  const t=document.getElementById('txt-resp').value;
+  const n=t.trim()?t.trim().split(/\s+/).length:0;
+  document.getElementById('wc').textContent=`${n} palabra${n!==1?'s':''}`;
+}
+
+async function doSubmit(){
+  const text=document.getElementById('txt-resp').value.trim();
+  const errEl=document.getElementById('act-err');
+  if(!text||text.split(/\s+/).length<20){
+    errEl.textContent='Tu respuesta es demasiado breve. Desarrolla tu texto antes de enviarlo.';
+    errEl.style.display='block';return;
+  }
+  errEl.style.display='none';
+  const a=ACT.find(x=>x.id===CUR_ACT);
+  const id=mkId(STU,CUR_ACT),at=new Date().toISOString();
+  CUR_SUB=id;
+  ALL_SUBS=ALL_SUBS.filter(s=>!(s.stu===STU&&s.act===CUR_ACT));
+  ALL_SUBS.push({id,stu:STU,act:CUR_ACT,text,at});
+  await postGS({type:'submission',id,stu:STU,act:CUR_ACT,
+    lv:a?(a.suma?'Sumativa':`Nivel ${a.lv}`):'',
+    words:text.trim().split(/\s+/).length,at,text});
+  document.getElementById('done-msg').textContent=
+    `"${a.title}" guardado correctamente. La profesora revisará tu trabajo en breve.`;
+  go('done');
+}
+
+async function doViewFeedback(){
+  await loadData();
+  const sub=ALL_SUBS.find(s=>s.stu===STU&&s.act===CUR_ACT);
+  if(!sub){go('menu');return;}renderFb(sub);
+}
+function viewFbFor(actId){
+  CUR_ACT=actId;
+  const sub=ALL_SUBS.find(s=>s.stu===STU&&s.act===actId);
+  if(sub)renderFb(sub);else go('menu');
+}
+
+function renderFb(sub){
+  const a=ACT.find(x=>x.id===sub.act),g=ALL_GRADES.find(x=>x.sid===sub.id);
+  const el=document.getElementById('fb-content');
+  const mx=getMax(sub.act);
+  const activeCrits=getActiveCrits(sub.act);
+  if(!g){
+    el.innerHTML=`<div class="card" style="max-width:460px;margin:0 auto;text-align:center">
+      <div style="font-size:2.5rem;margin-bottom:.6rem">⏳</div><h2>${a.title}</h2>
+      <p style="margin:1rem 0">Tu trabajo está <strong>pendiente de revisión</strong>. Vuelve pronto para ver tu evaluación.</p>
+      <button class="btn btn-secondary" style="margin-top:.5rem" onclick="loadMenu()">Volver al menú</button></div>`;
+  }else{
+    el.innerHTML=`<div class="card" style="max-width:580px;margin:0 auto">
+      <h2 style="margin-bottom:.2rem">${a.title}</h2>
+      <p style="font-size:.78rem;margin-bottom:1.25rem;color:var(--slate-light)">Evaluado el ${fmtDate(g.at)} · Criterios ${getCritsLabel(a.crits)}</p>
+      <div class="grade-hero">
+        <div class="grade-num">${g.tot}<span class="grade-denom">/${mx}</span></div>
+        <div class="grade-lbl">Puntuación PAI · ${getTypeLabel(a.crits)}</div>
+      </div>
+      <h3 style="margin-bottom:.75rem">Desglose por criterios</h3>
+      ${activeCrits.map(c=>`
+        <div class="crit-summary-row">
+          <div>
+            <div style="font-weight:600;color:var(--navy);font-size:.85rem">${c.name}</div>
+            <div style="font-size:.72rem;color:var(--slate-light);margin-top:.15rem">
+              Nivel ${c.bands[getBand(g[c.id]||0)].r}: ${c.bands[getBand(g[c.id]||0)].t.substring(0,70)}...
+            </div>
+          </div>
+          <div class="crit-summary-score">${g[c.id]||0}<span style="font-size:.75rem;color:var(--slate-light)">/8</span></div>
+        </div>`).join('')}
+      ${g.fb?`<div class="fbbox" style="margin-top:1.25rem">
+        <div style="font-weight:600;font-size:.82rem;color:var(--green);margin-bottom:.5rem">📝 Comentario de la profesora</div>
+        <p>${esc(g.fb)}</p></div>`:''}
+    </div>`;
+  }
+  go('fb');
+}
+
+// TEACHER
+function doTLogin(){
+  const p=document.getElementById('tpwd').value;
+  const err=document.getElementById('err-tlogin');
+  if(p!==PWD){err.textContent='Contraseña incorrecta.';err.style.display='block';return;}
+  err.style.display='none';document.getElementById('tpwd').value='';loadDash();
+}
+
+async function loadDash(){
+  await loadData();
+  const stus=new Set(ALL_SUBS.map(s=>s.stu)).size;
+  const total=ALL_SUBS.length,graded=ALL_GRADES.length,pend=total-graded;
+  // Average as percentage (to normalize different maxes)
+  const avgPct=ALL_GRADES.length
+    ?Math.round(ALL_GRADES.reduce((a,g)=>{const mx=getMax(g.act);return a+(g.tot/mx*100);},0)/ALL_GRADES.length)+'%'
+    :'–';
+  document.getElementById('t-stats').innerHTML=`
+    <div class="scard"><div class="snum2">${stus}</div><div class="slbl2">Alumnas</div></div>
+    <div class="scard"><div class="snum2">${total}</div><div class="slbl2">Entregas</div></div>
+    <div class="scard"><div class="snum2" style="color:var(--red)">${pend}</div><div class="slbl2">Pendientes</div></div>
+    <div class="scard"><div class="snum2" style="color:var(--green)">${graded}</div><div class="slbl2">Calificadas</div></div>
+    <div class="scard"><div class="snum2">${avgPct}</div><div class="slbl2">Media %</div></div>`;
+  const fA=document.getElementById('f-act');
+  fA.innerHTML='<option value="">Todas las actividades</option>';
+  ACT.forEach(a=>fA.innerHTML+=`<option value="${a.id}">${a.title} (Crit.${getCritsLabel(a.crits)}, máx.${getMax(a.id)})</option>`);
+  const fS=document.getElementById('f-stu');
+  const ss=[...new Set(ALL_SUBS.map(s=>s.stu))].sort();
+  fS.innerHTML='<option value="">Todas las alumnas</option>';
+  ss.forEach(n=>fS.innerHTML+=`<option value="${n}">${n}</option>`);
+  renderSubs();go('tdash');
+}
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('on',i===(t==='e'?0:1)));
+  document.getElementById('tab-e').style.display=t==='e'?'block':'none';
+  document.getElementById('tab-s').style.display=t==='s'?'block':'none';
+  if(t==='s')renderStats();
+}
+
+function renderSubs(){
+  const fA=document.getElementById('f-act').value;
+  const fS=document.getElementById('f-stu').value;
+  const fSt=document.getElementById('f-sta').value;
+  let list=[...ALL_SUBS];
+  if(fA)list=list.filter(s=>s.act===fA);
+  if(fS)list=list.filter(s=>s.stu===fS);
+  if(fSt==='p')list=list.filter(s=>!ALL_GRADES.find(g=>g.sid===s.id));
+  if(fSt==='g')list=list.filter(s=>!!ALL_GRADES.find(g=>g.sid===s.id));
+  list.sort((a,b)=>{
+    const ag=!!ALL_GRADES.find(g=>g.sid===a.id),bg=!!ALL_GRADES.find(g=>g.sid===b.id);
+    if(ag!==bg)return ag?1:-1;return new Date(b.at)-new Date(a.at);
+  });
+  const el=document.getElementById('sub-list');
+  if(!list.length){el.innerHTML='<div class="empty"><div class="ico">📭</div><p>No hay entregas con estos filtros.</p></div>';return;}
+  el.innerHTML=list.map(sub=>{
+    const a=ACT.find(x=>x.id===sub.act),g=ALL_GRADES.find(x=>x.sid===sub.id);
+    const words=sub.text?sub.text.trim().split(/\s+/).length:0;
+    const mx=getMax(sub.act);
+    const activeCrits=getActiveCrits(sub.act);
+    const gradeDetail=g?activeCrits.map(c=>`${c.id.replace('c','')}:${g[c.id]||0}`).join(' '):'';
+    return `<div class="srow ${g?'graded':''}" onclick="openRev('${sub.id}')">
+      <div style="flex:1">
+        <div class="sname">${esc(sub.stu)}</div>
+        <div class="smeta">${a?a.title:sub.act} · ${words} palabras · ${fmtDate(sub.at)}</div>
+        ${g?`<div style="font-size:.72rem;color:var(--green);margin-top:.2rem">${g.tot}/${mx} pts (${gradeDetail})</div>`:''}
+      </div>
+      <div style="display:flex;align-items:center;gap:.65rem;flex-shrink:0">
+        ${g?`<div class="sgrade-big">${g.tot}<span style="font-size:.75rem;color:var(--slate-light)">/${mx}</span></div>`
+          :'<span class="badge" style="background:#fef3c7;color:#92400e;font-size:.7rem">Pendiente</span>'}
+        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openRev('${sub.id}')">${g?'✏️ Revisar':'📝 Evaluar'}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderStats(){
+  const el=document.getElementById('stats-content');
+  if(!ALL_SUBS.length){el.innerHTML='<div class="empty"><div class="ico">📊</div><p>Sin datos aún.</p></div>';return;}
+  const actRows=ACT.map(a=>{
+    const subs=ALL_SUBS.filter(s=>s.act===a.id);
+    const grades=subs.map(s=>ALL_GRADES.find(g=>g.sid===s.id)).filter(Boolean);
+    const mx=getMax(a.id);
+    const avg=grades.length?(grades.reduce((t,g)=>t+parseFloat(g.tot),0)/grades.length).toFixed(1):'–';
+    const pct=avg!=='–'?Math.round(parseFloat(avg)/mx*100)+'%':'–';
+    return{a,subs:subs.length,graded:grades.length,avg,mx,pct};
+  }).filter(r=>r.subs>0);
+  const stus=[...new Set(ALL_SUBS.map(s=>s.stu))].sort();
+  const stuRows=stus.map(name=>{
+    const grades=ALL_GRADES.filter(g=>g.stu===name);
+    const avgPct=grades.length
+      ?Math.round(grades.reduce((a,g)=>{const mx=getMax(g.act);return a+(g.tot/mx*100);},0)/grades.length)+'%'
+      :'–';
+    const cAvg=c=>{
+      const applicable=grades.filter(g=>getActiveCrits(g.act).find(x=>x.id===c));
+      return applicable.length?(applicable.reduce((t,g)=>t+(g[c]||0),0)/applicable.length).toFixed(1):'–';
+    };
+    return{name,subs:ALL_SUBS.filter(s=>s.stu===name).length,graded:grades.length,avgPct,
+      cA:cAvg('cA'),cB:cAvg('cB'),cC:cAvg('cC'),cD:cAvg('cD')};
+  });
+
+  el.innerHTML=`
+    <div class="card" style="margin-bottom:1rem">
+      <h3 style="margin-bottom:1rem">Media por actividad</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:.82rem;font-family:var(--sans)">
+        <thead><tr style="border-bottom:2px solid var(--gray-200)">
+          <th style="text-align:left;padding:.5rem .75rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Actividad</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Criterios</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Entregas</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Media</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">%</th>
+        </tr></thead>
+        <tbody>${actRows.map(r=>`<tr style="border-bottom:1px solid var(--gray-200)">
+          <td style="padding:.5rem .75rem;font-weight:500">${r.a.title}</td>
+          <td style="padding:.5rem;text-align:center;font-size:.72rem">${getCritsLabel(r.a.crits)}</td>
+          <td style="padding:.5rem;text-align:center">${r.subs}</td>
+          <td style="padding:.5rem;text-align:center;font-weight:700">${r.avg}/${r.mx}</td>
+          <td style="padding:.5rem;text-align:center;font-weight:700;color:${r.pct!=='–'&&parseInt(r.pct)>=69?'var(--green)':parseInt(r.pct)>=50?'var(--amber)':'var(--red)'}">${r.pct}</td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:.25rem">Resultados por alumna</h3>
+      <p style="font-size:.78rem;margin-bottom:1rem">La media de cada criterio incluye solo las actividades en que ese criterio se aplica.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.82rem;font-family:var(--sans)">
+        <thead><tr style="border-bottom:2px solid var(--gray-200)">
+          <th style="text-align:left;padding:.5rem .75rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Alumna</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Media %</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Crit.A</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Crit.B</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Crit.C</th>
+          <th style="padding:.5rem;color:var(--slate-light);font-size:.7rem;text-transform:uppercase">Crit.D</th>
+        </tr></thead>
+        <tbody>${stuRows.map(r=>`<tr style="border-bottom:1px solid var(--gray-200)">
+          <td style="padding:.5rem .75rem;font-weight:600;color:var(--navy)">${esc(r.name)}</td>
+          <td style="padding:.5rem;text-align:center;font-weight:700;color:${r.avgPct!=='–'&&parseInt(r.avgPct)>=69?'var(--green)':parseInt(r.avgPct)>=50?'var(--amber)':'var(--red)'}">${r.avgPct}</td>
+          <td style="padding:.5rem;text-align:center">${r.cA}</td>
+          <td style="padding:.5rem;text-align:center">${r.cB}</td>
+          <td style="padding:.5rem;text-align:center">${r.cC}</td>
+          <td style="padding:.5rem;text-align:center">${r.cD}</td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>`;
+}
+
+// REVIEW PANEL
+function openRev(subId){
+  const sub=ALL_SUBS.find(s=>s.id===subId);if(!sub)return;
+  CUR_REV=subId;
+  const a=ACT.find(x=>x.id===sub.act),eg=ALL_GRADES.find(g=>g.sid===subId);
+  const activeCrits=getActiveCrits(sub.act);
+  const mx=getMax(sub.act);
+
+  CUR_CRITS=eg?{cA:eg.cA||0,cB:eg.cB||0,cC:eg.cC||0,cD:eg.cD||0}:{cA:0,cB:0,cC:0,cD:0};
+  const words=sub.text?sub.text.trim().split(/\s+/).length:0;
+
+  document.getElementById('rv-title').textContent=`Evaluando: ${sub.stu} — ${a?a.title:''}`;
+  document.getElementById('rv-name').textContent=sub.stu;
+  document.getElementById('rv-act').textContent=a?a.title:sub.act;
+  document.getElementById('rv-date').textContent=fmtDate(sub.at);
+  document.getElementById('rv-words').textContent=`${words} palabras`;
+  document.getElementById('rv-text').textContent=sub.text||'(texto no disponible)';
+  document.getElementById('rv-fb').value=eg?eg.fb:'';
+  document.getElementById('rv-msg').style.display='none';
+  document.getElementById('rv-max-lbl').textContent=`/${mx}`;
+  document.getElementById('rv-crits-sub').textContent=
+    `Esta actividad se evalúa con los criterios ${getCritsLabel(a.crits)} (${getTypeLabel(a.crits)}) · Puntuación máxima: ${mx} puntos`;
+
+  // Info note
+  const naIds=CRIT.filter(c=>!a.crits.includes(c.id)).map(c=>c.name.split('–')[0].trim());
+  document.getElementById('rv-crits-note').textContent=
+    naIds.length
+      ? `ℹ️ En esta actividad solo se aplican los criterios ${getCritsLabel(a.crits)}. ${naIds.join(' y ')} no se evalúa en este tipo de tarea.`
+      : `ℹ️ Esta tarea sumativa se evalúa con los cuatro criterios PAI.`;
+
+  // Render criteria blocks
+  document.getElementById('rv-crits').innerHTML=CRIT.map(c=>{
+    const isActive=a.crits.includes(c.id);
+    if(!isActive){
+      return `<div class="crit-na">
+        <div style="font-size:1.2rem">⊘</div>
+        <div><div class="crit-name">${c.name}</div>
+        <div style="font-size:.72rem;color:var(--slate-light)">No aplica en actividades de ${getTypeLabel(a.crits).toLowerCase()}</div></div>
+      </div>`;
+    }
+    return `<div class="crit-block">
+      <div class="crit-header">
+        <div><div class="crit-name">${c.name}</div><div class="crit-desc">${c.desc}</div></div>
+        <div class="crit-score-badge" id="csb-${c.id}">${CUR_CRITS[c.id]}<span class="denom">/8</span></div>
+      </div>
+      <div class="crit-btns" id="crb-${c.id}">
+        ${[0,1,2,3,4,5,6,7,8].map(v=>`<button class="cbit ${CUR_CRITS[c.id]===v?'sel':''}"
+          onclick="setCrit('${c.id}',${v},'${sub.act}')" title="${c.bands[getBand(v)].t}">${v}</button>`).join('')}
+      </div>
+      <div class="crit-band" id="cbd-${c.id}">
+        <strong>Nivel ${c.bands[getBand(CUR_CRITS[c.id])].r}:</strong> ${c.bands[getBand(CUR_CRITS[c.id])].t}
+      </div>
+    </div>`;
+  }).join('');
+
+  updScore(sub.act);
+  const panel=document.getElementById('rev-panel');
+  panel.style.display='block';
+  setTimeout(()=>panel.scrollIntoView({behavior:'smooth'}),50);
+}
+
+function closeRev(){document.getElementById('rev-panel').style.display='none';CUR_REV='';}
+
+function setCrit(id,val,actId){
+  CUR_CRITS[id]=val;
+  document.querySelectorAll(`#crb-${id} .cbit`).forEach((b,i)=>b.classList.toggle('sel',i===val));
+  const c=CRIT.find(x=>x.id===id);
+  document.getElementById(`csb-${id}`).innerHTML=`${val}<span class="denom">/8</span>`;
+  document.getElementById(`cbd-${id}`).innerHTML=`<strong>Nivel ${c.bands[getBand(val)].r}:</strong> ${c.bands[getBand(val)].t}`;
+  const sub=ALL_SUBS.find(s=>s.id===CUR_REV);
+  updScore(sub?sub.act:actId);
+}
+
+function updScore(actId){
+  const activeCrits=getActiveCrits(actId||CUR_ACT);
+  const mx=activeCrits.length*8;
+  const tot=activeCrits.reduce((s,c)=>s+(CUR_CRITS[c.id]||0),0);
+  const detail=activeCrits.map(c=>`${c.id.replace('c','')}:${CUR_CRITS[c.id]||0}`).join(' ');
+  document.getElementById('rv-pts-detail').textContent=detail;
+  document.getElementById('rv-score').textContent=tot;
+  document.getElementById('rv-max-lbl').textContent=`/${mx}`;
+}
+
+function genTpl(){
+  const sub=ALL_SUBS.find(s=>s.id===CUR_REV);if(!sub)return;
+  const a=ACT.find(x=>x.id===sub.act);
+  const activeCrits=getActiveCrits(sub.act);
+  const mx=getMax(sub.act);
+  const tot=activeCrits.reduce((s,c)=>s+(CUR_CRITS[c.id]||0),0);
+
+  const improve={
+    0:'Para mejorar: revisa las instrucciones de la actividad y trabaja a partir de los modelos de referencia.',
+    1:'Para mejorar: profundiza en el desarrollo de las ideas y trabaja la terminología específica de la materia.',
+    2:'Para mejorar: trabaja la coherencia y apoya tus ideas con más ejemplos y citas del texto.',
+    3:'Para mejorar: profundiza en las conexiones entre los elementos para alcanzar el nivel perspicaz.',
+    4:'Sigue trabajando en esta línea y mantén esta calidad en las próximas tareas.'
+  };
+
+  const tplLines=activeCrits.map(c=>{
+    const band=getBand(CUR_CRITS[c.id]);
+    const bdata=c.bands[band];
+    return `─ ${c.name} (${CUR_CRITS[c.id]}/8 · Nivel ${bdata.r}) ─\n${bdata.t}\n${improve[band]}`;
+  });
+
+  const pct=Math.round(tot/mx*100);
+  const global=pct>=88?'Trabajo sobresaliente. Demuestra un dominio sólido de todos los criterios evaluados. Excelente nivel.'
+    :pct>=69?'Muy buen trabajo. Con atención a los aspectos señalados puedes alcanzar el nivel superior.'
+    :pct>=50?'Trabajo adecuado que muestra comprensión de la tarea. Trabaja especialmente los criterios con puntuación más baja.'
+    :pct>=31?'Trabajo en desarrollo. Es necesario profundizar en cada criterio. Revisa los descriptores y los modelos de referencia.'
+    :'El trabajo necesita una revisión significativa. Atiende a los criterios señalados y consulta con la profesora.';
+
+  document.getElementById('rv-fb').value=
+`Evaluación PAI – "${a?a.title:'la actividad'}"
+Alumna: ${sub.stu}
+Fecha: ${fmtDate(new Date().toISOString())}
+Criterios evaluados: ${getCritsLabel(a.crits)} · Puntuación: ${tot}/${mx} (${pct}%)
+
+${tplLines.join('\n\n')}
+
+─ VALORACIÓN GLOBAL ─
+${global}`;
+}
+
+async function doSaveGrade(){
+  if(!CUR_REV)return;
+  const sub=ALL_SUBS.find(s=>s.id===CUR_REV);if(!sub)return;
+  const activeCrits=getActiveCrits(sub.act);
+  const tot=activeCrits.reduce((s,c)=>s+(CUR_CRITS[c.id]||0),0);
+  const fb=document.getElementById('rv-fb').value.trim();
+  ALL_GRADES=ALL_GRADES.filter(g=>g.sid!==CUR_REV);
+  ALL_GRADES.push({sid:CUR_REV,stu:sub.stu,act:sub.act,
+    cA:CUR_CRITS.cA,cB:CUR_CRITS.cB,cC:CUR_CRITS.cC,cD:CUR_CRITS.cD,
+    tot,fb,at:new Date().toISOString()});
+  await postGS({type:'grade',sid:CUR_REV,tot,
+    cA:CUR_CRITS.cA,cB:CUR_CRITS.cB,cC:CUR_CRITS.cC,cD:CUR_CRITS.cD,fb});
+  const msg=document.getElementById('rv-msg');
+  msg.innerHTML='<div class="alert alert-success">✅ Evaluación guardada. La alumna ya puede consultarla.</div>';
+  msg.style.display='block';setTimeout(()=>msg.style.display='none',4000);
+  renderSubs();
+}
+
+function doExport(){
+  if(!ALL_SUBS.length)return alert('No hay entregas para exportar.');
+  const rows=[['Alumna','Actividad','Tipo de tarea','Criterios','Máx.','Palabras','Enviado','Puntuación','%','Crit.A','Crit.B','Crit.C','Crit.D','Feedback']];
+  ALL_SUBS.forEach(sub=>{
+    const a=ACT.find(x=>x.id===sub.act),g=ALL_GRADES.find(x=>x.sid===sub.id);
+    const mx=getMax(sub.act);
+    const w=sub.text?sub.text.trim().split(/\s+/).length:0;
+    const pct=g?Math.round(g.tot/mx*100)+'%':'';
+    rows.push([sub.stu,a?a.title:sub.act,a?getTypeLabel(a.crits):'',
+      a?getCritsLabel(a.crits):'',mx,w,fmtDate(sub.at),
+      g?g.tot:'Pendiente',pct,
+      g?g.cA:'',g?g.cB:'',g?g.cC:'',g?g.cD:'',
+      g?(g.fb||'').replace(/\n/g,' ').replace(/,/g,';'):''
+    ]);
+  });
+  const csv='\uFEFF'+rows.map(r=>r.map(c=>`"${c}"`).join(',')).join('\n');
+  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+  const link=document.createElement('a');link.href=url;
+  link.download=`taller_pai_${new Date().toISOString().slice(0,10)}.csv`;
+  link.click();URL.revokeObjectURL(url);
+}
+
+function fmtDate(iso){if(!iso)return'–';return new Date(iso).toLocaleString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+document.addEventListener('DOMContentLoaded',()=>go('login'));
+</script>
+</body>
+</html>
