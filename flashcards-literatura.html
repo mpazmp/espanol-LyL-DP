@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarjetas de estudio – Literatura española siglos XVI y XVII</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #f5f4f0;
+    color: #1a1a18;
+    min-height: 100vh;
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  h1 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #3C3489;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Filtros ── */
+  #filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .filter-btn {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 13px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { background: #ece9ff; border-color: #7F77DD; color: #3C3489; }
+  .filter-btn.active { border-width: 1.5px; }
+
+  /* ── Tarjeta ── */
+  #flip-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.75rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    position: relative;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  #flip-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+  .cat-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 11px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+  #card-pos {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-size: 11px;
+    color: #999;
+  }
+  #card-text {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #1a1a18;
+    max-width: 480px;
+  }
+  #answer-text {
+    display: none;
+    margin-top: 1rem;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #444;
+    max-width: 480px;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+  #card-hint {
+    position: absolute;
+    bottom: 14px;
+    font-size: 11px;
+    color: #aaa;
+  }
+
+  /* ── Barra de progreso ── */
+  .prog-wrap { max-width: 640px; margin: 0.75rem auto 0; }
+  .prog-bg { background: #e5e3dd; border-radius: 4px; height: 4px; }
+  .prog-fill { height: 4px; border-radius: 4px; background: #534AB7; transition: width 0.3s; }
+  .prog-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+  }
+
+  /* ── Controles ── */
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 1.25rem auto 0;
+    max-width: 640px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.12s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { background: #f0effe; border-color: #7F77DD; }
+  .nav-btn:disabled { opacity: 0.35; cursor: default; background: #fff; border-color: #ccc; }
+  .btn-group { display: flex; gap: 8px; }
+
+  /* ── Animación ── */
+  @keyframes flipIn {
+    from { transform: rotateY(80deg) scale(0.97); opacity: 0; }
+    to   { transform: rotateY(0deg)  scale(1);    opacity: 1; }
+  }
+  .anim { animation: flipIn 0.22s ease-out; }
+</style>
+</head>
+<body>
+
+<h1>Literatura española — siglos XVI y XVII &nbsp;·&nbsp; 3.º ESO</h1>
+
+<div id="filter-row"></div>
+
+<div id="flip-card" onclick="handleFlip()">
+  <span id="card-pos"></span>
+  <div id="cat-pill-el" class="cat-pill"></div>
+  <div id="card-text"></div>
+  <div id="answer-text"></div>
+  <span id="card-hint"></span>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="prog-labels">
+    <span id="prog-label">0 vistas</span>
+    <span id="seen-pct">0%</span>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="nav-btn" id="btn-prev" onclick="go(-1)">← Anterior</button>
+  <div class="btn-group">
+    <button class="nav-btn" onclick="shuffle()">⇄ Barajar</button>
+    <button class="nav-btn" onclick="resetAll()">↺ Reiniciar</button>
+  </div>
+  <button class="nav-btn" id="btn-next" onclick="go(1)">Siguiente →</button>
+</div>
+
+<script>
+const CATS = {
+  "Contexto":    { color:"#534AB7", bg:"#EEEDFE", text:"#3C3489", border:"#AFA9EC" },
+  "Renacimiento":{ color:"#185FA5", bg:"#E6F1FB", text:"#0C447C", border:"#85B7EB" },
+  "Barroco":     { color:"#993C1D", bg:"#FAECE7", text:"#712B13", border:"#F0997B" },
+  "Géneros":     { color:"#0F6E56", bg:"#E1F5EE", text:"#085041", border:"#5DCAA5" },
+  "Autores XVI": { color:"#854F0B", bg:"#FAEEDA", text:"#633806", border:"#EF9F27" },
+  "Autores XVII":{ color:"#993556", bg:"#FBEAF0", text:"#72243E", border:"#ED93B1" },
+  "Conceptos":   { color:"#5F5E5A", bg:"#F1EFE8", text:"#2C2C2A", border:"#B4B2A9" }
+};
+
+const ALL = [
+  ["¿Qué acontecimiento histórico puso fin a la Reconquista en 1492?","La toma de Granada por los Reyes Católicos.","Contexto"],
+  ["¿Qué monarca gobernó el Imperio español entre 1516 y 1556, siendo también emperador de Alemania?","Carlos I (o Carlos V de Alemania).","Contexto"],
+  ["¿En qué año llegó Cristóbal Colón a América bajo el patrocinio de los Reyes Católicos?","1492.","Contexto"],
+  ["¿Qué victoria naval frente al Imperio otomano tuvo lugar en 1571 bajo Felipe II?","La batalla de Lepanto.","Contexto"],
+  ["¿Qué invento llegado a España hacia 1472 fue clave para la difusión del Humanismo?","La imprenta.","Contexto"],
+  ["¿Cómo se denomina el movimiento intelectual que sitúa al ser humano en el centro del pensamiento?","Humanismo.","Renacimiento"],
+  ["¿Qué hito religioso iniciado por Lutero en 1517 generó un fuerte debate en el siglo XVI?","La Reforma protestante.","Contexto"],
+  ["¿Qué nombre recibe la respuesta de la Iglesia católica a la Reforma luterana (1545-1563)?","La Contrarreforma.","Contexto"],
+  ["Menciona los tres monarcas que reinaron en España durante el siglo XVII.","Felipe III, Felipe IV y Carlos II.","Contexto"],
+  ["¿Qué conflicto bélico europeo marcó gran parte del siglo XVII español?","La Guerra de los Treinta Años.","Contexto"],
+  ["¿En qué año se produjo la pérdida de Portugal por la Corona española?","1640.","Contexto"],
+  ["¿Cuál es el sentimiento vital predominante en la cultura del siglo XVII?","El desengaño.","Barroco"],
+  ["¿Qué término designa el período de máximo esplendor literario en los siglos XVI y XVII?","Siglo de Oro.","Contexto"],
+  ["Concepto: Antropocentrismo.","Visión del mundo que sitúa al ser humano como medida de todas las cosas, sustituyendo al teocentrismo medieval.","Conceptos"],
+  ["¿Qué modelos literarios recuperan los autores del Renacimiento?","Los textos de la Antigüedad clásica grecolatina.","Renacimiento"],
+  ["¿Qué país fue la cuna del Renacimiento e influyó más en la literatura española?","Italia.","Renacimiento"],
+  ["Concepto: Locus amoenus.","Tópico literario que describe un paisaje idealizado, armonioso y tranquilo.","Conceptos"],
+  ["¿Cómo se concibe el amor en la mentalidad renacentista?","Como una fuerza que eleva al ser humano hacia la belleza y el bien.","Renacimiento"],
+  ["¿Quién publicó en 1492 la primera Gramática de la lengua castellana?","Antonio de Nebrija.","Renacimiento"],
+  ["En el Barroco se prefiere la dificultad y el _____ exagerado.","Ornamento.","Barroco"],
+  ["Concepto: Culteranismo.","Tendencia barroca que busca la belleza formal mediante lenguaje complejo, latinismos y metáforas.","Conceptos"],
+  ["¿Quién es el máximo representante del culteranismo en la poesía española?","Luis de Góngora.","Barroco"],
+  ["Concepto: Conceptismo.","Tendencia barroca que prioriza la agudeza mental, los juegos de palabras y las ideas ingeniosas.","Conceptos"],
+  ["¿Qué autores representan principalmente el conceptismo?","Francisco de Quevedo y Baltasar Gracián.","Barroco"],
+  ["¿Qué verso de once sílabas se introdujo en la lírica española durante el Renacimiento?","El endecasílabo.","Géneros"],
+  ["¿Qué estructura estrófica de catorce versos se popularizó en el siglo XVI?","El soneto.","Géneros"],
+  ["Menciona los dos poetas pioneros en introducir los metros italianos en España.","Juan Boscán y Garcilaso de la Vega.","Autores XVI"],
+  ["El tópico que exhorta a disfrutar del presente antes de envejecer se llama _____.","Carpe diem.","Conceptos"],
+  ["Concepto: Poesía mística.","Subgénero lírico que expresa la experiencia espiritual de unión del alma con Dios.","Conceptos"],
+  ["¿Qué obra de 1554 inauguró el género de la novela picaresca?","Lazarillo de Tormes.","Géneros"],
+  ["Menciona tres características del protagonista de la novela picaresca.","Origen humilde, narración en primera persona y servicio a varios amos.","Géneros"],
+  ["¿Qué característica formal hace del Quijote la primera novela moderna?","Su carácter polifónico y la evolución psicológica de sus personajes.","Autores XVII"],
+  ["¿Qué autor sentó las bases de la escena española en el siglo XVI con sus églogas?","Juan del Encina.","Autores XVI"],
+  ["Concepto: Pasos.","Piezas teatrales breves y cómicas protagonizadas por personajes populares, creadas por Lope de Rueda.","Conceptos"],
+  ["¿Qué nombre recibe el género teatral del siglo XVII que mezcla lo trágico con lo cómico?","Comedia Nueva.","Géneros"],
+  ["Concepto: Autos sacramentales.","Obras teatrales de carácter religioso y alegórico representadas en la festividad del Corpus Christi.","Conceptos"],
+  ["¿Cuál es la obra cumbre de Garcilaso de la Vega?","Égloga I.","Autores XVI"],
+  ["¿A qué orden religiosa perteneció Fray Luis de León?","Orden de San Agustín (fraile agustino).","Autores XVI"],
+  ["¿Qué obra de Fray Luis de León exalta el ideal de apartarse del mundo?","Oda a la vida retirada.","Autores XVI"],
+  ["Nombra los tres grandes poemas de San Juan de la Cruz.","Noche oscura, Cántico espiritual y Llama de amor viva.","Autores XVI"],
+  ["¿Qué santa abulense fundó conventos reformados y escribió Camino de perfección?","Santa Teresa de Jesús.","Autores XVI"],
+  ["¿Cuál es el título alternativo de Las moradas de Santa Teresa?","El castillo interior.","Autores XVI"],
+  ["¿Qué poeta sevillano del siglo XVI recibió el sobrenombre de «El Divino»?","Fernando de Herrera.","Autores XVI"],
+  ["¿Por qué es históricamente relevante el Lazarillo de Tormes?","Por ser la primera novela picaresca con tono crítico y satírico.","Géneros"],
+  ["¿En qué famosa batalla participó Miguel de Cervantes en 1571?","Batalla de Lepanto.","Autores XVII"],
+  ["¿En qué años se publicaron las dos partes del Quijote?","En 1605 (primera parte) y 1615 (segunda parte).","Autores XVII"],
+  ["¿Cómo se titula la colección de doce relatos cortos de Cervantes de 1613?","Novelas ejemplares.","Autores XVII"],
+  ["Menciona las dos obras mayores de Góngora.","Soledades y Fábula de Polifemo y Galatea.","Autores XVII"],
+  ["¿Cuál es el tema del soneto de Quevedo Amor constante más allá de la muerte?","La persistencia del amor tras la muerte física.","Autores XVII"],
+  ["¿Qué novela picaresca escribió Francisco de Quevedo?","La vida del Buscón (o El Buscón).","Autores XVII"],
+  ["¿Qué obra de Quevedo consiste en cuadros satíricos de crítica social?","Los Sueños.","Autores XVII"],
+  ["¿Cuál es la obra más ambiciosa de Baltasar Gracián?","El Criticón.","Autores XVII"],
+  ["¿Qué libro de Gracián ofrece máximas para triunfar en el mundo?","Oráculo manual y arte de prudencia.","Autores XVII"],
+  ["¿En qué obra de 1609 expuso Lope de Vega sus principios para el teatro?","Arte nuevo de hacer comedias en este tiempo.","Autores XVII"],
+  ["Menciona dos comedias famosas de Lope de Vega.","Fuenteovejuna y El caballero de Olmedo.","Autores XVII"],
+  ["¿Quién escribió El burlador de Sevilla, donde aparece el personaje de Don Juan?","Tirso de Molina.","Autores XVII"],
+  ["¿Qué drama teológico de Tirso aborda la salvación y la condena?","El condenado por desconfiado.","Autores XVII"],
+  ["¿Cuál es la obra de Calderón que reflexiona sobre la realidad y el sueño?","La vida es sueño.","Autores XVII"],
+  ["¿Qué obra de Calderón representa el tema del honor en el Barroco?","El alcalde de Zalamea.","Autores XVII"],
+  ["¿Cuál es el auto sacramental más celebrado de Calderón de la Barca?","El gran teatro del mundo.","Autores XVII"],
+  ["¿Qué monarca mandó construir el monasterio de El Escorial?","Felipe II.","Contexto"],
+  ["El Renacimiento se caracteriza por su espíritu de _____, frente al pesimismo del XVII.","Optimismo y expansión.","Renacimiento"],
+  ["¿Qué recursos retóricos son típicos del lenguaje barroco?","Metáforas, hipérbatos, paradojas y antítesis.","Barroco"],
+  ["¿Qué tipo de métrica de origen italiano incluye la estrofa conocida como lira?","La métrica petrarquista.","Géneros"],
+  ["¿Qué autor del Siglo de Oro era conocido como el Fénix de los ingenios?","Lope de Vega.","Autores XVII"],
+  ["¿Cómo se llama el seudónimo bajo el que escribía el fraile Gabriel Téllez?","Tirso de Molina.","Autores XVII"],
+  ["¿Qué diferencia el estilo de Santa Teresa de otros escritores de su época?","Su prosa es directa, vivaz y alejada de la afectación literaria.","Autores XVI"],
+  ["¿Cuántos actos solían tener las comedias según la reforma de Lope de Vega?","Tres actos.","Géneros"],
+  ["¿Cómo se manifiesta la tensión barroca en la literatura?","Mediante el contraste de extremos: lo sublime y lo ridículo, la vida y la muerte.","Barroco"],
+  ["¿Qué género narrativo presenta a pastores en un entorno idílico que sufren por amor?","Novela pastoril.","Géneros"],
+  ["¿Cuál es la diferencia principal entre la lírica del siglo XVI y la del XVII?","La del XVI busca armonía y serenidad; la del XVII, artificio y profundidad filosófica.","Géneros"],
+  ["Menciona una obra patriótica de Fernando de Herrera.","Canción por la victoria de Lepanto.","Autores XVI"],
+  ["¿Qué autor fue admirado por Cervantes por sus piezas teatrales populares?","Lope de Rueda.","Autores XVI"],
+  ["¿Qué lengua era la lengua del saber en el Renacimiento, a pesar del auge del castellano?","El latín.","Renacimiento"],
+  ["Concepto: Égloga.","Poema en el que pastores idealizados dialogan sobre sus penas amorosas en una naturaleza idílica.","Conceptos"],
+  ["¿Qué obra de Santa Teresa de Jesús tiene carácter autobiográfico?","El libro de la vida.","Autores XVI"],
+  ["¿Qué autor barroco escribió también romances y letrillas de tono popular y burlón?","Luis de Góngora.","Autores XVII"],
+  ["¿Quién escribió el soneto ¡Ah de la vida! ¿Nadie me responde? sobre el paso del tiempo?","Francisco de Quevedo.","Autores XVII"],
+  ["¿Qué filósofos y poetas latinos inspiraron la obra de Fray Luis de León?","Horacio y Virgilio.","Autores XVI"],
+  ["¿En qué ciudad nació Santa Teresa de Jesús?","Ávila.","Autores XVI"],
+  ["El Lazarillo de Tormes emplea la narración en _____ persona.","Primera.","Géneros"],
+  ["¿Qué obra de Tirso de Molina es una famosa comedia de enredo?","Don Gil de las calzas verdes.","Autores XVII"]
+];
+
+let deck = [...ALL], idx = 0, revealed = false, seen = new Set(), activeFilter = "Todas";
+
+function buildFilters() {
+  const row = document.getElementById('filter-row');
+  row.innerHTML = '';
+  ["Todas", ...Object.keys(CATS)].forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (cat === activeFilter ? ' active' : '');
+    btn.textContent = cat;
+    if (cat === activeFilter) {
+      const s = cat === "Todas" ? { color:"#534AB7", bg:"#EEEDFE", text:"#3C3489" } : CATS[cat];
+      btn.style.cssText = `background:${s.bg};border-color:${s.color};color:${s.text}`;
+    }
+    btn.onclick = () => { activeFilter = cat; setDeck(); buildFilters(); };
+    row.appendChild(btn);
+  });
+}
+
+function setDeck() {
+  deck = activeFilter === "Todas" ? [...ALL] : ALL.filter(c => c[2] === activeFilter);
+  idx = 0; seen = new Set(); revealed = false; render();
+}
+
+function render() {
+  const card = deck[idx];
+  const s = CATS[card[2]];
+  const pill = document.getElementById('cat-pill-el');
+  pill.textContent = card[2];
+  pill.style.cssText = `background:${s.bg};color:${s.text};border:1px solid ${s.border}`;
+
+  document.getElementById('card-text').textContent = card[0];
+  const ans = document.getElementById('answer-text');
+  ans.textContent = card[1];
+  ans.style.display = revealed ? 'block' : 'none';
+
+  const fc = document.getElementById('flip-card');
+  fc.style.borderColor = revealed ? s.color : '#ddd';
+  fc.style.borderWidth = revealed ? '1.5px' : '1px';
+
+  document.getElementById('card-hint').textContent = revealed ? 'Toca para pasar a la siguiente' : 'Toca para ver la respuesta';
+  document.getElementById('card-pos').textContent = (idx + 1) + ' / ' + deck.length;
+  document.getElementById('btn-prev').disabled = idx === 0;
+  document.getElementById('btn-next').disabled = idx === deck.length - 1;
+
+  const pct = Math.round(seen.size / deck.length * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = seen.size + ' vista' + (seen.size !== 1 ? 's' : '');
+  document.getElementById('seen-pct').textContent = pct + '%';
+
+  fc.classList.remove('anim');
+  void fc.offsetWidth;
+  fc.classList.add('anim');
+}
+
+function handleFlip() {
+  if (!revealed) { revealed = true; seen.add(idx); }
+  else if (idx < deck.length - 1) { idx++; revealed = false; }
+  render();
+}
+
+function go(dir) {
+  idx = Math.max(0, Math.min(deck.length - 1, idx + dir));
+  revealed = false; render();
+}
+
+function shuffle() {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  idx = 0; seen = new Set(); revealed = false; render();
+}
+
+function resetAll() {
+  deck = activeFilter === "Todas" ? [...ALL] : ALL.filter(c => c[2] === activeFilter);
+  idx = 0; seen = new Set(); revealed = false; render();
+}
+
+buildFilters();
+render();
+</script>
+</body>
+</html>
