@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Literatura española del siglo XX · Tarjetas de estudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #F3EDE0;
+    --papel-claro: #FBF7EE;
+    --papel-sombra: #E7DEC9;
+    --tinta: #1E2840;
+    --tinta-suave: #3A4560;
+    --tinta-profunda: #141C2E;
+    --ocre: #8F6A2E;
+    --ocre-claro: #B5894A;
+    --granate: #7A2E2A;
+    --gris-polvo: #8F857A;
+    --linea: #CFC4B0;
+
+    /* Colores por género */
+    --c-narrativa: #1E2840;
+    --c-poesia:    #8F6A2E;
+    --c-teatro:    #7A2E2A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Textura de papel envejecido */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(143, 106, 46, 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(30, 40, 64, 0.04) 0%, transparent 45%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.10 0 0 0 0 0.08 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.9;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ENCABEZADO ------------------------------------- */
+  header {
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--linea);
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gris-polvo);
+    margin-bottom: 1.2rem;
+  }
+
+  .meta span {
+    display: inline-block;
+    padding: 0 0.8rem;
+  }
+
+  .meta span + span {
+    border-left: 1px solid var(--linea);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--tinta);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--ocre);
+    font-weight: 400;
+  }
+
+  .subtitulo {
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    color: var(--tinta-suave);
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .ornamento {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    color: var(--ocre);
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+  }
+
+  .ornamento .linea {
+    width: 40px;
+    height: 1px;
+    background: var(--ocre);
+  }
+
+  /* FILTROS POR GÉNERO ----------------------------- */
+  .filtros {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filtro {
+    background: transparent;
+    border: 1px solid var(--linea);
+    color: var(--tinta-suave);
+    padding: 0.6rem 1.1rem;
+    font-family: 'Fraunces', serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 2px;
+  }
+
+  .filtro .cuenta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gris-polvo);
+    font-weight: 500;
+  }
+
+  .filtro:hover {
+    border-color: var(--tinta);
+    color: var(--tinta);
+  }
+
+  .filtro.activo {
+    background: var(--tinta);
+    color: var(--papel-claro);
+    border-color: var(--tinta);
+  }
+
+  .filtro.activo .cuenta {
+    color: var(--ocre-claro);
+  }
+
+  /* Colores específicos por género cuando está activo */
+  .filtro[data-genero="narrativa"].activo { background: var(--c-narrativa); border-color: var(--c-narrativa); }
+  .filtro[data-genero="poesia"].activo    { background: var(--c-poesia);    border-color: var(--c-poesia); }
+  .filtro[data-genero="teatro"].activo    { background: var(--c-teatro);    border-color: var(--c-teatro); }
+
+  /* BARRA DE CONTROLES SUPERIOR -------------------- */
+  .barra-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .contador {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--tinta-suave);
+  }
+
+  .contador .actual {
+    font-size: 1.1rem;
+    color: var(--tinta);
+    font-weight: 500;
+  }
+
+  .contador .total {
+    color: var(--gris-polvo);
+  }
+
+  .contador .genero-activo {
+    display: inline-block;
+    margin-left: 0.8rem;
+    padding-left: 0.8rem;
+    border-left: 1px solid var(--linea);
+    font-size: 0.7rem;
+    color: var(--gris-polvo);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .acciones-extra {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .btn-accion {
+    background: transparent;
+    border: 1px solid var(--linea);
+    color: var(--tinta-suave);
+    padding: 0.5rem 1rem;
+    font-family: 'Fraunces', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.02em;
+    border-radius: 2px;
+  }
+
+  .btn-accion:hover {
+    background: var(--tinta);
+    color: var(--papel-claro);
+    border-color: var(--tinta);
+  }
+
+  .btn-accion.activo {
+    background: var(--granate);
+    color: var(--papel-claro);
+    border-color: var(--granate);
+  }
+
+  /* PROGRESO ---------------------------------------- */
+  .progreso {
+    height: 2px;
+    background: var(--papel-sombra);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progreso-barra {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, var(--tinta), var(--ocre));
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 1.25%;
+  }
+
+  /* TARJETA ----------------------------------------- */
+  .escena {
+    perspective: 2000px;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .tarjeta {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4, 0.15, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .tarjeta.volteada {
+    transform: rotateY(180deg);
+  }
+
+  .cara {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: var(--papel-claro);
+    border: 1px solid var(--linea);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow:
+      0 1px 0 rgba(143, 106, 46, 0.3),
+      0 20px 40px -20px rgba(20, 28, 46, 0.15),
+      0 60px 80px -40px rgba(20, 28, 46, 0.08);
+  }
+
+  /* Decoración esquinas */
+  .cara::before, .cara::after {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--ocre);
+    opacity: 0.4;
+  }
+
+  .cara::before {
+    top: 14px;
+    left: 14px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .cara::after {
+    bottom: 14px;
+    right: 14px;
+    border-left: none;
+    border-top: none;
+  }
+
+  .cara-tras {
+    transform: rotateY(180deg);
+    background: linear-gradient(180deg, var(--tinta) 0%, var(--tinta-profunda) 100%);
+    color: var(--papel-claro);
+    border-color: var(--tinta-profunda);
+  }
+
+  .cara-tras::before, .cara-tras::after {
+    border-color: var(--ocre-claro);
+    opacity: 0.5;
+  }
+
+  .etiqueta-cara {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gris-polvo);
+  }
+
+  .cara-tras .etiqueta-cara {
+    color: var(--ocre-claro);
+  }
+
+  .num-tarjeta {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gris-polvo);
+    letter-spacing: 0.1em;
+  }
+
+  .cara-tras .num-tarjeta {
+    color: var(--ocre-claro);
+    opacity: 0.7;
+  }
+
+  /* Etiqueta de género en la tarjeta */
+  .genero-tarjeta {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .genero-tarjeta::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .genero-tarjeta[data-g="narrativa"] { color: var(--c-narrativa); }
+  .genero-tarjeta[data-g="poesia"]    { color: var(--c-poesia); }
+  .genero-tarjeta[data-g="teatro"]    { color: var(--c-teatro); }
+
+  .cara-tras .genero-tarjeta[data-g="narrativa"] { color: var(--papel-claro); opacity: 0.7; }
+  .cara-tras .genero-tarjeta[data-g="poesia"]    { color: var(--ocre-claro); }
+  .cara-tras .genero-tarjeta[data-g="teatro"]    { color: #D99C98; }
+
+  .contenido {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 72;
+    font-weight: 400;
+    color: var(--tinta);
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .cara-frente .contenido {
+    font-size: clamp(1.2rem, 2.1vw, 1.5rem);
+    line-height: 1.45;
+  }
+
+  .cara-tras .contenido {
+    color: var(--papel-claro);
+    font-size: clamp(1.05rem, 1.9vw, 1.35rem);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .contenido .concepto-titulo {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 500;
+    color: var(--tinta);
+    margin-bottom: 1rem;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+
+  .cara-tras .contenido .concepto-titulo {
+    color: var(--ocre-claro);
+  }
+
+  .contenido .concepto-pista {
+    display: block;
+    font-size: 0.8em;
+    color: var(--gris-polvo);
+    font-style: italic;
+    margin-top: 0.3rem;
+  }
+
+  .pista-volteo {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Fraunces', serif;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--gris-polvo);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cara-tras .pista-volteo {
+    color: var(--ocre-claro);
+    opacity: 0.7;
+  }
+
+  /* NAVEGACIÓN -------------------------------------- */
+  .navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn-nav {
+    background: transparent;
+    border: none;
+    color: var(--tinta);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .btn-nav:hover:not(:disabled) {
+    color: var(--ocre);
+    border-bottom-color: var(--ocre);
+  }
+
+  .btn-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .btn-nav svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-nav:hover:not(:disabled).anterior svg { transform: translateX(-4px); }
+  .btn-nav:hover:not(:disabled).siguiente svg { transform: translateX(4px); }
+
+  .btn-voltear {
+    background: var(--tinta);
+    color: var(--papel-claro);
+    border: none;
+    padding: 0.9rem 2.2rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+
+  .btn-voltear:hover {
+    background: var(--tinta-profunda);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -8px rgba(20, 28, 46, 0.4);
+  }
+
+  /* PIE DE PÁGINA ---------------------------------- */
+  footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--linea);
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gris-polvo);
+    line-height: 1.7;
+  }
+
+  .teclas {
+    display: inline-flex;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tecla {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Lora', serif;
+    font-style: normal;
+    font-size: 0.75rem;
+  }
+
+  .tecla kbd {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--papel-claro);
+    border: 1px solid var(--linea);
+    border-bottom-width: 2px;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.7rem;
+    color: var(--tinta);
+    border-radius: 3px;
+  }
+
+  .cita-cierre {
+    margin-top: 1.5rem;
+    font-style: italic;
+    color: var(--tinta-suave);
+    font-size: 0.9rem;
+  }
+
+  .cita-cierre .autor {
+    color: var(--ocre);
+    font-style: normal;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+  }
+
+  /* RESPONSIVE -------------------------------------- */
+  @media (max-width: 600px) {
+    .app { padding: 2rem 1rem 3rem; }
+    .cara { padding: 2.8rem 1.5rem 2rem; }
+    .tarjeta { min-height: 380px; }
+    .navegacion { flex-wrap: wrap; justify-content: center; }
+    .btn-voltear { order: -1; width: 100%; margin-bottom: 0.5rem; }
+    .barra-control { justify-content: center; }
+    h1 { font-size: 1.8rem; }
+    .filtro { padding: 0.5rem 0.8rem; font-size: 0.82rem; }
+    .genero-tarjeta { font-size: 0.55rem; }
+  }
+
+  @media (max-width: 400px) {
+    .cara::before, .cara::after { width: 20px; height: 20px; }
+    .num-tarjeta, .etiqueta-cara { font-size: 0.6rem; }
+  }
+
+  /* ANIMACIONES ------------------------------------- */
+  @keyframes aparicion {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .tarjeta.cambio { animation: aparicion 0.4s ease forwards; }
+
+  .mensaje-final {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--granate);
+    font-size: 1rem;
+    margin-top: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .mensaje-final.visible { opacity: 1; }
+
+  /* Impresión */
+  @media print {
+    body::before { display: none; }
+    .filtros, .barra-control, .navegacion, footer, .pista-volteo { display: none; }
+    .tarjeta { min-height: 250px; page-break-inside: avoid; }
+    .cara-tras { display: block; position: relative; transform: none; margin-top: 1rem; }
+    .tarjeta { transform-style: flat; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <header>
+    <div class="meta">
+      <span>Narrativa</span>
+      <span>Poesía</span>
+      <span>Teatro</span>
+      <span>90 tarjetas</span>
+    </div>
+    <h1>Literatura española <em>del</em> siglo XX</h1>
+    <p class="subtitulo">De la Generación del 98 a la actualidad</p>
+    <div class="ornamento">
+      <span class="linea"></span>
+      <span>⁂</span>
+      <span class="linea"></span>
+    </div>
+  </header>
+
+  <div class="filtros" id="filtros">
+    <button class="filtro activo" data-genero="todas">Todas <span class="cuenta">90</span></button>
+    <button class="filtro" data-genero="narrativa">Narrativa <span class="cuenta">44</span></button>
+    <button class="filtro" data-genero="poesia">Poesía <span class="cuenta">29</span></button>
+    <button class="filtro" data-genero="teatro">Teatro <span class="cuenta">17</span></button>
+  </div>
+
+  <div class="barra-control">
+    <div class="contador">
+      <span class="actual" id="numActual">01</span>
+      <span> / </span>
+      <span class="total" id="numTotal">90</span>
+      <span class="genero-activo" id="generoActivo"></span>
+    </div>
+    <div class="acciones-extra">
+      <button class="btn-accion" id="btnAleatorio">Aleatorio</button>
+      <button class="btn-accion" id="btnReiniciar">Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="progreso">
+    <div class="progreso-barra" id="progresoBarra"></div>
+  </div>
+
+  <div class="escena">
+    <div class="tarjeta" id="tarjeta">
+      <div class="cara cara-frente">
+        <span class="genero-tarjeta" id="generoFrente" data-g="narrativa"></span>
+        <span class="etiqueta-cara">Pregunta</span>
+        <span class="num-tarjeta" id="numFrente">01 / 90</span>
+        <div class="contenido" id="contenidoFrente"></div>
+        <span class="pista-volteo">volver · pulsa espacio o haz clic</span>
+      </div>
+      <div class="cara cara-tras">
+        <span class="genero-tarjeta" id="generoTras" data-g="narrativa"></span>
+        <span class="etiqueta-cara">Respuesta</span>
+        <span class="num-tarjeta" id="numTras">01 / 90</span>
+        <div class="contenido" id="contenidoTras"></div>
+        <span class="pista-volteo">↩ vuelve a la pregunta</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="navegacion">
+    <button class="btn-nav anterior" id="btnAnterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      Anterior
+    </button>
+    <button class="btn-voltear" id="btnVoltear">Voltear tarjeta</button>
+    <button class="btn-nav siguiente" id="btnSiguiente">
+      Siguiente
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+
+  <p class="mensaje-final" id="mensajeFinal">Has completado todas las tarjetas de este bloque.</p>
+
+  <footer>
+    <p>Panorama de la literatura española del siglo XX · Tarjetas de estudio</p>
+    <div class="teclas">
+      <span class="tecla"><kbd>←</kbd> anterior</span>
+      <span class="tecla"><kbd>→</kbd> siguiente</span>
+      <span class="tecla"><kbd>espacio</kbd> voltear</span>
+      <span class="tecla"><kbd>R</kbd> aleatorio</span>
+    </div>
+    <p class="cita-cierre">«Caminante, no hay camino, se hace camino al andar» <span class="autor">Antonio Machado</span></p>
+  </footer>
+
+</div>
+
+<script>
+// ============================================================
+//  DATOS DE LAS TARJETAS
+//  Género: 'narrativa' | 'poesia' | 'teatro'
+//  Tipo:   'pregunta'  | 'concepto'
+// ============================================================
+const tarjetas = [
+  { pregunta: "¿Qué acontecimiento histórico en 1898 marcó el inicio de la crisis espiritual en la España del siglo XX?", respuesta: "La derrota en la guerra de Cuba frente a Estados Unidos.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué movimiento pretendía encontrar soluciones a los «males de la patria» a principios del siglo XX?", respuesta: "El regeneracionismo.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro autores representativos de la Generación del 98.", respuesta: "Miguel de Unamuno, Pío Baroja, Azorín y Ramón María del Valle-Inclán.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué región geográfica se convirtió en el símbolo de España para los autores del 98?", respuesta: "Castilla.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Intrahistoria", respuesta: "Término de Unamuno que alude a la vida tradicional de los pueblos que sirve de fondo a la historia oficial.", genero: "narrativa", tipo: "concepto" },
+  { pregunta: "¿Cómo denominó Unamuno a sus novelas caracterizadas por la sobriedad y la ausencia de trama argumental?", respuesta: "Nivolas.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos novelas fundamentales de Miguel de Unamuno.", respuesta: "Niebla y San Manuel Bueno, mártir.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué autor es considerado el novelista por excelencia del 98 por su mezcla de pesimismo y vitalismo?", respuesta: "Pío Baroja.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos novelas de Pío Baroja citadas en el texto.", respuesta: "El árbol de la ciencia y Zalacaín el aventurero.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué característica define el estilo narrativo de Azorín?", respuesta: "Un estilo minucioso, lento y de tono lírico con abundancia de descripciones.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Cuál es la última y definitiva etapa de la evolución narrativa de Valle-Inclán?", respuesta: "La etapa esperpéntica.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos obras de Valle-Inclán que pertenezcan a etapas distintas de su evolución.", respuesta: "Sonatas (etapa modernista) y Tirano Banderas (etapa esperpéntica).", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos escritoras vinculadas a la narrativa de principios del siglo XX.", respuesta: "Carmen de Burgos «Colombine» y Concha Espina.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué rasgo principal define la estética de la Generación del 14 o Novecentismo?", respuesta: "El intelectualismo y el rechazo de lo sentimental en la literatura.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos ensayistas destacados del grupo novecentista.", respuesta: "José Ortega y Gasset y Gregorio Marañón.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos novelistas relevantes de la Generación del 14.", respuesta: "Gabriel Miró y Ramón Pérez de Ayala.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores de narrativa vanguardista en España en la década de los 20.", respuesta: "Benjamín Jarnés y Rosa Chacel.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué tendencia literaria surgió en los años 30 como respuesta a las circunstancias históricas?", respuesta: "La rehumanización de la literatura o novela comprometida.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra los dos representantes más destacados de la novela social de los años 30.", respuesta: "Ramón J. Sender y Luisa Carnés.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro autores destacados de la novela en el exilio tras la Guerra Civil.", respuesta: "Ramón J. Sender, Max Aub, Francisco Ayala y Rosa Chacel.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué dos obras de 1942 y 1944 abrieron el camino a la narrativa existencial y tremendista?", respuesta: "La familia de Pascual Duarte (Cela) y Nada (Carmen Laforet).", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores de la línea existencial de los años 40 además de Cela y Laforet.", respuesta: "Miguel Delibes y Gonzalo Torrente Ballester.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Con qué obra de Camilo José Cela se inicia la novela social de los años 50?", respuesta: "La colmena.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro autores representativos de la primera etapa de la novela social (años 50).", respuesta: "Ana María Matute, Carmen Martín Gaite, Ignacio Aldecoa y Rafael Sánchez Ferlosio.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué obra de Luis Martín Santos es considerada la pieza clave de la novela experimental de los años 60?", respuesta: "Tiempo de silencio.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro novelas experimentales publicadas a partir de los años 60.", respuesta: "Señas de identidad, Cinco horas con Mario, Volverás a Región y Últimas tardes con Teresa.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra al autor y la obra de 1975 que marca el inicio del «realismo renovado».", respuesta: "Eduardo Mendoza con La verdad sobre el caso Savolta.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores de la novela de intriga o policíaca actual.", respuesta: "Antonio Muñoz Molina y Lorenzo Silva.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos obras pertenecientes a la tendencia de la novela lírica o poemática.", respuesta: "La lluvia amarilla (Llamazares) y El lápiz del carpintero (Manuel Rivas).", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores y sus obras que se ocupen de la reconstrucción histórica de la Guerra Civil.", respuesta: "Alberto Méndez (Los girasoles ciegos) y Javier Cercas (Soldados de Salamina).", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Metanovela", respuesta: "Narrativa donde el autor reflexiona sobre los aspectos teóricos de la propia novela dentro de la ficción.", genero: "narrativa", tipo: "concepto" },
+  { pregunta: "Nombra dos autores y sus obras representativas de la Generación X.", respuesta: "José Ángel Mañas (Historias del Kronen) y Ray Loriga (Héroes).", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿En qué dos movimientos del siglo XIX se inspira el Modernismo?", respuesta: "El Parnasianismo y el Simbolismo.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra los tres libros que marcan la evolución poética de Rubén Darío.", respuesta: "Azul, Prosas profanas y Cantos de vida y esperanza.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores modernistas españoles además de Antonio Machado y Valle-Inclán.", respuesta: "Francisco Villaespesa y Manuel Machado.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra las dos primeras etapas poéticas de Antonio Machado y sus obras correspondientes.", respuesta: "Etapa modernista (Soledades) y etapa noventayochista (Campos de Castilla).", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra las tres etapas en las que Juan Ramón Jiménez dividió su producción poética.", respuesta: "Etapa sensitiva, época intelectual y etapa última o verdadera.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "¿Qué obra teórica de Ortega y Gasset fue fundamental para el arte novecentista?", respuesta: "La deshumanización del arte.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Quién fue el creador de las «greguerías» y máximo representante del vanguardismo inicial?", respuesta: "Ramón Gómez de la Serna.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra las tres vanguardias que tuvieron más importancia en España.", respuesta: "Creacionismo, ultraísmo y surrealismo.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores y sus obras influenciadas por el surrealismo en España.", respuesta: "Rafael Alberti (Sobre los ángeles) y Federico García Lorca (Poeta en Nueva York).", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "¿Qué acontecimiento dio nombre a la Generación del 27?", respuesta: "El tercer centenario de la muerte de Góngora en el Ateneo de Sevilla.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro rasgos comunes de los poetas del Grupo del 27.", respuesta: "Intelectualismo, depuración del sentimiento, recuperación de formas clásicas y tendencia al equilibrio.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "¿Cómo se denomina la primera etapa de la Generación del 27, basada en la metáfora y la poesía pura?", respuesta: "Poesía deshumanizada (hasta 1927).", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro poetas hombres pertenecientes al Grupo del 27.", respuesta: "Pedro Salinas, Jorge Guillén, Vicente Aleixandre y Luis Cernuda.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro mujeres poetas del grupo «las Sinsombrero».", respuesta: "Concha Méndez, Ernestina de Champourcín, Josefina de la Torre y Carmen Conde.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos revistas fundamentales de la «poesía arraigada» de los años 40.", respuesta: "Garcilaso y Escorial.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "¿Qué revista agrupó a los poetas de la «poesía desarraigada» en los años 40?", respuesta: "Espadaña.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores representativos de la poesía existencial y desarraigada de posguerra.", respuesta: "Dámaso Alonso (Hijos de la ira) y Vicente Aleixandre.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro autores clave de la poesía social de los años 50.", respuesta: "Blas de Otero, Gabriel Celaya, José Hierro y Ángela Figuera.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro poetas representativos de la Generación de los 60 o del medio siglo.", respuesta: "Ángel González, Jaime Gil de Biedma, José Ángel Valente y María Victoria Atencia.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "¿Qué antología de 1970 rompió con la poesía social para abrazar una estética estetizante?", respuesta: "Nueve novísimos poetas españoles.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores incluidos en el grupo de los «novísimos».", respuesta: "Pere Gimferrer y Ana María Moix.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos tendencias poéticas surgidas desde los años 70 en España.", respuesta: "Poesía experimental y culturalismo.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores representativos de la «poesía de la experiencia» de los años 80.", respuesta: "Luis García Montero y Felipe Benítez Reyes.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos poetas jóvenes de la llamada «Poesía 2.0» del siglo XXI.", respuesta: "Marwan y Elvira Sastre.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "¿Quién fue el principal representante del drama burgués comercial a principios del siglo XX?", respuesta: "Jacinto Benavente.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra dos obras de éxito de Jacinto Benavente.", respuesta: "Los intereses creados y La Malquerida.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores del teatro costumbrista de principios de siglo y sus especialidades.", respuesta: "Carlos Arniches (tragedia grotesca) y Pedro Muñoz Seca (astracán).", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "¿Qué autores renovaron el teatro humorístico antes y después de la guerra?", respuesta: "Enrique Jardiel Poncela y Miguel Mihura.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra las dos obras más importantes del teatro del esperpento de Valle-Inclán.", respuesta: "Luces de bohemia y Martes de carnaval.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra las tres obras que componen la etapa de plenitud teatral de Lorca.", respuesta: "Bodas de sangre, Yerma y La casa de Bernarda Alba.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra dos obras del teatro vanguardista y surrealista de Lorca.", respuesta: "El público y Así que pasen cinco años.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra dos obras representativas del teatro de humor de posguerra.", respuesta: "Tres sombreros de copa (Mihura) y Eloísa está debajo de un almendro (Jardiel Poncela).", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "¿Quién es el autor de las obras fundamentales «Historia de una escalera» y «El tragaluz»?", respuesta: "Antonio Buero Vallejo.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "¿Qué autor concibió el teatro como medio de agitación con obras como «Escuadra hacia la muerte»?", respuesta: "Alfonso Sastre.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores del teatro vanguardista o «soterrado» de los años 60 y 70.", respuesta: "Fernando Arrabal y Francisco Nieva.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro grupos de teatro independiente destacados desde los años 70.", respuesta: "Els Joglars, La Cuadra de Sevilla, Tábano y La Fura dels Baus.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra cuatro autores de la línea teatral tradicional o institucional tras la dictadura.", respuesta: "Antonio Gala, José Luis Alonso de Santos, José Sanchís Sinisterra y Juan Mayorga.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "¿Cuál es la obra más conocida de José Luis Alonso de Santos?", respuesta: "Bajarse al moro.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "¿Qué obra de Fernando Fernán Gómez retrata la vida en la Guerra Civil?", respuesta: "Las bicicletas son para el verano.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "Nombra dos obras de la fase de narrativa social comprometida de Ramón J. Sender.", respuesta: "El texto no las cita, pero menciona su labor en los años 30.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué rasgos definen el «esperpento» de Valle-Inclán?", respuesta: "La visión grotesca y deformada de la realidad para descubrir sus aspectos profundos.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "¿En qué etapa poética de Juan Ramón Jiménez se sitúa «Diario de un poeta recién casado»?", respuesta: "Época intelectual.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra los dos grupos de vanguardia poética que más influyeron en España.", respuesta: "Ultraísmo y Creacionismo.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "¿Qué autor creó el «teatro pánico»?", respuesta: "Fernando Arrabal.", genero: "teatro", tipo: "pregunta" },
+  { pregunta: "¿A qué tendencia pertenece la obra «Historias del Kronen»?", respuesta: "Novela neorrealista o de la generación X.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué autor escribió «El desorden de tu nombre», ejemplo de novela reflexiva?", respuesta: "Juan José Millás.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué nombre recibe la poesía actual difundida por redes sociales e influencers?", respuesta: "Poesía 2.0.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores de la «poesía de la diferencia» de fines de los noventa.", respuesta: "José Lupiáñez y Fernando de Villena.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos novelas de carácter triunfalista o patriótico de la posguerra.", respuesta: "El texto menciona a autores como Gironella, Foxá o García Serrano.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué caracteriza a la novela culturalista de Juan Manuel de Prada?", respuesta: "Analiza aspectos de la cultura occidental desde posturas eruditas.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué autor es el máximo representante de la lírica novecentista?", respuesta: "Juan Ramón Jiménez.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra las dos etapas de la narrativa social en los años 50.", respuesta: "Etapa de enfoques personales/existenciales y etapa de carácter social/político.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos obras fundamentales de Miguel Delibes en etapas distintas.", respuesta: "La sombra del ciprés es alargada (existencial) y Cinco horas con Mario (experimental).", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Qué autor destaca por su estilo minucioso y el desarrollo fragmentado de la trama?", respuesta: "Azorín.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "¿Cuál es el objetivo principal del realismo objetivista de los años 50?", respuesta: "Dar cuenta de situaciones socialmente injustas para crear conciencia.", genero: "narrativa", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores que permanecieron en España y marcaron el camino de la poesía existencial.", respuesta: "Dámaso Alonso y Vicente Aleixandre.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "¿Qué caracteriza al grupo vanguardista «Postismo»?", respuesta: "Se define como «surrealismo ibérico» y reivindica la libertad creativa y el sentido lúdico.", genero: "poesia", tipo: "pregunta" },
+  { pregunta: "Nombra dos autores representativos de la novela de aprendizaje (bildungsroman) del 98.", respuesta: "Pío Baroja (con personajes de vitalismo individualista) y Azorín.", genero: "narrativa", tipo: "pregunta" }
+];
+
+// ============================================================
+//  LÓGICA DE LA APLICACIÓN
+// ============================================================
+let filtroGenero = 'todas';
+let orden = tarjetas.map((_, i) => i);
+let indiceActual = 0;
+let volteada = false;
+let modoAleatorio = false;
+
+const elem = {
+  tarjeta:          document.getElementById('tarjeta'),
+  contenidoFrente:  document.getElementById('contenidoFrente'),
+  contenidoTras:    document.getElementById('contenidoTras'),
+  generoFrente:     document.getElementById('generoFrente'),
+  generoTras:       document.getElementById('generoTras'),
+  numActual:        document.getElementById('numActual'),
+  numTotal:         document.getElementById('numTotal'),
+  numFrente:        document.getElementById('numFrente'),
+  numTras:          document.getElementById('numTras'),
+  generoActivo:     document.getElementById('generoActivo'),
+  progresoBarra:    document.getElementById('progresoBarra'),
+  btnAnterior:      document.getElementById('btnAnterior'),
+  btnSiguiente:     document.getElementById('btnSiguiente'),
+  btnVoltear:       document.getElementById('btnVoltear'),
+  btnAleatorio:     document.getElementById('btnAleatorio'),
+  btnReiniciar:     document.getElementById('btnReiniciar'),
+  mensajeFinal:     document.getElementById('mensajeFinal'),
+  filtros:          document.getElementById('filtros')
+};
+
+function nombreGenero(g) {
+  return { narrativa: 'Narrativa', poesia: 'Poesía', teatro: 'Teatro', todas: 'Todas' }[g];
+}
+
+function procesarPregunta(tarjeta) {
+  if (tarjeta.tipo === 'concepto') {
+    return `<span class="concepto-titulo">${tarjeta.pregunta}</span>
+            <span class="concepto-pista">Define este concepto</span>`;
+  }
+  return tarjeta.pregunta;
+}
+
+function mezclar(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function aplicarFiltro() {
+  if (filtroGenero === 'todas') {
+    orden = tarjetas.map((_, i) => i);
+  } else {
+    orden = tarjetas
+      .map((t, i) => ({ t, i }))
+      .filter(({ t }) => t.genero === filtroGenero)
+      .map(({ i }) => i);
+  }
+  if (modoAleatorio) mezclar(orden);
+  indiceActual = 0;
+  mostrarTarjeta();
+}
+
+function mostrarTarjeta() {
+  if (orden.length === 0) return;
+
+  const idx = orden[indiceActual];
+  const tarjeta = tarjetas[idx];
+
+  volteada = false;
+  elem.tarjeta.classList.remove('volteada');
+  elem.tarjeta.classList.remove('cambio');
+  void elem.tarjeta.offsetWidth;
+  elem.tarjeta.classList.add('cambio');
+
+  elem.contenidoFrente.innerHTML = procesarPregunta(tarjeta);
+  elem.contenidoTras.innerHTML   = tarjeta.respuesta;
+
+  // Etiqueta de género en la tarjeta
+  elem.generoFrente.textContent = nombreGenero(tarjeta.genero);
+  elem.generoFrente.setAttribute('data-g', tarjeta.genero);
+  elem.generoTras.textContent   = nombreGenero(tarjeta.genero);
+  elem.generoTras.setAttribute('data-g', tarjeta.genero);
+
+  const num   = String(indiceActual + 1).padStart(2, '0');
+  const total = String(orden.length).padStart(2, '0');
+  elem.numActual.textContent = num;
+  elem.numTotal.textContent  = total;
+  elem.numFrente.textContent = `${num} / ${total}`;
+  elem.numTras.textContent   = `${num} / ${total}`;
+
+  // Etiqueta de filtro activo
+  if (filtroGenero !== 'todas') {
+    elem.generoActivo.textContent = nombreGenero(filtroGenero);
+    elem.generoActivo.style.display = 'inline-block';
+  } else {
+    elem.generoActivo.style.display = 'none';
+  }
+
+  // Barra de progreso
+  const porcentaje = ((indiceActual + 1) / orden.length) * 100;
+  elem.progresoBarra.style.width = `${porcentaje}%`;
+
+  // Botones
+  elem.btnAnterior.disabled  = indiceActual === 0;
+  elem.btnSiguiente.disabled = indiceActual === orden.length - 1;
+
+  // Mensaje final
+  if (indiceActual === orden.length - 1) {
+    elem.mensajeFinal.classList.add('visible');
+  } else {
+    elem.mensajeFinal.classList.remove('visible');
+  }
+}
+
+function voltear() {
+  volteada = !volteada;
+  elem.tarjeta.classList.toggle('volteada', volteada);
+}
+
+function siguiente() {
+  if (indiceActual < orden.length - 1) {
+    indiceActual++;
+    mostrarTarjeta();
+  }
+}
+
+function anterior() {
+  if (indiceActual > 0) {
+    indiceActual--;
+    mostrarTarjeta();
+  }
+}
+
+function alternarAleatorio() {
+  modoAleatorio = !modoAleatorio;
+  elem.btnAleatorio.classList.toggle('activo', modoAleatorio);
+  aplicarFiltro();
+}
+
+function reiniciar() {
+  indiceActual = 0;
+  modoAleatorio = false;
+  filtroGenero = 'todas';
+  elem.btnAleatorio.classList.remove('activo');
+  // Actualizar botones de filtro
+  elem.filtros.querySelectorAll('.filtro').forEach(btn => {
+    btn.classList.toggle('activo', btn.dataset.genero === 'todas');
+  });
+  aplicarFiltro();
+}
+
+// Eventos de filtros
+elem.filtros.addEventListener('click', (e) => {
+  const btn = e.target.closest('.filtro');
+  if (!btn) return;
+  filtroGenero = btn.dataset.genero;
+  elem.filtros.querySelectorAll('.filtro').forEach(b => b.classList.remove('activo'));
+  btn.classList.add('activo');
+  aplicarFiltro();
+});
+
+// Clic en la tarjeta para voltear
+elem.tarjeta.addEventListener('click', voltear);
+
+elem.btnVoltear.addEventListener('click', voltear);
+elem.btnAnterior.addEventListener('click', anterior);
+elem.btnSiguiente.addEventListener('click', siguiente);
+elem.btnAleatorio.addEventListener('click', alternarAleatorio);
+elem.btnReiniciar.addEventListener('click', reiniciar);
+
+// Teclado
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowLeft')        anterior();
+  else if (e.key === 'ArrowRight')  siguiente();
+  else if (e.key === ' ')          { e.preventDefault(); voltear(); }
+  else if (e.key === 'r' || e.key === 'R') alternarAleatorio();
+});
+
+// Inicializar
+mostrarTarjeta();
+</script>
+
+</body>
+</html>
