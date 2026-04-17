@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La casa de Bernarda Alba · Tarjetas de estudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cal: #F5EFE4;
+    --cal-claro: #FAF6EE;
+    --cal-sombra: #EBE3D3;
+    --luto: #1C1814;
+    --luto-suave: #3A332C;
+    --verde-adela: #3D4A3D;
+    --verde-profundo: #2A352A;
+    --rojo-sangre: #8B2E2A;
+    --ocre: #A67B5B;
+    --gris-polvo: #8F857A;
+    --linea: #C9BEAA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--cal);
+    color: var(--luto);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Textura de papel envejecido */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(166, 123, 91, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(61, 74, 61, 0.04) 0%, transparent 45%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.9;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ENCABEZADO ------------------------------------- */
+  header {
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--linea);
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gris-polvo);
+    margin-bottom: 1.2rem;
+  }
+
+  .meta span {
+    display: inline-block;
+    padding: 0 0.8rem;
+  }
+
+  .meta span + span {
+    border-left: 1px solid var(--linea);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.05;
+    color: var(--luto);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+
+  h1 .de { font-style: normal; color: var(--ocre); font-size: 0.7em; vertical-align: 0.15em; margin: 0 0.15em; }
+
+  .subtitulo {
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    color: var(--luto-suave);
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .ornamento {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    color: var(--ocre);
+  }
+
+  .ornamento .linea {
+    width: 40px;
+    height: 1px;
+    background: var(--ocre);
+  }
+
+  .ornamento svg { width: 14px; height: 14px; }
+
+  /* BARRA DE CONTROLES SUPERIOR -------------------- */
+  .barra-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .contador {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--luto-suave);
+  }
+
+  .contador .actual {
+    font-size: 1.1rem;
+    color: var(--verde-profundo);
+    font-weight: 500;
+  }
+
+  .contador .total {
+    color: var(--gris-polvo);
+  }
+
+  .acciones-extra {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .btn-accion {
+    background: transparent;
+    border: 1px solid var(--linea);
+    color: var(--luto-suave);
+    padding: 0.5rem 1rem;
+    font-family: 'Fraunces', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-accion:hover {
+    background: var(--verde-profundo);
+    color: var(--cal-claro);
+    border-color: var(--verde-profundo);
+  }
+
+  .btn-accion.activo {
+    background: var(--luto);
+    color: var(--cal-claro);
+    border-color: var(--luto);
+  }
+
+  /* PROGRESO ---------------------------------------- */
+  .progreso {
+    height: 2px;
+    background: var(--cal-sombra);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progreso-barra {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, var(--verde-adela), var(--ocre));
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 1.25%;
+  }
+
+  /* TARJETA ----------------------------------------- */
+  .escena {
+    perspective: 2000px;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .tarjeta {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4, 0.15, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .tarjeta.volteada {
+    transform: rotateY(180deg);
+  }
+
+  .cara {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: var(--cal-claro);
+    border: 1px solid var(--linea);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow:
+      0 1px 0 rgba(166, 123, 91, 0.3),
+      0 20px 40px -20px rgba(28, 24, 20, 0.15),
+      0 60px 80px -40px rgba(28, 24, 20, 0.08);
+  }
+
+  /* Decoración esquinas */
+  .cara::before, .cara::after {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--ocre);
+    opacity: 0.4;
+  }
+
+  .cara::before {
+    top: 14px;
+    left: 14px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .cara::after {
+    bottom: 14px;
+    right: 14px;
+    border-left: none;
+    border-top: none;
+  }
+
+  .cara-tras {
+    transform: rotateY(180deg);
+    background: linear-gradient(180deg, #2A352A 0%, #1F2A1F 100%);
+    color: var(--cal-claro);
+    border-color: var(--verde-profundo);
+  }
+
+  .cara-tras::before, .cara-tras::after {
+    border-color: var(--ocre);
+    opacity: 0.5;
+  }
+
+  .etiqueta-cara {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gris-polvo);
+  }
+
+  .cara-tras .etiqueta-cara {
+    color: var(--ocre);
+  }
+
+  .num-tarjeta {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gris-polvo);
+    letter-spacing: 0.1em;
+  }
+
+  .cara-tras .num-tarjeta {
+    color: var(--ocre);
+    opacity: 0.7;
+  }
+
+  .contenido {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 72;
+    font-weight: 400;
+    color: var(--luto);
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .cara-frente .contenido {
+    font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+    line-height: 1.45;
+  }
+
+  .cara-tras .contenido {
+    color: var(--cal-claro);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .contenido .concepto-titulo {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 500;
+    color: var(--verde-profundo);
+    margin-bottom: 1rem;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+
+  .cara-tras .contenido .concepto-titulo {
+    color: var(--ocre);
+  }
+
+  .pista-volteo {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Fraunces', serif;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--gris-polvo);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cara-tras .pista-volteo {
+    color: var(--ocre);
+    opacity: 0.7;
+  }
+
+  .cara-frente .tipo {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gris-polvo);
+  }
+
+  /* NAVEGACIÓN -------------------------------------- */
+  .navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn-nav {
+    background: transparent;
+    border: none;
+    color: var(--luto);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .btn-nav:hover:not(:disabled) {
+    color: var(--verde-profundo);
+    border-bottom-color: var(--verde-profundo);
+  }
+
+  .btn-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .btn-nav svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-nav:hover:not(:disabled).anterior svg { transform: translateX(-4px); }
+  .btn-nav:hover:not(:disabled).siguiente svg { transform: translateX(4px); }
+
+  .btn-voltear {
+    background: var(--verde-profundo);
+    color: var(--cal-claro);
+    border: none;
+    padding: 0.9rem 2.2rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+
+  .btn-voltear:hover {
+    background: var(--luto);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -8px rgba(28, 24, 20, 0.4);
+  }
+
+  /* PIE DE PÁGINA ---------------------------------- */
+  footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--linea);
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gris-polvo);
+    line-height: 1.7;
+  }
+
+  .teclas {
+    display: inline-flex;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tecla {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Lora', serif;
+    font-style: normal;
+    font-size: 0.75rem;
+  }
+
+  .tecla kbd {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--cal-claro);
+    border: 1px solid var(--linea);
+    border-bottom-width: 2px;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.7rem;
+    color: var(--luto);
+    border-radius: 3px;
+  }
+
+  .cita-cierre {
+    margin-top: 1.5rem;
+    font-style: italic;
+    color: var(--luto-suave);
+    font-size: 0.9rem;
+  }
+
+  .cita-cierre span {
+    color: var(--rojo-sangre);
+    letter-spacing: 0.05em;
+  }
+
+  /* INPUT DE CITAS (para completar) ------------------ */
+  .input-cita {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: inherit;
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed var(--ocre);
+    color: var(--verde-profundo);
+    padding: 0.2em 0.4em;
+    min-width: 120px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .input-cita:focus {
+    outline: none;
+    border-bottom-style: solid;
+    border-bottom-color: var(--verde-profundo);
+  }
+
+  .input-cita.correcto {
+    color: var(--verde-profundo);
+    border-bottom-color: var(--verde-profundo);
+    border-bottom-style: solid;
+  }
+
+  .input-cita.incorrecto {
+    color: var(--rojo-sangre);
+    border-bottom-color: var(--rojo-sangre);
+    border-bottom-style: solid;
+  }
+
+  /* RESPONSIVE -------------------------------------- */
+  @media (max-width: 600px) {
+    .app { padding: 2rem 1rem 3rem; }
+    .cara { padding: 2.5rem 1.5rem; }
+    .tarjeta { min-height: 360px; }
+    .navegacion { flex-wrap: wrap; justify-content: center; }
+    .btn-voltear { order: -1; width: 100%; margin-bottom: 0.5rem; }
+    .barra-control { justify-content: center; }
+    h1 { font-size: 2rem; }
+  }
+
+  @media (max-width: 400px) {
+    .cara::before, .cara::after { width: 20px; height: 20px; }
+    .num-tarjeta, .etiqueta-cara { font-size: 0.6rem; }
+  }
+
+  /* ANIMACIONES ------------------------------------- */
+  @keyframes aparicion {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .tarjeta.cambio { animation: aparicion 0.4s ease forwards; }
+
+  .mensaje-final {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--rojo-sangre);
+    font-size: 1rem;
+    margin-top: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .mensaje-final.visible { opacity: 1; }
+
+  /* Impresión */
+  @media print {
+    body::before { display: none; }
+    .barra-control, .navegacion, footer, .pista-volteo { display: none; }
+    .tarjeta { min-height: 250px; page-break-inside: avoid; }
+    .cara-tras { display: block; position: relative; transform: none; margin-top: 1rem; }
+    .tarjeta { transform-style: flat; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <header>
+    <div class="meta">
+      <span>Federico García Lorca</span>
+      <span>1936</span>
+      <span>80 tarjetas</span>
+    </div>
+    <h1>La casa <span class="de">de</span> Bernarda Alba</h1>
+    <p class="subtitulo">Drama de mujeres en los pueblos de España</p>
+    <div class="ornamento">
+      <span class="linea"></span>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/>
+      </svg>
+      <span class="linea"></span>
+    </div>
+  </header>
+
+  <div class="barra-control">
+    <div class="contador">
+      <span class="actual" id="numActual">01</span>
+      <span> / </span>
+      <span class="total" id="numTotal">80</span>
+    </div>
+    <div class="acciones-extra">
+      <button class="btn-accion" id="btnAleatorio">Aleatorio</button>
+      <button class="btn-accion" id="btnReiniciar">Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="progreso">
+    <div class="progreso-barra" id="progresoBarra"></div>
+  </div>
+
+  <div class="escena">
+    <div class="tarjeta" id="tarjeta">
+      <div class="cara cara-frente">
+        <span class="etiqueta-cara">Pregunta</span>
+        <span class="num-tarjeta" id="numFrente">01 / 80</span>
+        <div class="contenido" id="contenidoFrente"></div>
+        <span class="tipo" id="tipoTarjeta"></span>
+        <span class="pista-volteo">volver · pulsa espacio o haz clic</span>
+      </div>
+      <div class="cara cara-tras">
+        <span class="etiqueta-cara">Respuesta</span>
+        <span class="num-tarjeta" id="numTras">01 / 80</span>
+        <div class="contenido" id="contenidoTras"></div>
+        <span class="pista-volteo">↩ vuelve a la pregunta</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="navegacion">
+    <button class="btn-nav anterior" id="btnAnterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      Anterior
+    </button>
+    <button class="btn-voltear" id="btnVoltear">Voltear tarjeta</button>
+    <button class="btn-nav siguiente" id="btnSiguiente">
+      Siguiente
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+
+  <p class="mensaje-final" id="mensajeFinal">Has completado las ochenta tarjetas. «¡Silencio!»</p>
+
+  <footer>
+    <p>Material elaborado para el estudio de <em>La casa de Bernarda Alba</em></p>
+    <div class="teclas">
+      <span class="tecla"><kbd>←</kbd> anterior</span>
+      <span class="tecla"><kbd>→</kbd> siguiente</span>
+      <span class="tecla"><kbd>espacio</kbd> voltear</span>
+      <span class="tecla"><kbd>R</kbd> aleatorio</span>
+    </div>
+    <p class="cita-cierre">«El silencio, <span>silencio</span> he dicho. ¡Silencio!»</p>
+  </footer>
+
+</div>
+
+<script>
+// ============================================================
+//  DATOS DE LAS TARJETAS
+//  Cada tarjeta tiene: pregunta, respuesta, tipo
+//  Tipos: 'pregunta' | 'concepto' | 'cita'
+// ============================================================
+const tarjetas = [
+  { pregunta: "¿Cuál es la intención artística que Federico García Lorca asigna a los tres actos de la obra?", respuesta: "La intención de un documental fotográfico.", tipo: "pregunta" },
+  { pregunta: "¿Cómo describe el autor la habitación donde se desarrolla el primer acto?", respuesta: "Habitación blanquísima con muros gruesos y puertas en arco.", tipo: "pregunta" },
+  { pregunta: "¿Qué estación del año y clima predominan durante el desarrollo de la obra?", respuesta: "Es verano y hace un calor intenso.", tipo: "pregunta" },
+  { pregunta: "Al inicio del primer acto, ¿qué sonido ambiental marca el funeral del marido de Bernarda?", respuesta: "El doblar de las campanas.", tipo: "pregunta" },
+  { pregunta: "La Poncia", respuesta: "Criada de 60 años que conoce todos los secretos de la familia y mantiene una relación de tensión con Bernarda.", tipo: "concepto" },
+  { pregunta: "¿Cuántos años de luto impone Bernarda a sus hijas tras la muerte de su segundo esposo?", respuesta: "Ocho años.", tipo: "pregunta" },
+  { pregunta: "¿Cómo define Bernarda la conducta que deben seguir sus hijas durante el periodo de luto?", respuesta: "Deben vivir como si las puertas y ventanas estuvieran tapiadas con ladrillos.", tipo: "pregunta" },
+  { pregunta: "¿Qué actividad manual ordena Bernarda a sus hijas para ocupar su tiempo durante el encierro?", respuesta: "Empezar a bordar el ajuar.", tipo: "pregunta" },
+  { pregunta: "Según la Poncia, ¿cuál es la principal diferencia entre Angustias y sus hermanas respecto a su situación económica?", respuesta: "Angustias es la única que tiene dinero por ser hija del primer marido.", tipo: "pregunta" },
+  { pregunta: "¿Qué edad tiene Angustias al comienzo de la obra?", respuesta: "39 años.", tipo: "pregunta" },
+  { pregunta: "¿Qué edad tiene Adela, la hija menor de Bernarda?", respuesta: "20 años.", tipo: "pregunta" },
+  { pregunta: "¿Cómo describe Bernarda su opinión sobre los pobres en el primer acto?", respuesta: "Como animales hechos de otras sustancias que olvidan sus penas ante un plato de garbanzos.", tipo: "pregunta" },
+  { pregunta: "Bernarda afirma: «Hilo y aguja para las hembras. Látigo y mula para el ____».", respuesta: "Varón", tipo: "cita" },
+  { pregunta: "¿Qué objeto de color verde y rojo le entrega Adela a Bernarda, provocando su furia?", respuesta: "Un abanico con flores.", tipo: "pregunta" },
+  { pregunta: "¿Quién es María Josefa y cuál es su deseo recurrente?", respuesta: "Es la madre de Bernarda, de 80 años, y desea casarse a la orilla del mar.", tipo: "pregunta" },
+  { pregunta: "¿Por qué motivo Pepe el Romano decide pretender a Angustias a pesar de su edad?", respuesta: "Por su fortuna y posesiones materiales.", tipo: "pregunta" },
+  { pregunta: "¿Qué defecto físico se menciona que tiene Martirio?", respuesta: "Tiene una joroba.", tipo: "pregunta" },
+  { pregunta: "Pepe el Romano", respuesta: "El hombre más apuesto de la zona que actúa como catalizador de la tragedia al comprometerse con Angustias pero desear a Adela.", tipo: "concepto" },
+  { pregunta: "¿Qué sucede con el retrato de Pepe el Romano en el segundo acto?", respuesta: "Desaparece de la cama de Angustias y es encontrado en la cama de Martirio.", tipo: "pregunta" },
+  { pregunta: "¿Qué advertencia le hace la Poncia a Adela sobre su relación con Pepe el Romano?", respuesta: "Que Angustias es enfermiza y morirá en el primer parto, permitiendo que Pepe se case con Adela legalmente después.", tipo: "pregunta" },
+  { pregunta: "La Poncia describe a Bernarda como una «_____ de todos los que la rodean».", respuesta: "Tirana", tipo: "cita" },
+  { pregunta: "¿Qué castigo pide Bernarda para la hija de la Librada por haber matado a su hijo nacido fuera del matrimonio?", respuesta: "La muerte y «carbón ardiendo en el sitio de su pecado».", tipo: "pregunta" },
+  { pregunta: "¿Qué simboliza el bastón de Bernarda Alba a lo largo de la obra?", respuesta: "Su poder, autoridad absoluta y dominio tiránico sobre la casa.", tipo: "pregunta" },
+  { pregunta: "¿Cómo reacciona Adela ante la noticia del linchamiento de la hija de la Librada?", respuesta: "Se horroriza y suplica que la dejen escapar, llevándose las manos al vientre.", tipo: "pregunta" },
+  { pregunta: "¿Qué actividad realizan los segadores que pasan cerca de la casa en el segundo acto?", respuesta: "Cantan mientras van a trabajar al campo bajo el sol.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es la opinión de Amelia sobre la condición de ser mujer?", respuesta: "Afirma que nacer mujer es el mayor castigo.", tipo: "pregunta" },
+  { pregunta: "¿Por qué Bernarda impidió en el pasado el matrimonio de Martirio con Enrique Humanes?", respuesta: "Porque el padre de Enrique era gañán y no lo consideraba de su clase social.", tipo: "pregunta" },
+  { pregunta: "¿A qué hora dice Angustias que se despide Pepe de su ventana, y qué hora sostiene la Poncia que es la real?", respuesta: "Angustias dice que a la una, pero la Poncia afirma haberlo oído irse a las cuatro.", tipo: "pregunta" },
+  { pregunta: "¿Qué animal aparece en el tercer acto dando coces contra los muros del corral?", respuesta: "El caballo garañón.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es el significado de las perlas en el anillo de compromiso de Angustias según Prudencia?", respuesta: "Lágrimas.", tipo: "pregunta" },
+  { pregunta: "¿Qué consejo le da Bernarda a Angustias sobre cómo comportarse con su futuro esposo?", respuesta: "Que no le pregunte nada y no le vea llorar jamás.", tipo: "pregunta" },
+  { pregunta: "¿A qué lugar se dirige Adela con sigilo en el tercer acto antes del clímax?", respuesta: "Al corral, para encontrarse con Pepe el Romano.", tipo: "pregunta" },
+  { pregunta: "¿Qué objeto lleva María Josefa en sus brazos en su última aparición en el tercer acto?", respuesta: "Una ovejita.", tipo: "pregunta" },
+  { pregunta: "¿Qué acción física realiza Adela contra el bastón de Bernarda para simbolizar el fin de su autoridad?", respuesta: "Lo arrebata y lo parte en dos.", tipo: "pregunta" },
+  { pregunta: "¿Qué grita Martirio para alertar a Bernarda del encuentro entre Adela y Pepe?", respuesta: "«¡Madre, madre!»", tipo: "pregunta" },
+  { pregunta: "¿Qué sucede cuando Bernarda sale con la escopeta tras Pepe el Romano?", respuesta: "Dispara pero falla, aunque Martirio hace creer a Adela que Pepe ha muerto.", tipo: "pregunta" },
+  { pregunta: "¿De qué manera muere Adela al final de la obra?", respuesta: "Se suicida ahorcándose.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es la obsesión de Bernarda inmediatamente después de descubrir el cadáver de su hija?", respuesta: "Asegurar ante todos que Adela murió virgen para salvar la honra de la familia.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es la palabra final de la obra, pronunciada por Bernarda?", respuesta: "¡Silencio!", tipo: "pregunta" },
+  { pregunta: "¿Quién es Antonio María Benavides?", respuesta: "El segundo esposo de Bernarda, cuya muerte da inicio a la trama.", tipo: "pregunta" },
+  { pregunta: "¿Cómo describe la Poncia la relación de Bernarda con sus vecinos?", respuesta: "Dice que Bernarda no quiere que la vean en su dominio y que la gente del pueblo la odia.", tipo: "pregunta" },
+  { pregunta: "¿Qué revela la Criada sobre su relación pasada con Antonio María Benavides?", respuesta: "Insinúa que él la acosaba sexualmente tras la puerta del corral.", tipo: "pregunta" },
+  { pregunta: "¿A qué se refiere Bernarda cuando habla de un «pueblo de pozos»?", respuesta: "A un pueblo sin río donde el agua siempre se bebe con miedo a que esté envenenada.", tipo: "pregunta" },
+  { pregunta: "¿Qué prenda de vestir se pone Adela en secreto y muestra a las gallinas en señal de rebeldía?", respuesta: "Su vestido verde de cumpleaños.", tipo: "pregunta" },
+  { pregunta: "¿Qué le hace Bernarda a Angustias cuando descubre que se ha puesto polvos en la cara el día de la misa?", respuesta: "Le quita los polvos violentamente con un pañuelo.", tipo: "pregunta" },
+  { pregunta: "En el segundo acto, ¿cuál es el sentimiento predominante de Martirio hacia Adela?", respuesta: "Un odio profundo nacido de los celos y el deseo compartido por Pepe el Romano.", tipo: "pregunta" },
+  { pregunta: "Adela afirma: «Mi cuerpo será de quien yo ____».", respuesta: "Quiera", tipo: "cita" },
+  { pregunta: "¿Qué personaje dice la frase: «Afortunadamente pronto voy a salir de este infierno»?", respuesta: "Angustias.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es la función del personaje de la Mendiga al principio de la obra?", respuesta: "Mostrar la falta de caridad y el clasismo de la casa de Bernarda.", tipo: "pregunta" },
+  { pregunta: "¿Qué simboliza el calor sofocante mencionado constantemente por los personajes?", respuesta: "La represión sexual y la tensión emocional creciente en la casa.", tipo: "pregunta" },
+  { pregunta: "¿Cómo termina la discusión entre Martirio y Adela en el tercer acto?", respuesta: "Con la confesión de Martirio de que ella también ama a Pepe y que impedirá que Adela lo tenga.", tipo: "pregunta" },
+  { pregunta: "¿Qué representa la figura de María Josefa en relación con las hijas de Bernarda?", respuesta: "Representa la locura y, al mismo tiempo, la voz de la verdad sobre los deseos reprimidos de las mujeres.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es la posición de Magdalena respecto al matrimonio y la vida doméstica?", respuesta: "Muestra total apatía y resignación, afirmando que preferiría llevar sacos al molino.", tipo: "pregunta" },
+  { pregunta: "¿Cómo se describe físicamente a los hombres que vienen a segar según la Poncia?", respuesta: "Como árboles quemados, alegres y llenos de vigor.", tipo: "pregunta" },
+  { pregunta: "¿Qué significa la expresión «el qué dirán» en el contexto de la obra?", respuesta: "La obsesión por la reputación social y la opinión de los vecinos que dicta la conducta de Bernarda.", tipo: "pregunta" },
+  { pregunta: "¿Qué diferencia hay entre la ventana por la que habla Angustias y la que sospecha la Poncia que usa Adela?", respuesta: "Angustias habla por la ventana de su dormitorio, mientras que Adela lo haría por la del callejón o en el corral.", tipo: "pregunta" },
+  { pregunta: "¿Qué personaje dice: «Nacer mujer es el mayor castigo»?", respuesta: "Amelia.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es la actitud de Bernarda ante los consejos y advertencias de la Poncia?", respuesta: "De desprecio y superioridad, recordándole constantemente su origen como criada.", tipo: "pregunta" },
+  { pregunta: "¿Qué simboliza el color blanco de las paredes que se vuelve azulado en el tercer acto?", respuesta: "La pureza impuesta que se transforma en frialdad y muerte conforme avanza la noche.", tipo: "pregunta" },
+  { pregunta: "¿Qué le ocurre a la criada durante el duelo para silenciar a María Josefa?", respuesta: "Tiene que taparle la boca con un costal vacío.", tipo: "pregunta" },
+  { pregunta: "¿Quién es Prudencia y qué representa su visita?", respuesta: "Es una amiga de Bernarda que representa la resignación religiosa y las costumbres tradicionales del pueblo.", tipo: "pregunta" },
+  { pregunta: "¿Por qué Martirio robó el retrato de Pepe el Romano según sus propias palabras?", respuesta: "Dice que fue por gastar una broma, aunque la realidad es su deseo por él.", tipo: "pregunta" },
+  { pregunta: "Bernarda ordena: «¡Vayan a sus ____ a criticar todo lo que han visto!».", respuesta: "Cuevas", tipo: "cita" },
+  { pregunta: "¿Cómo reacciona Bernarda cuando Adela rompe su bastón?", respuesta: "Pide inmediatamente una escopeta para matar a Pepe el Romano.", tipo: "pregunta" },
+  { pregunta: "¿Qué relación existe entre la ceguera de Bernarda y los secretos de su casa?", respuesta: "Bernarda decide no ver la realidad de sus hijas para mantener la ilusión de control y orden.", tipo: "pregunta" },
+  { pregunta: "¿Qué sentimiento expresa Magdalena hacia Adela a pesar de la rivalidad general?", respuesta: "Cierta ternura y el deseo de verla feliz por ser la más joven.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es el destino final de Pepe el Romano al terminar la obra?", respuesta: "Huye en su jaca tras el disparo de Bernarda.", tipo: "pregunta" },
+  { pregunta: "La casa (espacio físico)", respuesta: "Funciona como una cárcel o presidio que sofoca los instintos naturales de las mujeres que la habitan.", tipo: "concepto" },
+  { pregunta: "¿Qué papel juega el «dinero» en los conflictos matrimoniales de la obra?", respuesta: "Es el único motor que permite el interés de los hombres por mujeres «viejas o feas» como Angustias.", tipo: "pregunta" },
+  { pregunta: "¿Cómo describe Martirio su miedo a los hombres desde la infancia?", respuesta: "Los veía en el corral con voces y zapatazos y temía ser abrazada por ellos al crecer.", tipo: "pregunta" },
+  { pregunta: "¿Qué personaje es el primero en descubrir el suicidio de Adela?", respuesta: "La Poncia.", tipo: "pregunta" },
+  { pregunta: "¿Cuál es el significado del nombre de la hija «Angustias»?", respuesta: "Refleja el sufrimiento, la opresión y la falta de alegría de su existencia.", tipo: "pregunta" },
+  { pregunta: "¿Qué simboliza la ovejita que lleva María Josefa?", respuesta: "La fertilidad anhelada y el instinto maternal frustrado de las mujeres de la casa.", tipo: "pregunta" },
+  { pregunta: "Bernarda afirma: «Una hija que desobedece deja de ser hija para convertirse en ____».", respuesta: "Enemiga", tipo: "cita" },
+  { pregunta: "¿Qué representa el agua estancada de los pozos frente al agua del mar que menciona la abuela?", respuesta: "La muerte y la corrupción frente a la libertad y la vida.", tipo: "pregunta" },
+  { pregunta: "¿Por qué Magdalena dice «Malditas sean las mujeres»?", respuesta: "Por la limitación de libertad y las obligaciones sociales impuestas solo por su género.", tipo: "pregunta" },
+  { pregunta: "¿Cómo percibe el pueblo a la familia de Bernarda Alba según los diálogos iniciales?", respuesta: "Como gente soberbia y dominante que es criticada y envidiada.", tipo: "pregunta" },
+  { pregunta: "¿Qué acción de la Poncia demuestra su desprecio secreto por Bernarda al inicio del Acto I?", respuesta: "Come chorizo y pan a escondidas, aprovechando que Bernarda no está.", tipo: "pregunta" },
+  { pregunta: "Bernarda dice: «No ha de entrar en esta casa el _____ de la calle».", respuesta: "Viento", tipo: "cita" },
+  { pregunta: "¿Qué simboliza la corona de flores que María Josefa lleva en la cabeza?", respuesta: "Su deseo erótico y su visión distorsionada de una boda imposible.", tipo: "pregunta" }
+];
+
+// ============================================================
+//  LÓGICA DE LA APLICACIÓN
+// ============================================================
+let orden = tarjetas.map((_, i) => i);
+let indiceActual = 0;
+let volteada = false;
+let modoAleatorio = false;
+
+const elem = {
+  tarjeta: document.getElementById('tarjeta'),
+  contenidoFrente: document.getElementById('contenidoFrente'),
+  contenidoTras: document.getElementById('contenidoTras'),
+  tipoTarjeta: document.getElementById('tipoTarjeta'),
+  numActual: document.getElementById('numActual'),
+  numTotal: document.getElementById('numTotal'),
+  numFrente: document.getElementById('numFrente'),
+  numTras: document.getElementById('numTras'),
+  progresoBarra: document.getElementById('progresoBarra'),
+  btnAnterior: document.getElementById('btnAnterior'),
+  btnSiguiente: document.getElementById('btnSiguiente'),
+  btnVoltear: document.getElementById('btnVoltear'),
+  btnAleatorio: document.getElementById('btnAleatorio'),
+  btnReiniciar: document.getElementById('btnReiniciar'),
+  mensajeFinal: document.getElementById('mensajeFinal')
+};
+
+elem.numTotal.textContent = String(tarjetas.length).padStart(2, '0');
+
+function formatearTipo(t) {
+  if (t === 'cita')     return 'Cita · completar';
+  if (t === 'concepto') return 'Concepto clave';
+  return 'Pregunta de estudio';
+}
+
+function procesarPregunta(tarjeta) {
+  if (tarjeta.tipo === 'concepto') {
+    return `<span class="concepto-titulo">${tarjeta.pregunta}</span>
+            <span style="font-size: 0.8em; color: var(--gris-polvo); font-style: italic;">Define este concepto</span>`;
+  }
+  if (tarjeta.tipo === 'cita') {
+    // Reemplazamos los guiones bajos por un input de cita
+    const textoProcesado = tarjeta.pregunta.replace(/_{3,}/, '<input type="text" class="input-cita" placeholder="··· ···" autocomplete="off" spellcheck="false">');
+    return textoProcesado;
+  }
+  return tarjeta.pregunta;
+}
+
+function mostrarTarjeta() {
+  const idx = orden[indiceActual];
+  const tarjeta = tarjetas[idx];
+
+  volteada = false;
+  elem.tarjeta.classList.remove('volteada');
+  elem.tarjeta.classList.remove('cambio');
+  void elem.tarjeta.offsetWidth;
+  elem.tarjeta.classList.add('cambio');
+
+  elem.contenidoFrente.innerHTML = procesarPregunta(tarjeta);
+  elem.contenidoTras.innerHTML = tarjeta.respuesta;
+  elem.tipoTarjeta.textContent = formatearTipo(tarjeta.tipo);
+
+  const num = String(indiceActual + 1).padStart(2, '0');
+  const total = String(tarjetas.length).padStart(2, '0');
+  elem.numActual.textContent = num;
+  elem.numFrente.textContent = `${num} / ${total}`;
+  elem.numTras.textContent = `${num} / ${total}`;
+
+  // Barra de progreso
+  const porcentaje = ((indiceActual + 1) / tarjetas.length) * 100;
+  elem.progresoBarra.style.width = `${porcentaje}%`;
+
+  // Botones
+  elem.btnAnterior.disabled = indiceActual === 0;
+  elem.btnSiguiente.disabled = indiceActual === tarjetas.length - 1;
+
+  // Mensaje final
+  if (indiceActual === tarjetas.length - 1) {
+    elem.mensajeFinal.classList.add('visible');
+  } else {
+    elem.mensajeFinal.classList.remove('visible');
+  }
+
+  // Configurar input de citas si aplica
+  const input = elem.contenidoFrente.querySelector('.input-cita');
+  if (input) {
+    input.addEventListener('keydown', (e) => {
+      e.stopPropagation();
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const respuesta = input.value.trim().toLowerCase();
+        const correcta = tarjeta.respuesta.trim().toLowerCase();
+        if (respuesta === correcta) {
+          input.classList.add('correcto');
+          input.classList.remove('incorrecto');
+          setTimeout(() => voltear(), 600);
+        } else if (respuesta !== '') {
+          input.classList.add('incorrecto');
+          input.classList.remove('correcto');
+        }
+      }
+    });
+    input.addEventListener('click', (e) => e.stopPropagation());
+  }
+}
+
+function voltear() {
+  volteada = !volteada;
+  elem.tarjeta.classList.toggle('volteada', volteada);
+}
+
+function siguiente() {
+  if (indiceActual < tarjetas.length - 1) {
+    indiceActual++;
+    mostrarTarjeta();
+  }
+}
+
+function anterior() {
+  if (indiceActual > 0) {
+    indiceActual--;
+    mostrarTarjeta();
+  }
+}
+
+function alternarAleatorio() {
+  modoAleatorio = !modoAleatorio;
+  elem.btnAleatorio.classList.toggle('activo', modoAleatorio);
+  if (modoAleatorio) {
+    // Fisher-Yates shuffle
+    orden = tarjetas.map((_, i) => i);
+    for (let i = orden.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [orden[i], orden[j]] = [orden[j], orden[i]];
+    }
+  } else {
+    orden = tarjetas.map((_, i) => i);
+  }
+  indiceActual = 0;
+  mostrarTarjeta();
+}
+
+function reiniciar() {
+  indiceActual = 0;
+  modoAleatorio = false;
+  orden = tarjetas.map((_, i) => i);
+  elem.btnAleatorio.classList.remove('activo');
+  mostrarTarjeta();
+}
+
+// Clic en la tarjeta para voltear
+elem.tarjeta.addEventListener('click', (e) => {
+  if (e.target.tagName === 'INPUT') return; // No voltear si se hace clic en el input
+  voltear();
+});
+
+elem.btnVoltear.addEventListener('click', voltear);
+elem.btnAnterior.addEventListener('click', anterior);
+elem.btnSiguiente.addEventListener('click', siguiente);
+elem.btnAleatorio.addEventListener('click', alternarAleatorio);
+elem.btnReiniciar.addEventListener('click', reiniciar);
+
+// Teclado
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowLeft')        anterior();
+  else if (e.key === 'ArrowRight')  siguiente();
+  else if (e.key === ' ')          { e.preventDefault(); voltear(); }
+  else if (e.key === 'r' || e.key === 'R') alternarAleatorio();
+});
+
+// Inicializar
+mostrarTarjeta();
+</script>
+
+</body>
+</html>
