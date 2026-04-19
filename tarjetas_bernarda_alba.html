@@ -202,79 +202,55 @@
 
   /* TARJETA ----------------------------------------- */
   .escena {
-    perspective: 2000px;
-    margin-bottom: 2rem;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-  }
-
-  .tarjeta {
-    position: relative;
-    width: 100%;
-    min-height: 400px;
-    transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.4, 0.15, 0.2, 1);
-    cursor: pointer;
-  }
-
-  .tarjeta.volteada {
-    transform: rotateY(180deg);
-  }
-
-  .cara {
-    position: absolute;
-    inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    background: var(--cal-claro);
-    border: 1px solid var(--linea);
-    padding: 3rem 2.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow:
-      0 1px 0 rgba(166, 123, 91, 0.3),
-      0 20px 40px -20px rgba(28, 24, 20, 0.15),
-      0 60px 80px -40px rgba(28, 24, 20, 0.08);
-  }
-
-  /* Decoración esquinas */
-  .cara::before, .cara::after {
-    content: '';
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    border: 1px solid var(--ocre);
-    opacity: 0.4;
-  }
-
-  .cara::before {
-    top: 14px;
-    left: 14px;
-    border-right: none;
-    border-bottom: none;
-  }
-
-  .cara::after {
-    bottom: 14px;
-    right: 14px;
-    border-left: none;
-    border-top: none;
-  }
-
-  .cara-tras {
-    transform: rotateY(180deg);
-    background: linear-gradient(180deg, #2A352A 0%, #1F2A1F 100%);
-    color: var(--cal-claro);
-    border-color: var(--verde-profundo);
-  }
-
-  .cara-tras::before, .cara-tras::after {
-    border-color: var(--ocre);
-    opacity: 0.5;
-  }
-
+  margin-bottom: 2rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+.tarjeta {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.tarjeta.flipping { transform: scaleX(0.02); }
+.cara {
+  position: absolute;
+  inset: 0;
+  background: var(--cal-claro);
+  border: 1px solid var(--linea);
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow:
+    0 1px 0 rgba(166, 123, 91, 0.3),
+    0 20px 40px -20px rgba(28, 24, 20, 0.15),
+    0 60px 80px -40px rgba(28, 24, 20, 0.08);
+}
+.cara::before, .cara::after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--ocre);
+  opacity: 0.4;
+}
+.cara::before { top: 14px; left: 14px; border-right: none; border-bottom: none; }
+.cara::after  { bottom: 14px; right: 14px; border-left: none; border-top: none; }
+.cara-tras {
+  background: linear-gradient(180deg, #2A352A 0%, #1F2A1F 100%);
+  color: var(--cal-claro);
+  border-color: var(--verde-profundo);
+  display: none;
+}
+.cara-tras::before, .cara-tras::after { border-color: var(--ocre); opacity: 0.5; }
+.tarjeta.volteada .cara-frente { display: none; }
+.tarjeta.volteada .cara-tras   { display: flex; }
   .etiqueta-cara {
     position: absolute;
     top: 1.5rem;
@@ -752,6 +728,7 @@ const tarjetas = [
 let orden = tarjetas.map((_, i) => i);
 let indiceActual = 0;
 let volteada = false;
+  let animando = false;
 let modoAleatorio = false;
 
 const elem = {
@@ -852,10 +829,18 @@ function mostrarTarjeta() {
 }
 
 function voltear() {
-  volteada = !volteada;
-  elem.tarjeta.classList.toggle('volteada', volteada);
+  if (animando) return;
+  animando = true;
+  elem.tarjeta.classList.add('flipping');
+  setTimeout(function() {
+    volteada = !volteada;
+    if (volteada) elem.tarjeta.classList.add('volteada');
+    else          elem.tarjeta.classList.remove('volteada');
+    elem.tarjeta.classList.remove('flipping');
+    setTimeout(function() { animando = false; }, 180);
+  }, 180);
 }
-
+ 
 function siguiente() {
   if (indiceActual < tarjetas.length - 1) {
     indiceActual++;
