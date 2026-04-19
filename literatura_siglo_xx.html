@@ -20,15 +20,11 @@
     --granate: #7A2E2A;
     --gris-polvo: #8F857A;
     --linea: #CFC4B0;
-
-    /* Colores por género */
     --c-narrativa: #1E2840;
     --c-poesia:    #8F6A2E;
     --c-teatro:    #7A2E2A;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html, body {
     min-height: 100vh;
     background: var(--papel);
@@ -37,10 +33,7 @@
     font-size: 16px;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
-
-  /* Textura de papel envejecido */
   body::before {
     content: '';
     position: fixed;
@@ -53,7 +46,6 @@
       url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.10 0 0 0 0 0.08 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)'/%3E%3C/svg%3E");
     opacity: 0.9;
   }
-
   .app {
     position: relative;
     z-index: 1;
@@ -64,16 +56,12 @@
     display: flex;
     flex-direction: column;
   }
-
-  /* ENCABEZADO ------------------------------------- */
   header {
     text-align: center;
     padding-bottom: 2.5rem;
     border-bottom: 1px solid var(--linea);
     margin-bottom: 2rem;
-    position: relative;
   }
-
   .meta {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
@@ -82,16 +70,8 @@
     color: var(--gris-polvo);
     margin-bottom: 1.2rem;
   }
-
-  .meta span {
-    display: inline-block;
-    padding: 0 0.8rem;
-  }
-
-  .meta span + span {
-    border-left: 1px solid var(--linea);
-  }
-
+  .meta span { display: inline-block; padding: 0 0.8rem; }
+  .meta span + span { border-left: 1px solid var(--linea); }
   h1 {
     font-family: 'Fraunces', serif;
     font-variation-settings: "opsz" 144;
@@ -102,21 +82,13 @@
     letter-spacing: -0.02em;
     margin-bottom: 0.6rem;
   }
-
-  h1 em {
-    font-style: italic;
-    color: var(--ocre);
-    font-weight: 400;
-  }
-
+  h1 em { font-style: italic; color: var(--ocre); font-weight: 400; }
   .subtitulo {
     font-family: 'Fraunces', serif;
     font-size: 0.95rem;
     color: var(--tinta-suave);
     font-style: italic;
-    letter-spacing: 0.02em;
   }
-
   .ornamento {
     display: flex;
     align-items: center;
@@ -128,14 +100,7 @@
     font-size: 1.1rem;
     letter-spacing: 0.3em;
   }
-
-  .ornamento .linea {
-    width: 40px;
-    height: 1px;
-    background: var(--ocre);
-  }
-
-  /* FILTROS POR GÉNERO ----------------------------- */
+  .ornamento .linea { width: 40px; height: 1px; background: var(--ocre); }
   .filtros {
     display: flex;
     justify-content: center;
@@ -143,7 +108,6 @@
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
   }
-
   .filtro {
     background: transparent;
     border: 1px solid var(--linea);
@@ -153,41 +117,22 @@
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.25s ease;
-    letter-spacing: 0.02em;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     border-radius: 2px;
   }
-
   .filtro .cuenta {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     color: var(--gris-polvo);
-    font-weight: 500;
   }
-
-  .filtro:hover {
-    border-color: var(--tinta);
-    color: var(--tinta);
-  }
-
-  .filtro.activo {
-    background: var(--tinta);
-    color: var(--papel-claro);
-    border-color: var(--tinta);
-  }
-
-  .filtro.activo .cuenta {
-    color: var(--ocre-claro);
-  }
-
-  /* Colores específicos por género cuando está activo */
+  .filtro:hover { border-color: var(--tinta); color: var(--tinta); }
+  .filtro.activo { background: var(--tinta); color: var(--papel-claro); border-color: var(--tinta); }
+  .filtro.activo .cuenta { color: var(--ocre-claro); }
   .filtro[data-genero="narrativa"].activo { background: var(--c-narrativa); border-color: var(--c-narrativa); }
-  .filtro[data-genero="poesia"].activo    { background: var(--c-poesia);    border-color: var(--c-poesia); }
-  .filtro[data-genero="teatro"].activo    { background: var(--c-teatro);    border-color: var(--c-teatro); }
-
-  /* BARRA DE CONTROLES SUPERIOR -------------------- */
+  .filtro[data-genero="poesia"].activo    { background: var(--c-poesia); border-color: var(--c-poesia); }
+  .filtro[data-genero="teatro"].activo    { background: var(--c-teatro); border-color: var(--c-teatro); }
   .barra-control {
     display: flex;
     justify-content: space-between;
@@ -196,24 +141,14 @@
     flex-wrap: wrap;
     gap: 1rem;
   }
-
   .contador {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     letter-spacing: 0.15em;
     color: var(--tinta-suave);
   }
-
-  .contador .actual {
-    font-size: 1.1rem;
-    color: var(--tinta);
-    font-weight: 500;
-  }
-
-  .contador .total {
-    color: var(--gris-polvo);
-  }
-
+  .contador .actual { font-size: 1.1rem; color: var(--tinta); font-weight: 500; }
+  .contador .total { color: var(--gris-polvo); }
   .contador .genero-activo {
     display: inline-block;
     margin-left: 0.8rem;
@@ -224,12 +159,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
   }
-
-  .acciones-extra {
-    display: flex;
-    gap: 0.5rem;
-  }
-
+  .acciones-extra { display: flex; gap: 0.5rem; }
   .btn-accion {
     background: transparent;
     border: 1px solid var(--linea);
@@ -240,23 +170,10 @@
     font-style: italic;
     cursor: pointer;
     transition: all 0.25s ease;
-    letter-spacing: 0.02em;
     border-radius: 2px;
   }
-
-  .btn-accion:hover {
-    background: var(--tinta);
-    color: var(--papel-claro);
-    border-color: var(--tinta);
-  }
-
-  .btn-accion.activo {
-    background: var(--granate);
-    color: var(--papel-claro);
-    border-color: var(--granate);
-  }
-
-  /* PROGRESO ---------------------------------------- */
+  .btn-accion:hover { background: var(--tinta); color: var(--papel-claro); border-color: var(--tinta); }
+  .btn-accion.activo { background: var(--granate); color: var(--papel-claro); border-color: var(--granate); }
   .progreso {
     height: 2px;
     background: var(--papel-sombra);
@@ -264,7 +181,6 @@
     position: relative;
     overflow: hidden;
   }
-
   .progreso-barra {
     position: absolute;
     left: 0; top: 0; bottom: 0;
@@ -273,33 +189,27 @@
     width: 1.25%;
   }
 
-  /* TARJETA ----------------------------------------- */
+  /* ============ TARJETA — Volteo 2D compatible con todos los dispositivos ============ */
   .escena {
-    perspective: 2000px;
     margin-bottom: 2rem;
     flex-grow: 1;
     display: flex;
     align-items: center;
   }
-
   .tarjeta {
     position: relative;
     width: 100%;
     min-height: 400px;
-    transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.4, 0.15, 0.2, 1);
     cursor: pointer;
+    transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
-
-  .tarjeta.volteada {
-    transform: rotateY(180deg);
-  }
-
+  .tarjeta.flipping { transform: scaleX(0.02); }
   .cara {
     position: absolute;
     inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     background: var(--papel-claro);
     border: 1px solid var(--linea);
     padding: 3rem 2.5rem;
@@ -311,8 +221,6 @@
       0 20px 40px -20px rgba(20, 28, 46, 0.15),
       0 60px 80px -40px rgba(20, 28, 46, 0.08);
   }
-
-  /* Decoración esquinas */
   .cara::before, .cara::after {
     content: '';
     position: absolute;
@@ -321,32 +229,17 @@
     border: 1px solid var(--ocre);
     opacity: 0.4;
   }
-
-  .cara::before {
-    top: 14px;
-    left: 14px;
-    border-right: none;
-    border-bottom: none;
-  }
-
-  .cara::after {
-    bottom: 14px;
-    right: 14px;
-    border-left: none;
-    border-top: none;
-  }
-
+  .cara::before { top: 14px; left: 14px; border-right: none; border-bottom: none; }
+  .cara::after  { bottom: 14px; right: 14px; border-left: none; border-top: none; }
   .cara-tras {
-    transform: rotateY(180deg);
     background: linear-gradient(180deg, var(--tinta) 0%, var(--tinta-profunda) 100%);
     color: var(--papel-claro);
     border-color: var(--tinta-profunda);
+    display: none;
   }
-
-  .cara-tras::before, .cara-tras::after {
-    border-color: var(--ocre-claro);
-    opacity: 0.5;
-  }
+  .cara-tras::before, .cara-tras::after { border-color: var(--ocre-claro); opacity: 0.5; }
+  .tarjeta.volteada .cara-frente { display: none; }
+  .tarjeta.volteada .cara-tras   { display: flex; }
 
   .etiqueta-cara {
     position: absolute;
@@ -359,11 +252,7 @@
     text-transform: uppercase;
     color: var(--gris-polvo);
   }
-
-  .cara-tras .etiqueta-cara {
-    color: var(--ocre-claro);
-  }
-
+  .cara-tras .etiqueta-cara { color: var(--ocre-claro); }
   .num-tarjeta {
     position: absolute;
     top: 1.5rem;
@@ -373,13 +262,7 @@
     color: var(--gris-polvo);
     letter-spacing: 0.1em;
   }
-
-  .cara-tras .num-tarjeta {
-    color: var(--ocre-claro);
-    opacity: 0.7;
-  }
-
-  /* Etiqueta de género en la tarjeta */
+  .cara-tras .num-tarjeta { color: var(--ocre-claro); opacity: 0.7; }
   .genero-tarjeta {
     position: absolute;
     top: 1.5rem;
@@ -392,7 +275,6 @@
     align-items: center;
     gap: 0.4rem;
   }
-
   .genero-tarjeta::before {
     content: '';
     display: inline-block;
@@ -401,15 +283,12 @@
     border-radius: 50%;
     background: currentColor;
   }
-
   .genero-tarjeta[data-g="narrativa"] { color: var(--c-narrativa); }
   .genero-tarjeta[data-g="poesia"]    { color: var(--c-poesia); }
   .genero-tarjeta[data-g="teatro"]    { color: var(--c-teatro); }
-
   .cara-tras .genero-tarjeta[data-g="narrativa"] { color: var(--papel-claro); opacity: 0.7; }
   .cara-tras .genero-tarjeta[data-g="poesia"]    { color: var(--ocre-claro); }
   .cara-tras .genero-tarjeta[data-g="teatro"]    { color: #D99C98; }
-
   .contenido {
     font-family: 'Fraunces', serif;
     font-variation-settings: "opsz" 72;
@@ -419,19 +298,13 @@
     max-width: 620px;
     margin: 0 auto;
   }
-
-  .cara-frente .contenido {
-    font-size: clamp(1.2rem, 2.1vw, 1.5rem);
-    line-height: 1.45;
-  }
-
+  .cara-frente .contenido { font-size: clamp(1.2rem, 2.1vw, 1.5rem); line-height: 1.45; }
   .cara-tras .contenido {
     color: var(--papel-claro);
     font-size: clamp(1.05rem, 1.9vw, 1.35rem);
     line-height: 1.55;
     font-style: italic;
   }
-
   .contenido .concepto-titulo {
     display: block;
     font-family: 'Fraunces', serif;
@@ -441,13 +314,8 @@
     color: var(--tinta);
     margin-bottom: 1rem;
     font-style: italic;
-    letter-spacing: -0.01em;
   }
-
-  .cara-tras .contenido .concepto-titulo {
-    color: var(--ocre-claro);
-  }
-
+  .cara-tras .contenido .concepto-titulo { color: var(--ocre-claro); }
   .contenido .concepto-pista {
     display: block;
     font-size: 0.8em;
@@ -455,7 +323,6 @@
     font-style: italic;
     margin-top: 0.3rem;
   }
-
   .pista-volteo {
     position: absolute;
     bottom: 1.2rem;
@@ -465,17 +332,8 @@
     font-size: 0.8rem;
     font-style: italic;
     color: var(--gris-polvo);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
   }
-
-  .cara-tras .pista-volteo {
-    color: var(--ocre-claro);
-    opacity: 0.7;
-  }
-
-  /* NAVEGACIÓN -------------------------------------- */
+  .cara-tras .pista-volteo { color: var(--ocre-claro); opacity: 0.7; }
   .navegacion {
     display: flex;
     justify-content: space-between;
@@ -483,7 +341,6 @@
     gap: 1.5rem;
     margin-top: 0.5rem;
   }
-
   .btn-nav {
     background: transparent;
     border: none;
@@ -499,26 +356,11 @@
     transition: all 0.3s ease;
     border-bottom: 1px solid transparent;
   }
-
-  .btn-nav:hover:not(:disabled) {
-    color: var(--ocre);
-    border-bottom-color: var(--ocre);
-  }
-
-  .btn-nav:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
-  .btn-nav svg {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease;
-  }
-
+  .btn-nav:hover:not(:disabled) { color: var(--ocre); border-bottom-color: var(--ocre); }
+  .btn-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-nav svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
   .btn-nav:hover:not(:disabled).anterior svg { transform: translateX(-4px); }
   .btn-nav:hover:not(:disabled).siguiente svg { transform: translateX(4px); }
-
   .btn-voltear {
     background: var(--tinta);
     color: var(--papel-claro);
@@ -527,19 +369,14 @@
     font-family: 'Fraunces', serif;
     font-style: italic;
     font-size: 0.95rem;
-    letter-spacing: 0.05em;
     cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 2px;
   }
-
   .btn-voltear:hover {
     background: var(--tinta-profunda);
-    transform: translateY(-1px);
     box-shadow: 0 8px 20px -8px rgba(20, 28, 46, 0.4);
   }
-
-  /* PIE DE PÁGINA ---------------------------------- */
   footer {
     margin-top: 3rem;
     padding-top: 2rem;
@@ -551,7 +388,6 @@
     color: var(--gris-polvo);
     line-height: 1.7;
   }
-
   .teclas {
     display: inline-flex;
     gap: 0.8rem;
@@ -559,7 +395,6 @@
     flex-wrap: wrap;
     justify-content: center;
   }
-
   .tecla {
     display: inline-flex;
     align-items: center;
@@ -568,7 +403,6 @@
     font-style: normal;
     font-size: 0.75rem;
   }
-
   .tecla kbd {
     font-family: 'JetBrains Mono', monospace;
     background: var(--papel-claro);
@@ -579,14 +413,12 @@
     color: var(--tinta);
     border-radius: 3px;
   }
-
   .cita-cierre {
     margin-top: 1.5rem;
     font-style: italic;
     color: var(--tinta-suave);
     font-size: 0.9rem;
   }
-
   .cita-cierre .autor {
     color: var(--ocre);
     font-style: normal;
@@ -595,8 +427,6 @@
     text-transform: uppercase;
     margin-left: 0.5rem;
   }
-
-  /* RESPONSIVE -------------------------------------- */
   @media (max-width: 600px) {
     .app { padding: 2rem 1rem 3rem; }
     .cara { padding: 2.8rem 1.5rem 2rem; }
@@ -608,20 +438,11 @@
     .filtro { padding: 0.5rem 0.8rem; font-size: 0.82rem; }
     .genero-tarjeta { font-size: 0.55rem; }
   }
-
-  @media (max-width: 400px) {
-    .cara::before, .cara::after { width: 20px; height: 20px; }
-    .num-tarjeta, .etiqueta-cara { font-size: 0.6rem; }
-  }
-
-  /* ANIMACIONES ------------------------------------- */
   @keyframes aparicion {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   .tarjeta.cambio { animation: aparicion 0.4s ease forwards; }
-
   .mensaje-final {
     text-align: center;
     font-family: 'Fraunces', serif;
@@ -632,36 +453,20 @@
     opacity: 0;
     transition: opacity 0.4s ease;
   }
-
   .mensaje-final.visible { opacity: 1; }
-
-  /* Impresión */
-  @media print {
-    body::before { display: none; }
-    .filtros, .barra-control, .navegacion, footer, .pista-volteo { display: none; }
-    .tarjeta { min-height: 250px; page-break-inside: avoid; }
-    .cara-tras { display: block; position: relative; transform: none; margin-top: 1rem; }
-    .tarjeta { transform-style: flat; }
-  }
 </style>
 </head>
 <body>
 
 <div class="app">
-
   <header>
     <div class="meta">
-      <span>Narrativa</span>
-      <span>Poesía</span>
-      <span>Teatro</span>
-      <span>90 tarjetas</span>
+      <span>Narrativa</span><span>Poesía</span><span>Teatro</span><span>90 tarjetas</span>
     </div>
     <h1>Literatura española <em>del</em> siglo XX</h1>
     <p class="subtitulo">De la Generación del 98 a la actualidad</p>
     <div class="ornamento">
-      <span class="linea"></span>
-      <span>⁂</span>
-      <span class="linea"></span>
+      <span class="linea"></span><span>⁂</span><span class="linea"></span>
     </div>
   </header>
 
@@ -685,42 +490,36 @@
     </div>
   </div>
 
-  <div class="progreso">
-    <div class="progreso-barra" id="progresoBarra"></div>
-  </div>
+  <div class="progreso"><div class="progreso-barra" id="progresoBarra"></div></div>
 
   <div class="escena">
     <div class="tarjeta" id="tarjeta">
-      <div class="cara cara-frente">
+      <div class="cara cara-frente" id="caraFrente">
         <span class="genero-tarjeta" id="generoFrente" data-g="narrativa"></span>
         <span class="etiqueta-cara">Pregunta</span>
         <span class="num-tarjeta" id="numFrente">01 / 90</span>
         <div class="contenido" id="contenidoFrente"></div>
-        <span class="pista-volteo">volver · pulsa espacio o haz clic</span>
+        <span class="pista-volteo">toca para ver la respuesta</span>
       </div>
-      <div class="cara cara-tras">
+      <div class="cara cara-tras" id="caraTras">
         <span class="genero-tarjeta" id="generoTras" data-g="narrativa"></span>
         <span class="etiqueta-cara">Respuesta</span>
         <span class="num-tarjeta" id="numTras">01 / 90</span>
         <div class="contenido" id="contenidoTras"></div>
-        <span class="pista-volteo">↩ vuelve a la pregunta</span>
+        <span class="pista-volteo">toca para volver a la pregunta</span>
       </div>
     </div>
   </div>
 
   <div class="navegacion">
     <button class="btn-nav anterior" id="btnAnterior">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M15 18l-6-6 6-6"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
       Anterior
     </button>
     <button class="btn-voltear" id="btnVoltear">Voltear tarjeta</button>
     <button class="btn-nav siguiente" id="btnSiguiente">
       Siguiente
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M9 18l6-6-6-6"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
     </button>
   </div>
 
@@ -736,15 +535,9 @@
     </div>
     <p class="cita-cierre">«Caminante, no hay camino, se hace camino al andar» <span class="autor">Antonio Machado</span></p>
   </footer>
-
 </div>
 
 <script>
-// ============================================================
-//  DATOS DE LAS TARJETAS
-//  Género: 'narrativa' | 'poesia' | 'teatro'
-//  Tipo:   'pregunta'  | 'concepto'
-// ============================================================
 const tarjetas = [
   { pregunta: "¿Qué acontecimiento histórico en 1898 marcó el inicio de la crisis espiritual en la España del siglo XX?", respuesta: "La derrota en la guerra de Cuba frente a Estados Unidos.", genero: "narrativa", tipo: "pregunta" },
   { pregunta: "¿Qué movimiento pretendía encontrar soluciones a los «males de la patria» a principios del siglo XX?", respuesta: "El regeneracionismo.", genero: "narrativa", tipo: "pregunta" },
@@ -838,34 +631,32 @@ const tarjetas = [
   { pregunta: "Nombra dos autores representativos de la novela de aprendizaje (bildungsroman) del 98.", respuesta: "Pío Baroja (con personajes de vitalismo individualista) y Azorín.", genero: "narrativa", tipo: "pregunta" }
 ];
 
-// ============================================================
-//  LÓGICA DE LA APLICACIÓN
-// ============================================================
 let filtroGenero = 'todas';
-let orden = tarjetas.map((_, i) => i);
+let orden = tarjetas.map(function(_, i) { return i; });
 let indiceActual = 0;
 let volteada = false;
+let animando = false;
 let modoAleatorio = false;
 
 const elem = {
-  tarjeta:          document.getElementById('tarjeta'),
-  contenidoFrente:  document.getElementById('contenidoFrente'),
-  contenidoTras:    document.getElementById('contenidoTras'),
-  generoFrente:     document.getElementById('generoFrente'),
-  generoTras:       document.getElementById('generoTras'),
-  numActual:        document.getElementById('numActual'),
-  numTotal:         document.getElementById('numTotal'),
-  numFrente:        document.getElementById('numFrente'),
-  numTras:          document.getElementById('numTras'),
-  generoActivo:     document.getElementById('generoActivo'),
-  progresoBarra:    document.getElementById('progresoBarra'),
-  btnAnterior:      document.getElementById('btnAnterior'),
-  btnSiguiente:     document.getElementById('btnSiguiente'),
-  btnVoltear:       document.getElementById('btnVoltear'),
-  btnAleatorio:     document.getElementById('btnAleatorio'),
-  btnReiniciar:     document.getElementById('btnReiniciar'),
-  mensajeFinal:     document.getElementById('mensajeFinal'),
-  filtros:          document.getElementById('filtros')
+  tarjeta:         document.getElementById('tarjeta'),
+  contenidoFrente: document.getElementById('contenidoFrente'),
+  contenidoTras:   document.getElementById('contenidoTras'),
+  generoFrente:    document.getElementById('generoFrente'),
+  generoTras:      document.getElementById('generoTras'),
+  numActual:       document.getElementById('numActual'),
+  numTotal:        document.getElementById('numTotal'),
+  numFrente:       document.getElementById('numFrente'),
+  numTras:         document.getElementById('numTras'),
+  generoActivo:    document.getElementById('generoActivo'),
+  progresoBarra:   document.getElementById('progresoBarra'),
+  btnAnterior:     document.getElementById('btnAnterior'),
+  btnSiguiente:    document.getElementById('btnSiguiente'),
+  btnVoltear:      document.getElementById('btnVoltear'),
+  btnAleatorio:    document.getElementById('btnAleatorio'),
+  btnReiniciar:    document.getElementById('btnReiniciar'),
+  mensajeFinal:    document.getElementById('mensajeFinal'),
+  filtros:         document.getElementById('filtros')
 };
 
 function nombreGenero(g) {
@@ -874,8 +665,8 @@ function nombreGenero(g) {
 
 function procesarPregunta(tarjeta) {
   if (tarjeta.tipo === 'concepto') {
-    return `<span class="concepto-titulo">${tarjeta.pregunta}</span>
-            <span class="concepto-pista">Define este concepto</span>`;
+    return '<span class="concepto-titulo">' + tarjeta.pregunta + '</span>' +
+           '<span class="concepto-pista">Define este concepto</span>';
   }
   return tarjeta.pregunta;
 }
@@ -883,19 +674,19 @@ function procesarPregunta(tarjeta) {
 function mezclar(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    const tmp = array[i]; array[i] = array[j]; array[j] = tmp;
   }
   return array;
 }
 
 function aplicarFiltro() {
   if (filtroGenero === 'todas') {
-    orden = tarjetas.map((_, i) => i);
+    orden = tarjetas.map(function(_, i) { return i; });
   } else {
-    orden = tarjetas
-      .map((t, i) => ({ t, i }))
-      .filter(({ t }) => t.genero === filtroGenero)
-      .map(({ i }) => i);
+    orden = [];
+    for (let i = 0; i < tarjetas.length; i++) {
+      if (tarjetas[i].genero === filtroGenero) orden.push(i);
+    }
   }
   if (modoAleatorio) mezclar(orden);
   indiceActual = 0;
@@ -904,33 +695,29 @@ function aplicarFiltro() {
 
 function mostrarTarjeta() {
   if (orden.length === 0) return;
-
-  const idx = orden[indiceActual];
-  const tarjeta = tarjetas[idx];
+  const tarjeta = tarjetas[orden[indiceActual]];
 
   volteada = false;
   elem.tarjeta.classList.remove('volteada');
+  elem.tarjeta.classList.remove('flipping');
   elem.tarjeta.classList.remove('cambio');
   void elem.tarjeta.offsetWidth;
   elem.tarjeta.classList.add('cambio');
 
   elem.contenidoFrente.innerHTML = procesarPregunta(tarjeta);
   elem.contenidoTras.innerHTML   = tarjeta.respuesta;
-
-  // Etiqueta de género en la tarjeta
   elem.generoFrente.textContent = nombreGenero(tarjeta.genero);
   elem.generoFrente.setAttribute('data-g', tarjeta.genero);
-  elem.generoTras.textContent   = nombreGenero(tarjeta.genero);
+  elem.generoTras.textContent = nombreGenero(tarjeta.genero);
   elem.generoTras.setAttribute('data-g', tarjeta.genero);
 
   const num   = String(indiceActual + 1).padStart(2, '0');
   const total = String(orden.length).padStart(2, '0');
   elem.numActual.textContent = num;
   elem.numTotal.textContent  = total;
-  elem.numFrente.textContent = `${num} / ${total}`;
-  elem.numTras.textContent   = `${num} / ${total}`;
+  elem.numFrente.textContent = num + ' / ' + total;
+  elem.numTras.textContent   = num + ' / ' + total;
 
-  // Etiqueta de filtro activo
   if (filtroGenero !== 'todas') {
     elem.generoActivo.textContent = nombreGenero(filtroGenero);
     elem.generoActivo.style.display = 'inline-block';
@@ -938,40 +725,29 @@ function mostrarTarjeta() {
     elem.generoActivo.style.display = 'none';
   }
 
-  // Barra de progreso
-  const porcentaje = ((indiceActual + 1) / orden.length) * 100;
-  elem.progresoBarra.style.width = `${porcentaje}%`;
-
-  // Botones
+  elem.progresoBarra.style.width = (((indiceActual + 1) / orden.length) * 100) + '%';
   elem.btnAnterior.disabled  = indiceActual === 0;
   elem.btnSiguiente.disabled = indiceActual === orden.length - 1;
 
-  // Mensaje final
-  if (indiceActual === orden.length - 1) {
-    elem.mensajeFinal.classList.add('visible');
-  } else {
-    elem.mensajeFinal.classList.remove('visible');
-  }
+  if (indiceActual === orden.length - 1) elem.mensajeFinal.classList.add('visible');
+  else elem.mensajeFinal.classList.remove('visible');
 }
 
 function voltear() {
-  volteada = !volteada;
-  elem.tarjeta.classList.toggle('volteada', volteada);
+  if (animando) return;
+  animando = true;
+  elem.tarjeta.classList.add('flipping');
+  setTimeout(function() {
+    volteada = !volteada;
+    if (volteada) elem.tarjeta.classList.add('volteada');
+    else          elem.tarjeta.classList.remove('volteada');
+    elem.tarjeta.classList.remove('flipping');
+    setTimeout(function() { animando = false; }, 180);
+  }, 180);
 }
 
-function siguiente() {
-  if (indiceActual < orden.length - 1) {
-    indiceActual++;
-    mostrarTarjeta();
-  }
-}
-
-function anterior() {
-  if (indiceActual > 0) {
-    indiceActual--;
-    mostrarTarjeta();
-  }
-}
+function siguiente() { if (indiceActual < orden.length - 1) { indiceActual++; mostrarTarjeta(); } }
+function anterior()  { if (indiceActual > 0)                { indiceActual--; mostrarTarjeta(); } }
 
 function alternarAleatorio() {
   modoAleatorio = !modoAleatorio;
@@ -984,34 +760,31 @@ function reiniciar() {
   modoAleatorio = false;
   filtroGenero = 'todas';
   elem.btnAleatorio.classList.remove('activo');
-  // Actualizar botones de filtro
-  elem.filtros.querySelectorAll('.filtro').forEach(btn => {
-    btn.classList.toggle('activo', btn.dataset.genero === 'todas');
-  });
+  const filtros = elem.filtros.querySelectorAll('.filtro');
+  for (let i = 0; i < filtros.length; i++) {
+    filtros[i].classList.toggle('activo', filtros[i].dataset.genero === 'todas');
+  }
   aplicarFiltro();
 }
 
-// Eventos de filtros
-elem.filtros.addEventListener('click', (e) => {
+elem.filtros.addEventListener('click', function(e) {
   const btn = e.target.closest('.filtro');
   if (!btn) return;
   filtroGenero = btn.dataset.genero;
-  elem.filtros.querySelectorAll('.filtro').forEach(b => b.classList.remove('activo'));
+  const filtros = elem.filtros.querySelectorAll('.filtro');
+  for (let i = 0; i < filtros.length; i++) filtros[i].classList.remove('activo');
   btn.classList.add('activo');
   aplicarFiltro();
 });
 
-// Clic en la tarjeta para voltear
 elem.tarjeta.addEventListener('click', voltear);
-
-elem.btnVoltear.addEventListener('click', voltear);
+elem.btnVoltear.addEventListener('click', function(e) { e.stopPropagation(); voltear(); });
 elem.btnAnterior.addEventListener('click', anterior);
 elem.btnSiguiente.addEventListener('click', siguiente);
 elem.btnAleatorio.addEventListener('click', alternarAleatorio);
 elem.btnReiniciar.addEventListener('click', reiniciar);
 
-// Teclado
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', function(e) {
   if (e.target.tagName === 'INPUT') return;
   if (e.key === 'ArrowLeft')        anterior();
   else if (e.key === 'ArrowRight')  siguiente();
@@ -1019,7 +792,6 @@ document.addEventListener('keydown', (e) => {
   else if (e.key === 'r' || e.key === 'R') alternarAleatorio();
 });
 
-// Inicializar
 mostrarTarjeta();
 </script>
 
