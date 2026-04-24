@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subordinadas Sustantivas · 1.º Bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #fafaf8;
+    --surface:   #ffffff;
+    --border:    rgba(0,0,0,.12);
+    --border-md: rgba(0,0,0,.20);
+    --text:      #1a1a1a;
+    --text-2:    #5a5a5a;
+    --text-3:    #8a8a8a;
+    --accent:    #2563c8;
+    --accent-bg: #ebf1fd;
+    --accent-t:  #1a3f8f;
+    --ok-bg:     #eaf6f0;
+    --ok-t:      #145e35;
+    --ok-b:      rgba(20,94,53,.25);
+    --er-bg:     #fdecea;
+    --er-t:      #8b1c1c;
+    --er-b:      rgba(139,28,28,.22);
+    --wa-bg:     #fef6e4;
+    --wa-t:      #7a4b00;
+    --wa-b:      rgba(122,75,0,.22);
+    --prog:      #2563c8;
+    --prog-track:#e8e8e6;
+    --r-md:      8px;
+    --r-lg:      14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #131313;
+      --surface:   #1e1e1e;
+      --border:    rgba(255,255,255,.10);
+      --border-md: rgba(255,255,255,.18);
+      --text:      #f0ede8;
+      --text-2:    #a0a0a0;
+      --text-3:    #666;
+      --accent:    #6b9ef5;
+      --accent-bg: #1a2840;
+      --accent-t:  #9ebef8;
+      --ok-bg:     #0d2e1f;
+      --ok-t:      #6fd4a0;
+      --ok-b:      rgba(111,212,160,.18);
+      --er-bg:     #2a1010;
+      --er-t:      #f08080;
+      --er-b:      rgba(240,128,128,.18);
+      --wa-bg:     #2a1e00;
+      --wa-t:      #f0c060;
+      --wa-b:      rgba(240,192,96,.18);
+      --prog:      #6b9ef5;
+      --prog-track:#2a2a2a;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  #wrap {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  /* ── header ── */
+  .hdr {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .hdr-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: .4rem;
+  }
+  .hdr-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  /* ── progress bar ── */
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .9rem;
+    font-size: 13px;
+    color: var(--text-2);
+  }
+  .meta strong { color: var(--text); }
+  .prog-track {
+    height: 3px;
+    background: var(--prog-track);
+    border-radius: 2px;
+    margin-bottom: 1.75rem;
+    overflow: hidden;
+  }
+  .prog-fill {
+    height: 100%;
+    background: var(--prog);
+    border-radius: 2px;
+    transition: width .4s ease;
+  }
+
+  /* ── question card ── */
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .card-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: .85rem;
+  }
+  .oracion {
+    font-family: 'EB Garamond', serif;
+    font-size: 20px;
+    line-height: 1.85;
+    color: var(--text);
+  }
+  .sub {
+    background: var(--accent-bg);
+    color: var(--accent-t);
+    padding: 0 5px;
+    border-radius: 3px;
+    font-style: italic;
+  }
+  .nexo-line {
+    font-size: 12px;
+    color: var(--text-2);
+    margin-top: .8rem;
+    padding-top: .75rem;
+    border-top: 0.5px solid var(--border);
+  }
+  .nexo-line strong { color: var(--text); }
+
+  /* ── buttons grid ── */
+  .btn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .bf {
+    padding: 10px 14px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+    background: var(--surface);
+    border: 0.5px solid var(--border-md);
+    border-radius: var(--r-md);
+    color: var(--text);
+    line-height: 1.4;
+    transition: background .12s;
+  }
+  .bf:hover { background: var(--bg); }
+  .bf.ok {
+    background: var(--ok-bg);
+    color: var(--ok-t);
+    border-color: var(--ok-b);
+    font-weight: 500;
+  }
+  .bf.er {
+    background: var(--er-bg);
+    color: var(--er-t);
+    border-color: var(--er-b);
+  }
+  .bf.dim { opacity: .3; pointer-events: none; }
+  .bf.full { grid-column: 1 / -1; }
+
+  /* ── feedback ── */
+  .fb {
+    border-radius: var(--r-md);
+    padding: .95rem 1.1rem;
+    margin-top: 1rem;
+    font-size: 14px;
+    line-height: 1.6;
+    border-width: 0.5px;
+    border-style: solid;
+  }
+  .fb.fok { background: var(--ok-bg); color: var(--ok-t); border-color: var(--ok-b); }
+  .fb.fer { background: var(--er-bg); color: var(--er-t); border-color: var(--er-b); }
+  .fb .fb-title { font-weight: 500; font-size: 15px; margin-bottom: 5px; }
+  .fb .fb-chosen { font-size: 13px; margin-bottom: 5px; opacity: .85; }
+  .fb .fb-exp { font-size: 13px; line-height: 1.6; }
+  .fb .fb-exp strong { font-weight: 500; }
+
+  /* ── next button ── */
+  .row-next {
+    text-align: right;
+    margin-top: 1.25rem;
+  }
+  .btn-next {
+    padding: 9px 24px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    background: var(--surface);
+    border: 0.5px solid var(--border-md);
+    border-radius: var(--r-md);
+    color: var(--text);
+    transition: background .12s;
+  }
+  .btn-next:hover { background: var(--bg); }
+
+  /* ── certificate ── */
+  .cert {
+    text-align: center;
+    padding: 1.5rem .5rem 2rem;
+  }
+  .cert-tag {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 1.5rem;
+  }
+  .cert-score {
+    font-family: 'EB Garamond', serif;
+    font-size: 64px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1;
+  }
+  .cert-score span { font-size: 24px; color: var(--text-2); }
+  .cert-pct {
+    font-size: 14px;
+    color: var(--text-2);
+    margin: .5rem 0 1.5rem;
+  }
+  .cert-fb {
+    border-radius: var(--r-md);
+    padding: .9rem 1.1rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    border-width: 0.5px;
+    border-style: solid;
+  }
+  .cert-fb.fok { background: var(--ok-bg); color: var(--ok-t); border-color: var(--ok-b); }
+  .cert-fb.fwa { background: var(--wa-bg); color: var(--wa-t); border-color: var(--wa-b); }
+  .cert-fb.fer { background: var(--er-bg); color: var(--er-t); border-color: var(--er-b); }
+  .tags-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 1.25rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+  .tags-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: .75rem;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: var(--r-md);
+    background: var(--bg);
+    color: var(--text-2);
+    border: 0.5px solid var(--border);
+  }
+  .btn-restart {
+    padding: 10px 28px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    background: var(--surface);
+    border: 0.5px solid var(--border-md);
+    border-radius: var(--r-md);
+    color: var(--text);
+    transition: background .12s;
+  }
+  .btn-restart:hover { background: var(--bg); }
+
+  /* ── kbd hint ── */
+  .kbd-hint {
+    font-size: 11px;
+    color: var(--text-3);
+    text-align: center;
+    margin-top: 1.25rem;
+  }
+  kbd {
+    display: inline-block;
+    padding: 1px 5px;
+    border: 0.5px solid var(--border-md);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 11px;
+    background: var(--surface);
+    color: var(--text-2);
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="hdr">
+    <p class="hdr-tag">1.º Bachillerato · Sintaxis</p>
+    <h1 class="hdr-title">Subordinadas Sustantivas</h1>
+  </div>
+  <div id="app"></div>
+</div>
+
+<script>
+const OO = [
+  {a:"Me sorprende ",s:"que no hayas preparado nada para el examen",d:".",f:"Sujeto",n:"que (conj.)",e:"La subordinada es el <strong>sujeto</strong> del verbo <em>sorprender</em>, que exige sujeto oracional (aquello que provoca la sorpresa)."},
+  {a:"Es imprescindible ",s:"que entregues el trabajo antes del viernes",d:".",f:"Sujeto",n:"que (conj.)",e:"La subordinada es el <strong>sujeto</strong> del predicado nominal <em>es imprescindible</em>: lo que resulta imprescindible."},
+  {a:"Resulta evidente ",s:"que alguien ha manipulado las pruebas",d:".",f:"Sujeto",n:"que (conj.)",e:"La subordinada es el <strong>sujeto</strong> del predicado nominal <em>resulta evidente</em>."},
+  {a:"No está claro ",s:"si el proyecto será viable a largo plazo",d:".",f:"Sujeto",n:"si (conj.)",e:"Interrogativa indirecta total. Actúa como <strong>sujeto</strong> del predicado nominal <em>no está claro</em>."},
+  {a:"La directora anunció ",s:"que el viaje se cancelaba por el mal tiempo",d:".",f:"Complemento directo",n:"que (conj.)",e:"La subordinada es el <strong>CD</strong> del verbo <em>anunciar</em>: el contenido de lo anunciado."},
+  {a:"Nunca supimos ",s:"si había llegado a su destino",d:".",f:"Complemento directo",n:"si (conj.)",e:"Interrogativa indirecta total en función de <strong>CD</strong> del verbo <em>saber</em>."},
+  {a:"La testigo confesó ",s:"que había mentido en su declaración",d:".",f:"Complemento directo",n:"que (conj.)",e:"La subordinada es el <strong>CD</strong> del verbo <em>confesar</em>: aquello que se confiesa."},
+  {a:"Nos preguntamos ",s:"cuándo terminará por fin esta situación",d:".",f:"Complemento directo",n:"cuándo (adv. interrogativo)",e:"Interrogativa indirecta parcial en función de <strong>CD</strong> del verbo pronominal <em>preguntarse</em>."},
+  {a:"El jurado dio escasa importancia ",s:"a que el acusado hubiera pedido perdón",d:".",f:"Complemento indirecto",n:"a + que",e:"La prep. <em>a</em> + subordinada forman el <strong>CI</strong> del verbo <em>dar</em> (dar importancia <em>a algo</em>)."},
+  {a:"La profesora no concede ningún valor ",s:"a que el alumno copie sin entender",d:".",f:"Complemento indirecto",n:"a + que",e:"La prep. <em>a</em> + subordinada forman el <strong>CI</strong> del verbo <em>conceder</em> (conceder valor <em>a algo</em>)."},
+  {a:"Siempre confío ",s:"en que las cosas acaban por resolverse",d:".",f:"Complemento de régimen",n:"en + que",e:"El verbo <em>confiar</em> rige la prep. <em>en</em>; la subordinada es su <strong>complemento de régimen</strong>."},
+  {a:"Me alegro mucho ",s:"de que hayas superado todas las dificultades",d:".",f:"Complemento de régimen",n:"de + que",e:"El verbo <em>alegrarse</em> rige la prep. <em>de</em>; la subordinada es su <strong>complemento de régimen</strong>."},
+  {a:"Insistió ",s:"en que le devolvieran el importe íntegro",d:".",f:"Complemento de régimen",n:"en + que",e:"El verbo <em>insistir</em> rige la prep. <em>en</em>; la subordinada es su <strong>complemento de régimen</strong>."},
+  {a:"Se arrepintió ",s:"de haber hablado demasiado deprisa",d:".",f:"Complemento de régimen",n:"de + infinitivo",e:"Subordinada de infinitivo como <strong>complemento de régimen</strong> del verbo <em>arrepentirse de</em>."},
+  {a:"La noticia ",s:"de que habían hallado al náufrago",d:" conmocionó al país entero.",f:"Complemento del nombre",n:"de + que",e:"La subordinada completa el sustantivo <em>noticia</em>; es su <strong>complemento del nombre</strong> (aposición oracional)."},
+  {a:"Tenía la esperanza ",s:"de que todo saliera bien",d:" antes del amanecer.",f:"Complemento del nombre",n:"de + que",e:"La subordinada completa el sustantivo <em>esperanza</em>; es su <strong>complemento del nombre</strong>."},
+  {a:"El rumor ",s:"de que cerrarían la fábrica",d:" se extendió rápidamente.",f:"Complemento del nombre",n:"de + que",e:"La subordinada completa el sustantivo <em>rumor</em>: el contenido de lo rumoreado. Es su <strong>complemento del nombre</strong>."},
+  {a:"Estoy completamente convencida ",s:"de que llegaremos a un acuerdo",d:".",f:"Complemento del adjetivo",n:"de + que",e:"La subordinada completa el adjetivo <em>convencida</em>, que rige la prep. <em>de</em>. Es su <strong>complemento del adjetivo</strong>."},
+  {a:"No estaba muy seguro ",s:"de que hubiera tomado la decisión correcta",d:".",f:"Complemento del adjetivo",n:"de + que",e:"La subordinada completa el adjetivo <em>seguro</em>, que rige la prep. <em>de</em>. Es su <strong>complemento del adjetivo</strong>."},
+  {a:"El verdadero problema es ",s:"que nadie quiere asumir su responsabilidad",d:".",f:"Atributo",n:"que (conj.)",e:"La subordinada es el <strong>atributo</strong> de <em>el verdadero problema</em> a través del verbo copulativo <em>ser</em>."},
+  {a:"Su mayor temor era ",s:"que la olvidaran con el paso del tiempo",d:".",f:"Atributo",n:"que (conj.)",e:"La subordinada es el <strong>atributo</strong> de <em>su mayor temor</em> a través del verbo copulativo <em>ser</em>."},
+  {a:"Sé ",s:"que tienes razón",d:", pero no puedo admitirlo en público.",f:"Complemento directo",n:"que (conj.) + coord. adversativa",e:"La subordinada es el <strong>CD</strong> del verbo <em>saber</em>. La oración incluye además una coordinada adversativa (<em>pero</em>)."},
+  {a:"Me alegra ",s:"que hayas venido y que traigas tan buenas noticias",d:".",f:"Sujeto",n:"que… y que (coord. copulativa)",e:"Dos subordinadas coordinadas copulativamente forman el <strong>sujeto</strong> doble del verbo <em>alegrar</em>."},
+  {a:"O reconoces ",s:"que te has equivocado",d:" o perderás toda credibilidad.",f:"Complemento directo",n:"que (conj.) + coord. disyuntiva",e:"La subordinada es el <strong>CD</strong> del verbo <em>reconocer</em>. La oración incluye una coordinada disyuntiva (<em>o… o</em>)."},
+  {a:"Dijo ",s:"que llegaría pronto",d:", mas nadie le creyó.",f:"Complemento directo",n:"que (conj.) + coord. adversativa",e:"La subordinada es el <strong>CD</strong> del verbo <em>decir</em>. La oración incluye una coordinada adversativa (<em>mas</em>)."},
+];
+
+const FN = ["Sujeto","Complemento directo","Complemento indirecto","Complemento de régimen","Complemento del nombre","Complemento del adjetivo","Atributo"];
+
+function shuf(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+}
+shuf(OO);
+
+let idx = 0, pts = 0, sel = null;
+
+function draw() {
+  const app = document.getElementById('app');
+  if (idx >= OO.length) { app.innerHTML = cert(); return; }
+
+  const o = OO[idx];
+  const done = sel !== null;
+  const pct = Math.round(idx / OO.length * 100);
+
+  let btns = FN.map((fn, i) => {
+    let c = 'bf';
+    if (done) { c += fn === o.f ? ' ok' : fn === sel ? ' er' : ' dim'; }
+    const full = i === 6 ? ' full' : '';
+    return `<button class="${c}${full}" onclick="pick(${i})">${fn}</button>`;
+  }).join('');
+
+  let fbHtml = '';
+  if (done) {
+    const ok = sel === o.f;
+    fbHtml = `
+      <div class="fb ${ok ? 'fok' : 'fer'}">
+        <p class="fb-title">${ok ? 'Correcto' : 'Incorrecto — función: ' + o.f}</p>
+        ${!ok ? `<p class="fb-chosen">Has elegido: <em>${sel}</em></p>` : ''}
+        <p class="fb-exp">${o.e}</p>
+      </div>
+      <div class="row-next">
+        <button class="btn-next" onclick="nxt()">${idx < OO.length - 1 ? 'Siguiente →' : 'Ver resultado →'}</button>
+      </div>`;
+  }
+
+  app.innerHTML = `
+    <div class="meta">
+      <span>Pregunta <strong>${idx + 1}</strong> / ${OO.length}</span>
+      <span>Aciertos: <strong>${pts}</strong></span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+    <div class="card">
+      <p class="card-label">¿Qué función desempeña la subordinada destacada?</p>
+      <p class="oracion">${o.a}<span class="sub">${o.s}</span>${o.d}</p>
+      ${done ? `<p class="nexo-line">Nexo: <strong>${o.n}</strong></p>` : ''}
+    </div>
+    <div class="btn-grid">${btns}</div>
+    ${fbHtml}
+    ${!done ? '<p class="kbd-hint">Atajo: teclas <kbd>1</kbd>–<kbd>7</kbd></p>' : ''}`;
+}
+
+function pick(i) {
+  if (sel !== null) return;
+  sel = FN[i];
+  if (sel === OO[idx].f) pts++;
+  draw();
+}
+
+function nxt() { sel = null; idx++; draw(); }
+
+function cert() {
+  const t = OO.length, p = Math.round(pts / t * 100);
+  const cfg = p >= 70
+    ? { c: 'fok', g: 'Sobresaliente', l: '¡Excelente dominio sintáctico!' }
+    : p >= 50
+      ? { c: 'fwa', g: 'Aprobado', l: 'Buen trabajo — sigue practicando.' }
+      : { c: 'fer', g: 'Insuficiente', l: 'Conviene repasar los contenidos antes de repetir.' };
+
+  const tagHtml = FN.map(fn => `<span class="tag">${fn}</span>`).join('');
+
+  return `
+    <div class="cert">
+      <p class="cert-tag">Licencia de Sintaxis</p>
+      <p class="cert-score">${pts}<span> / ${t}</span></p>
+      <p class="cert-pct">${p}% de aciertos</p>
+      <div class="cert-fb ${cfg.c}"><strong>${cfg.g}</strong> — ${cfg.l}</div>
+      <div class="tags-card">
+        <p class="tags-label">Funciones trabajadas</p>
+        <div class="tags">${tagHtml}</div>
+      </div>
+      <button class="btn-restart" onclick="restart()">Jugar de nuevo</button>
+    </div>`;
+}
+
+function restart() { shuf(OO); idx = 0; pts = 0; sel = null; draw(); }
+
+document.addEventListener('keydown', e => {
+  if (sel !== null) return;
+  const k = parseInt(e.key);
+  if (k >= 1 && k <= 7) pick(k - 1);
+});
+
+draw();
+</script>
+</body>
+</html>
